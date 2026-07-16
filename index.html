@@ -9,7 +9,7 @@
     <!-- Google Fonts para tipografías delicadas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght=0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600&family=Playfair+Display:ital,wght=0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -27,7 +27,7 @@
 <body class="text-stone-700 min-h-screen flex flex-col">
 
     <!-- Encabezado Principal -->
-    <header class="w-full py-8 text-center bg-white/70 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200/50">
+    <header class="w-full py-8 text-center bg-white/70 backdrop-blur-md sticky top-0 z-40 border-b border-stone-200/50">
         <h1 class="serif-title text-4xl font-light tracking-wide text-stone-800">Pilates con Jime</h1>
         <p class="text-xs uppercase tracking-[0.25em] text-[#A98467] mt-2 font-semibold">Mindful Movement & Balance</p>
 
@@ -68,6 +68,59 @@
             <!-- Aquí se inyectan las tarjetas y los acordeones automáticamente -->
         </div>
     </main>
+
+    <!-- Ventana Emergente / Modal de Detalle (Aesthetic y Minimalista) -->
+    <div id="exercise-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeModalOnOutsideClick(event)">
+        <div class="bg-white rounded-3xl max-w-md w-11/12 overflow-hidden shadow-2xl relative border border-stone-200 transform scale-95 transition-transform duration-300">
+            <!-- Botón de Cerrar Superior -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-white/80 hover:bg-white text-stone-700 hover:text-stone-900 w-8 h-8 rounded-full flex items-center justify-center shadow-sm border border-stone-100 z-10 transition-colors cursor-pointer">
+                ✕
+            </button>
+
+            <!-- Imagen de Portada del Detalle -->
+            <div class="relative w-full h-64 bg-stone-100 flex items-center justify-center overflow-hidden border-b border-stone-100 group">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover hidden">
+                
+                <div id="modal-placeholder" class="text-stone-400 italic text-sm flex flex-col items-center gap-2">
+                    <svg class="w-12 h-12 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>Sin foto de ejercicio</span>
+                </div>
+
+                <!-- Capa interactiva para subir foto directamente en el detalle -->
+                <label class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-white text-sm font-medium gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                    </svg>
+                    <span>Actualizar Foto</span>
+                    <input type="file" id="modal-file-input" accept="image/*" class="hidden">
+                </label>
+            </div>
+
+            <!-- Información del Ejercicio -->
+            <div class="p-6 space-y-4">
+                <div>
+                    <span id="modal-badge-category" class="text-[9px] font-bold tracking-widest text-[#A98467] uppercase bg-[#FAF7F2] border border-[#E6DFD5] px-2.5 py-1 rounded-md">Categoría</span>
+                    <h3 id="modal-title" class="serif-title text-2xl font-semibold text-stone-800 mt-2.5 leading-tight">Nombre del Ejercicio</h3>
+                </div>
+
+                <div class="h-[1px] bg-stone-100"></div>
+
+                <!-- Detalle de Valor (Repeticiones o Resortes) -->
+                <div class="flex justify-between items-center bg-stone-50 p-3 rounded-xl border border-stone-200/50">
+                    <span id="modal-label-value" class="text-xs uppercase tracking-wider text-stone-500 font-medium">Repeticiones / Resortes</span>
+                    <span id="modal-value" class="px-3.5 py-1 bg-white text-[#A98467] text-sm font-semibold rounded-lg border border-stone-200 shadow-3xs"></span>
+                </div>
+
+                <!-- Sub-ejercicios o variantes -->
+                <div id="modal-subitems-container" class="hidden">
+                    <span class="text-xs uppercase tracking-wider text-stone-500 font-medium block mb-2">Variaciones de la serie:</span>
+                    <div id="modal-subitems-list" class="flex flex-wrap gap-1.5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="w-full py-6 text-center text-xs text-stone-400 border-t border-stone-200/40 bg-white/30">
@@ -135,7 +188,7 @@
                 { id: "mb4", isGroup: false, name: "Rolling like ball", value: "Básico", img: "" },
                 { 
                     isGroup: true, 
-                    title: "The fives (isometricos)", 
+                    title: "The fives (isométricos)", 
                     exercises: [
                         { id: "mb5_1", name: "1- Single leg stretch", value: "Básico", img: "" },
                         { id: "mb5_2", name: "2- Double leg stretch", value: "Básico", img: "" },
@@ -174,7 +227,7 @@
                 { id: "mi5", isGroup: false, name: "Rolling like ball", value: "Intermedio", img: "" },
                 { 
                     isGroup: true, 
-                    title: "The fives (isometricos)", 
+                    title: "The fives (isométricos)", 
                     exercises: [
                         { id: "mi6_1", name: "1- Single leg stretch", value: "Intermedio", img: "" },
                         { id: "mi6_2", name: "2- Double leg stretch", value: "Intermedio", img: "" },
@@ -335,32 +388,144 @@
             'reformer': 'Ejercicios & Series de Reformer'
         };
 
-        // Función para cambiar fotos dinámicamente y guardarlas en localStorage
+        // Guardar imágenes dinámicamente
+        function saveImage(id, base64Image) {
+            localStorage.setItem(`img_${id}`, base64Image);
+            
+            // Actualizar la lista de fondo de inmediato
+            const listImg = document.getElementById(`img-preview-${id}`);
+            const listPlaceholder = document.getElementById(`img-placeholder-${id}`);
+            
+            if (listImg) {
+                listImg.src = base64Image;
+                listImg.classList.remove('hidden');
+            }
+            if (listPlaceholder) {
+                listPlaceholder.classList.add('hidden');
+            }
+        }
+
+        // Subida de foto en general (lista)
         function handleImageUpload(event, id) {
+            event.stopPropagation(); // Evitar que se abra el modal al presionar subir foto
             const file = event.target.files[0];
             if (!file) return;
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                const base64Image = e.target.result;
-                
-                // Guardar en LocalStorage para no perder la imagen al recargar
-                localStorage.setItem(`img_${id}`, base64Image);
-                
-                // Actualizar la interfaz de forma inmediata
-                const imgElement = document.getElementById(`img-preview-${id}`);
-                const placeholderElement = document.getElementById(`img-placeholder-${id}`);
-                
-                if (imgElement) {
-                    imgElement.src = base64Image;
-                    imgElement.classList.remove('hidden');
-                }
-                if (placeholderElement) {
-                    placeholderElement.classList.add('hidden');
-                }
+                saveImage(id, e.target.result);
             };
             reader.readAsDataURL(file);
         }
+
+        // Configuración de los Modales
+        let activeExerciseId = null;
+
+        function openModal(id, categoryName) {
+            // Encontrar el ejercicio en la db
+            let itemFound = null;
+            for (let tab in db) {
+                const search = db[tab].find(el => {
+                    if (!el.isGroup && el.id === id) return true;
+                    if (el.isGroup) {
+                        const sub = el.exercises.find(subEx => subEx.id === id);
+                        if (sub) {
+                            itemFound = sub;
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+                if (search && !itemFound) itemFound = search;
+            }
+
+            if (!itemFound) return;
+            activeExerciseId = id;
+
+            // Llenar datos en el modal
+            document.getElementById('modal-title').textContent = itemFound.name;
+            document.getElementById('modal-badge-category').textContent = tabTitles[categoryName] || 'Pilates';
+            
+            const badgeLabel = categoryName === 'reformer' ? 'Resortes' : 'Repeticiones';
+            document.getElementById('modal-label-value').textContent = badgeLabel;
+            document.getElementById('modal-value').textContent = itemFound.value || 'N/A';
+
+            // Cargar imagen
+            const modalImg = document.getElementById('modal-img');
+            const modalPlaceholder = document.getElementById('modal-placeholder');
+            const currentImg = getExerciseImage(itemFound);
+
+            if (currentImg) {
+                modalImg.src = currentImg;
+                modalImg.classList.remove('hidden');
+                modalPlaceholder.classList.add('hidden');
+            } else {
+                modalImg.classList.add('hidden');
+                modalPlaceholder.classList.remove('hidden');
+            }
+
+            // Sub-items (variantes)
+            const subItemsContainer = document.getElementById('modal-subitems-container');
+            const subItemsList = document.getElementById('modal-subitems-list');
+            subItemsList.innerHTML = '';
+            
+            if (itemFound.subItems && itemFound.subItems.length > 0) {
+                subItemsContainer.classList.remove('hidden');
+                itemFound.subItems.forEach(sub => {
+                    subItemsList.innerHTML += `<span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-lg border border-stone-200">${sub}</span>`;
+                });
+            } else {
+                subItemsContainer.classList.add('hidden');
+            }
+
+            // Preparar el lector de archivos para el botón del modal
+            const modalFileInput = document.getElementById('modal-file-input');
+            modalFileInput.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const base64Image = event.target.result;
+                    // Guardar y actualizar de inmediato en modal y lista
+                    saveImage(activeExerciseId, base64Image);
+                    modalImg.src = base64Image;
+                    modalImg.classList.remove('hidden');
+                    modalPlaceholder.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            };
+
+            // Mostrar el modal con transición suave
+            const modal = document.getElementById('exercise-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                modal.querySelector('div').classList.remove('scale-95');
+                modal.querySelector('div').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('exercise-modal');
+            modal.classList.remove('opacity-100');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function closeModalOnOutsideClick(event) {
+            if (event.target === document.getElementById('exercise-modal')) {
+                closeModal();
+            }
+        }
+
+        // Cerrar modal con la tecla Esc
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
 
         function switchMainTab(tab) {
             currentMainTab = tab;
@@ -404,7 +569,8 @@
         function renderExerciseRow(ex, badgeLabel) {
             const currentImg = getExerciseImage(ex);
             return `
-                <div class="bg-white border border-stone-200/60 p-4 rounded-xl shadow-3xs flex flex-col md:flex-row justify-between gap-4 items-start md:items-center hover:border-stone-300 transition-colors">
+                <div onclick="openModal('${ex.id}', '${currentMainTab}')" 
+                     class="bg-white border border-stone-200/60 p-4 rounded-xl shadow-3xs flex flex-col md:flex-row justify-between gap-4 items-start md:items-center hover:border-stone-400 hover:shadow-xs transition-all duration-300 cursor-pointer">
                     <div class="flex gap-4 items-center w-full md:w-auto">
                         <!-- Contenedor de Imagen y Subidor -->
                         <div class="relative w-16 h-16 group flex-shrink-0">
@@ -416,8 +582,8 @@
                                 <span>Sin foto</span>
                             </div>
 
-                            <!-- Botón Superpuesto para Subir Imagen -->
-                            <label class="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer text-[9px] text-white font-medium text-center p-1 select-none">
+                            <!-- Botón Superpuesto para Subir Imagen (Evita propagación) -->
+                            <label onclick="event.stopPropagation();" class="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer text-[9px] text-white font-medium text-center p-1 select-none">
                                 Subir Foto
                                 <input type="file" accept="image/*" class="hidden" onchange="handleImageUpload(event, '${ex.id}')">
                             </label>
