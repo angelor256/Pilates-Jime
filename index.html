@@ -78,250 +78,251 @@
         // BASE DE DATOS ESTRUCTURADA EN EL ORDEN EXACTO DE TU EXCEL
         const db = {
             mat: [
-                { isGroup: false, name: "The Hundred", value: "100", img: "" },
-                { isGroup: false, name: "Roll Up", value: "3-5x", img: "" },
-                { isGroup: false, name: "Roll Over", value: "3 sets", img: "" },
-                { isGroup: false, name: "Single Leg Circles", value: "3-5x", img: "" },
-                { isGroup: false, name: "Rolling Like a Ball", value: "5-10x", img: "" },
-                { isGroup: false, name: "Single Leg Stretch", value: "5-10 sets", img: "" },
-                { isGroup: false, name: "Double Leg Stretch", value: "5-10x", img: "" },
-                { isGroup: false, name: "Single Straight Leg Stretch", value: "5-10 sets", img: "" },
-                { isGroup: false, name: "Double Straight Leg Stretch", value: "5-10x", img: "" },
-                { isGroup: false, name: "Criss Cross", value: "5-10 sets", img: "" },
-                { isGroup: false, name: "Spine Stretch Forward", value: "3-5x", img: "" },
-                { isGroup: false, name: "Open Leg Rocker", value: "6x", img: "" },
-                { isGroup: false, name: "Corkscrew w/Hips over", value: "3-5 sets", img: "" },
-                { isGroup: false, name: "Saw", value: "4 sets", img: "" },
-                { isGroup: false, name: "Neck Roll/Swan", value: "3-5x", img: "" },
-                { isGroup: false, name: "Single Leg Kicks", value: "5 sets", img: "" },
-                { isGroup: false, name: "Double Leg Kicks", value: "3 sets", img: "" },
-                { isGroup: false, name: "Neck Pull", value: "3-5x", img: "" },
-                { isGroup: false, name: "High Scissors", value: "3-5 sets", img: "" },
-                { isGroup: false, name: "High Bicycle", value: "3-5 sets", img: "" },
-                { isGroup: false, name: "Shoulder Bridge", value: "3-5 kicks", img: "" },
-                { isGroup: false, name: "High Bridge", value: "1x", img: "" },
-                { isGroup: false, name: "Spine Twist", value: "3 sets", img: "" },
-                { isGroup: false, name: "Jackknife", value: "3x", img: "" },
+                { id: "m1", isGroup: false, name: "The Hundred", value: "100", img: "" },
+                { id: "m2", isGroup: false, name: "Roll Up", value: "3-5x", img: "" },
+                { id: "m3", isGroup: false, name: "Roll Over", value: "3 sets", img: "" },
+                { id: "m4", isGroup: false, name: "Single Leg Circles", value: "3-5x", img: "" },
+                { id: "m5", isGroup: false, name: "Rolling Like a Ball", value: "5-10x", img: "" },
+                { id: "m6", isGroup: false, name: "Single Leg Stretch", value: "5-10 sets", img: "" },
+                { id: "m7", isGroup: false, name: "Double Leg Stretch", value: "5-10x", img: "" },
+                { id: "m8", isGroup: false, name: "Single Straight Leg Stretch", value: "5-10 sets", img: "" },
+                { id: "m9", isGroup: false, name: "Double Straight Leg Stretch", value: "5-10x", img: "" },
+                { id: "m10", isGroup: false, name: "Criss Cross", value: "5-10 sets", img: "" },
+                { id: "m11", isGroup: false, name: "Spine Stretch Forward", value: "3-5x", img: "" },
+                { id: "m12", isGroup: false, name: "Open Leg Rocker", value: "6x", img: "" },
+                { id: "m13", isGroup: false, name: "Corkscrew w/Hips over", value: "3-5 sets", img: "" },
+                { id: "m14", isGroup: false, name: "Saw", value: "4 sets", img: "" },
+                { id: "m15", isGroup: false, name: "Neck Roll/Swan", value: "3-5x", img: "" },
+                { id: "m16", isGroup: false, name: "Single Leg Kicks", value: "5 sets", img: "" },
+                { id: "m17", isGroup: false, name: "Double Leg Kicks", value: "3 sets", img: "" },
+                { id: "m18", isGroup: false, name: "Neck Pull", value: "3-5x", img: "" },
+                { id: "m19", isGroup: false, name: "High Scissors", value: "3-5 sets", img: "" },
+                { id: "m20", isGroup: false, name: "High Bicycle", value: "3-5 sets", img: "" },
+                { id: "m21", isGroup: false, name: "Shoulder Bridge", value: "3-5 kicks", img: "" },
+                { id: "m22", isGroup: false, name: "High Bridge", value: "1x", img: "" },
+                { id: "m23", isGroup: false, name: "Spine Twist", value: "3 sets", img: "" },
+                { id: "m24", isGroup: false, name: "Jackknife", value: "3x", img: "" },
                 { 
+                    id: "m25",
                     isGroup: false, 
                     name: "Side Kicks", 
                     value: "all 3-10x", 
                     img: "", 
                     subItems: ["Front/Back", "Up/Down", "Circles", "Bicycle", "Inner Thigh Lifts, Beats & Circles", "Big Circles", "Hot Potato", "Big Scissors"] 
                 },
-                { isGroup: false, name: "Teaser 1", value: "3x", img: "" },
-                { isGroup: false, name: "Teaser 2", value: "3x", img: "" },
-                { isGroup: false, name: "Teaser 3", value: "3x", img: "" },
-                { isGroup: false, name: "Hip Circles", value: "3 sets", img: "" },
-                { isGroup: false, name: "Swimming", value: "3 breaths", img: "" },
-                { isGroup: false, name: "Leg Pull Front", value: "3 sets", img: "" },
-                { isGroup: false, name: "Leg Pull Back", value: "3 sets", img: "" },
-                { isGroup: false, name: "Kneeling Side Kicks", value: "4 sets", img: "" },
-                { isGroup: false, name: "Mermaid", value: "3 sets", img: "" },
-                { isGroup: false, name: "Side Bend", value: "3x ea side", img: "" },
-                { isGroup: false, name: "Snake/Twist", value: "3 sets", img: "" },
-                { isGroup: false, name: "Boomerang", value: "3 sets", img: "" },
-                { isGroup: false, name: "Seal", value: "6x", img: "" },
-                { isGroup: false, name: "Crab", value: "3-6x", img: "" },
-                { isGroup: false, name: "Rocking", value: "5x", img: "" },
-                { isGroup: false, name: "Control Balance", value: "3x", img: "" },
-                { isGroup: false, name: "Push Ups", value: "3-10x", img: "" }
+                { id: "m26", isGroup: false, name: "Teaser 1", value: "3x", img: "" },
+                { id: "m27", isGroup: false, name: "Teaser 2", value: "3x", img: "" },
+                { id: "m28", isGroup: false, name: "Teaser 3", value: "3x", img: "" },
+                { id: "m29", isGroup: false, name: "Hip Circles", value: "3 sets", img: "" },
+                { id: "m30", isGroup: false, name: "Swimming", value: "3 breaths", img: "" },
+                { id: "m31", isGroup: false, name: "Leg Pull Front", value: "3 sets", img: "" },
+                { id: "m32", isGroup: false, name: "Leg Pull Back", value: "3 sets", img: "" },
+                { id: "m33", isGroup: false, name: "Kneeling Side Kicks", value: "4 sets", img: "" },
+                { id: "m34", isGroup: false, name: "Mermaid", value: "3 sets", img: "" },
+                { id: "m35", isGroup: false, name: "Side Bend", value: "3x ea side", img: "" },
+                { id: "m36", isGroup: false, name: "Snake/Twist", value: "3 sets", img: "" },
+                { id: "m37", isGroup: false, name: "Boomerang", value: "3 sets", img: "" },
+                { id: "m38", isGroup: false, name: "Seal", value: "6x", img: "" },
+                { id: "m39", isGroup: false, name: "Crab", value: "3-6x", img: "" },
+                { id: "m40", isGroup: false, name: "Rocking", value: "5x", img: "" },
+                { id: "m41", isGroup: false, name: "Control Balance", value: "3x", img: "" },
+                { id: "m42", isGroup: false, name: "Push Ups", value: "3-10x", img: "" }
             ],
             'mat-basico': [
-                { isGroup: false, name: "Hundred", value: "Básico", img: "" },
-                { isGroup: false, name: "Roll-up", value: "Básico", img: "" },
-                { isGroup: false, name: "Leg Circles", value: "Básico", img: "" },
-                { isGroup: false, name: "Rolling like ball", value: "Básico", img: "" },
+                { id: "mb1", isGroup: false, name: "Hundred", value: "Básico", img: "" },
+                { id: "mb2", isGroup: false, name: "Roll-up", value: "Básico", img: "" },
+                { id: "mb3", isGroup: false, name: "Leg Circles", value: "Básico", img: "" },
+                { id: "mb4", isGroup: false, name: "Rolling like ball", value: "Básico", img: "" },
                 { 
                     isGroup: true, 
                     title: "The fives (isometricos)", 
                     exercises: [
-                        { name: "1- Single leg stretch", value: "Básico", img: "" },
-                        { name: "2- Double leg stretch", value: "Básico", img: "" },
-                        { name: "3- Single Straight Leg (scissors)", value: "Básico", img: "" },
-                        { name: "4- Double straight leg", value: "Básico", img: "" },
-                        { name: "5- Criss Cross", value: "Básico", img: "" }
+                        { id: "mb5_1", name: "1- Single leg stretch", value: "Básico", img: "" },
+                        { id: "mb5_2", name: "2- Double leg stretch", value: "Básico", img: "" },
+                        { id: "mb5_3", name: "3- Single Straight Leg (scissors)", value: "Básico", img: "" },
+                        { id: "mb5_4", name: "4- Double straight leg", value: "Básico", img: "" },
+                        { id: "mb5_5", name: "5- Criss Cross", value: "Básico", img: "" }
                     ]
                 },
-                { isGroup: false, name: "Spine stretch forward", value: "Básico", img: "" },
-                { isGroup: false, name: "CorckScrew", value: "Básico", img: "" },
-                { isGroup: false, name: "Saw", value: "Básico", img: "" },
-                { isGroup: false, name: "Swan", value: "Básico", img: "" },
-                { isGroup: false, name: "Knee stretches", value: "Básico", img: "" },
-                { isGroup: false, name: "Single Leg Kick", value: "Básico", img: "" },
-                { isGroup: false, name: "Double Leg Kick", value: "Básico", img: "" },
-                { isGroup: false, name: "Shoulder Bridge", value: "Básico", img: "" },
-                { isGroup: false, name: "Side Stretches", value: "Básico", img: "" },
+                { id: "mb6", isGroup: false, name: "Spine stretch forward", value: "Básico", img: "" },
+                { id: "mb7", isGroup: false, name: "CorckScrew", value: "Básico", img: "" },
+                { id: "mb8", isGroup: false, name: "Saw", value: "Básico", img: "" },
+                { id: "mb9", isGroup: false, name: "Swan", value: "Básico", img: "" },
+                { id: "mb10", isGroup: false, name: "Knee stretches", value: "Básico", img: "" },
+                { id: "mb11", isGroup: false, name: "Single Leg Kick", value: "Básico", img: "" },
+                { id: "mb12", isGroup: false, name: "Double Leg Kick", value: "Básico", img: "" },
+                { id: "mb13", isGroup: false, name: "Shoulder Bridge", value: "Básico", img: "" },
+                { id: "mb14", isGroup: false, name: "Side Stretches", value: "Básico", img: "" },
                 { 
                     isGroup: true, 
                     title: "Side Kicks", 
                     exercises: [
-                        { name: "Front", value: "Básico", img: "" },
-                        { name: "Up and Down", value: "Básico", img: "" },
-                        { name: "Circles", value: "Básico", img: "" },
-                        { name: "Inside leg lift", value: "Básico", img: "" }
+                        { id: "mb15_1", name: "Front", value: "Básico", img: "" },
+                        { id: "mb15_2", name: "Up and Down", value: "Básico", img: "" },
+                        { id: "mb15_3", name: "Circles", value: "Básico", img: "" },
+                        { id: "mb15_4", name: "Inside leg lift", value: "Básico", img: "" }
                     ]
                 },
-                { isGroup: false, name: "Seal", value: "Básico", img: "" },
-                { isGroup: false, name: "Push up's 1", value: "Básico", img: "" }
+                { id: "mb16", isGroup: false, name: "Seal", value: "Básico", img: "" },
+                { id: "mb17", isGroup: false, name: "Push up's 1", value: "Básico", img: "" }
             ],
             'mat-intermedio': [
-                { isGroup: false, name: "Hundred", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Roll-up", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Roll-over", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Leg Circles", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Rolling like ball", value: "Intermedio", img: "" },
+                { id: "mi1", isGroup: false, name: "Hundred", value: "Intermedio", img: "" },
+                { id: "mi2", isGroup: false, name: "Roll-up", value: "Intermedio", img: "" },
+                { id: "mi3", isGroup: false, name: "Roll-over", value: "Intermedio", img: "" },
+                { id: "mi4", isGroup: false, name: "Leg Circles", value: "Intermedio", img: "" },
+                { id: "mi5", isGroup: false, name: "Rolling like ball", value: "Intermedio", img: "" },
                 { 
                     isGroup: true, 
                     title: "The fives (isometricos)", 
                     exercises: [
-                        { name: "1- Single leg stretch", value: "Intermedio", img: "" },
-                        { name: "2- Double leg stretch", value: "Intermedio", img: "" },
-                        { name: "3- Single Straight Leg (scissors)", value: "Intermedio", img: "" },
-                        { name: "4- Double straight leg", value: "Intermedio", img: "" },
-                        { name: "5- Criss Cross", value: "Intermedio", img: "" }
+                        { id: "mi6_1", name: "1- Single leg stretch", value: "Intermedio", img: "" },
+                        { id: "mi6_2", name: "2- Double leg stretch", value: "Intermedio", img: "" },
+                        { id: "mi6_3", name: "3- Single Straight Leg (scissors)", value: "Intermedio", img: "" },
+                        { id: "mi6_4", name: "4- Double straight leg", value: "Intermedio", img: "" },
+                        { id: "mi6_5", name: "5- Criss Cross", value: "Intermedio", img: "" }
                     ]
                 },
-                { isGroup: false, name: "Spine stretch forward", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Open Leg Rocker", value: "Intermedio", img: "" },
-                { isGroup: false, name: "CorckScrew", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Saw", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Swan", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Swan Dive", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Knee stretches", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Single Leg Kick", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Double Leg Kick", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Leg Pull", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Shoulder Bridge", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Scissors", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Bicicle", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Spine Twist", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Jack Knife", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Mermaid", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Side stretches", value: "Intermedio", img: "" },
+                { id: "mi7", isGroup: false, name: "Spine stretch forward", value: "Intermedio", img: "" },
+                { id: "mi8", isGroup: false, name: "Open Leg Rocker", value: "Intermedio", img: "" },
+                { id: "mi9", isGroup: false, name: "CorckScrew", value: "Intermedio", img: "" },
+                { id: "mi10", isGroup: false, name: "Saw", value: "Intermedio", img: "" },
+                { id: "mi11", isGroup: false, name: "Swan", value: "Intermedio", img: "" },
+                { id: "mi12", isGroup: false, name: "Swan Dive", value: "Intermedio", img: "" },
+                { id: "mi13", isGroup: false, name: "Knee stretches", value: "Intermedio", img: "" },
+                { id: "mi14", isGroup: false, name: "Single Leg Kick", value: "Intermedio", img: "" },
+                { id: "mi15", isGroup: false, name: "Double Leg Kick", value: "Intermedio", img: "" },
+                { id: "mi16", isGroup: false, name: "Leg Pull", value: "Intermedio", img: "" },
+                { id: "mi17", isGroup: false, name: "Shoulder Bridge", value: "Intermedio", img: "" },
+                { id: "mi18", isGroup: false, name: "Scissors", value: "Intermedio", img: "" },
+                { id: "mi19", isGroup: false, name: "Bicicle", value: "Intermedio", img: "" },
+                { id: "mi20", isGroup: false, name: "Spine Twist", value: "Intermedio", img: "" },
+                { id: "mi21", isGroup: false, name: "Jack Knife", value: "Intermedio", img: "" },
+                { id: "mi22", isGroup: false, name: "Mermaid", value: "Intermedio", img: "" },
+                { id: "mi23", isGroup: false, name: "Side stretches", value: "Intermedio", img: "" },
                 { 
                     isGroup: true, 
                     title: "Side Kicks", 
                     exercises: [
-                        { name: "Front", value: "Intermedio", img: "" },
-                        { name: "Up and Down", value: "Intermedio", img: "" },
-                        { name: "Circles", value: "Intermedio", img: "" },
-                        { name: "Inside leg lift", value: "Intermedio", img: "" },
-                        { name: "Hot Potato", value: "Intermedio", img: "" },
-                        { name: "Rond de Jambe", value: "Intermedio", img: "" }
+                        { id: "mi24_1", name: "Front", value: "Intermedio", img: "" },
+                        { id: "mi24_2", name: "Up and Down", value: "Intermedio", img: "" },
+                        { id: "mi24_3", name: "Circles", value: "Intermedio", img: "" },
+                        { id: "mi24_4", name: "Inside leg lift", value: "Intermedio", img: "" },
+                        { id: "mi24_5", name: "Hot Potato", value: "Intermedio", img: "" },
+                        { id: "mi24_6", name: "Rond de Jambe", value: "Intermedio", img: "" }
                     ]
                 },
-                { isGroup: false, name: "Swimming", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Teaser 1, 2, 3", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Hip Twist", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Leg Pull Front", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Leg Pull Back", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Seal", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Push up's 1, 2", value: "Intermedio", img: "" }
+                { id: "mi25", isGroup: false, name: "Swimming", value: "Intermedio", img: "" },
+                { id: "mi26", isGroup: false, name: "Teaser 1, 2, 3", value: "Intermedio", img: "" },
+                { id: "mi27", isGroup: false, name: "Hip Twist", value: "Intermedio", img: "" },
+                { id: "mi28", isGroup: false, name: "Leg Pull Front", value: "Intermedio", img: "" },
+                { id: "mi29", isGroup: false, name: "Leg Pull Back", value: "Intermedio", img: "" },
+                { id: "mi30", isGroup: false, name: "Seal", value: "Intermedio", img: "" },
+                { id: "mi31", isGroup: false, name: "Push up's 1, 2", value: "Intermedio", img: "" }
             ],
             reformer: [
                 { 
                     isGroup: true, 
                     title: "Footwork", 
                     exercises: [
-                        { name: "Toes", value: "4", img: "" },
-                        { name: "Arches", value: "4", img: "" },
-                        { name: "Heels", value: "4", img: "" },
-                        { name: "Tendon Stretch", value: "4", img: "" }
+                        { id: "r1_1", name: "Toes", value: "4", img: "" },
+                        { id: "r1_2", name: "Arches", value: "4", img: "" },
+                        { id: "r1_3", name: "Heels", value: "4", img: "" },
+                        { id: "r1_4", name: "Tendon Stretch", value: "4", img: "" }
                     ]
                 },
-                { isGroup: false, name: "Hundred", value: "4", img: "" },
-                { isGroup: false, name: "Overhead", value: "2", img: "" },
-                { isGroup: false, name: "Coordination", value: "N/A", img: "" },
+                { id: "r2", isGroup: false, name: "Hundred", value: "4", img: "" },
+                { id: "r3", isGroup: false, name: "Overhead", value: "2", img: "" },
+                { id: "r4", isGroup: false, name: "Coordination", value: "N/A", img: "" },
                 { 
                     isGroup: true, 
                     title: "Rowing Series", 
                     exercises: [
-                        { name: "Into the Sternum", value: "1", img: "" },
-                        { name: "90 Degrees", value: "1", img: "" },
-                        { name: "From the Chest", value: "1", img: "" },
-                        { name: "From the Hips", value: "1", img: "" },
-                        { name: "Shaving", value: "1", img: "" },
-                        { name: "Hug", value: "1", img: "" }
+                        { id: "r5_1", name: "Into the Sternum", value: "1", img: "" },
+                        { id: "r5_2", name: "90 Degrees", value: "1", img: "" },
+                        { id: "r5_3", name: "From the Chest", value: "1", img: "" },
+                        { id: "r5_4", name: "From the Hips", value: "1", img: "" },
+                        { id: "r5_5", name: "Shaving", value: "1", img: "" },
+                        { id: "r5_6", name: "Hug", value: "1", img: "" }
                     ]
                 },
-                { isGroup: false, name: "Swan", value: "2", img: "" },
+                { id: "r6", isGroup: false, name: "Swan", value: "2", img: "" },
                 { 
                     isGroup: true, 
                     title: "Long Box Series", 
                     exercises: [
-                        { name: "Pull Straps", value: "1", img: "" },
-                        { name: "Backstroke", value: "2", img: "" },
-                        { name: "Teaser", value: "1", img: "" },
-                        { name: "Horseback", value: "N/A", img: "" }
+                        { id: "r7_1", name: "Pull Straps", value: "1", img: "" },
+                        { id: "r7_2", name: "Backstroke", value: "2", img: "" },
+                        { id: "r7_3", name: "Teaser", value: "1", img: "" },
+                        { id: "r7_4", name: "Horseback", value: "N/A", img: "" }
                     ]
                 },
                 { 
                     isGroup: true, 
                     title: "Short Box Series", 
                     exercises: [
-                        { name: "Round Back", value: "2", img: "" },
-                        { name: "Flat Back", value: "N/A", img: "" },
-                        { name: "Side to Side", value: "N/A", img: "" },
-                        { name: "Twist", value: "N/A", img: "" },
-                        { name: "Tree", value: "N/A", img: "" }
+                        { id: "r8_1", name: "Round Back", value: "2", img: "" },
+                        { id: "r8_2", name: "Flat Back", value: "N/A", img: "" },
+                        { id: "r8_3", name: "Side to Side", value: "N/A", img: "" },
+                        { id: "r8_4", name: "Twist", value: "N/A", img: "" },
+                        { id: "r8_5", name: "Tree", value: "N/A", img: "" }
                     ]
                 },
                 { 
                     isGroup: true, 
                     title: "Long Stretch Series", 
                     exercises: [
-                        { name: "Long Stretch", value: "2", img: "" },
-                        { name: "Down Stretch", value: "N/A", img: "" },
-                        { name: "Up Stretch", value: "N/A", img: "" },
-                        { name: "Elephant", value: "N/A", img: "" },
-                        { name: "Long Back Stretch", value: "N/A", img: "" }
+                        { id: "r9_1", name: "Long Stretch", value: "2", img: "" },
+                        { id: "r9_2", name: "Down Stretch", value: "N/A", img: "" },
+                        { id: "r9_3", name: "Up Stretch", value: "N/A", img: "" },
+                        { id: "r9_4", name: "Elephant", value: "N/A", img: "" },
+                        { id: "r9_5", name: "Long Back Stretch", value: "N/A", img: "" }
                     ]
                 },
                 { 
                     isGroup: true, 
                     title: "Stomach Massage Series", 
                     exercises: [
-                        { name: "Round", value: "4", img: "" },
-                        { name: "Hands Back", value: "3", img: "" },
-                        { name: "Reach Up", value: "2", img: "" },
-                        { name: "Twist", value: "N/A", img: "" },
-                        { name: "Tendon Stretch", value: "N/A", img: "" }
+                        { id: "r10_1", name: "Round", value: "4", img: "" },
+                        { id: "r10_2", name: "Hands Back", value: "3", img: "" },
+                        { id: "r10_3", name: "Reach Up", value: "2", img: "" },
+                        { id: "r10_4", name: "Twist", value: "N/A", img: "" },
+                        { id: "r10_5", name: "Tendon Stretch", value: "N/A", img: "" }
                     ]
                 },
-                { isGroup: false, name: "Short Spine Massage", value: "N/A", img: "" },
-                { isGroup: false, name: "Semi Circle", value: "N/A", img: "" },
-                { isGroup: false, name: "Chest Expansion", value: "N/A", img: "" },
-                { isGroup: false, name: "Thigh Stretch", value: "3", img: "" },
-                { isGroup: false, name: "Arm Circles", value: "1", img: "" },
-                { isGroup: false, name: "Snake & Twist", value: "N/A", img: "" },
-                { isGroup: false, name: "Corkscrew, Tick Tock", value: "2", img: "" },
-                { isGroup: false, name: "Step Off Control Balance", value: "N/A", img: "" },
+                { id: "r11", isGroup: false, name: "Short Spine Massage", value: "N/A", img: "" },
+                { id: "r12", isGroup: false, name: "Semi Circle", value: "N/A", img: "" },
+                { id: "r13", isGroup: false, name: "Chest Expansion", value: "N/A", img: "" },
+                { id: "r14", isGroup: false, name: "Thigh Stretch", value: "3", img: "" },
+                { id: "r15", isGroup: false, name: "Arm Circles", value: "1", img: "" },
+                { id: "r16", isGroup: false, name: "Snake & Twist", value: "N/A", img: "" },
+                { id: "r17", isGroup: false, name: "Corkscrew, Tick Tock", value: "2", img: "" },
+                { id: "r18", isGroup: false, name: "Step Off Control Balance", value: "N/A", img: "" },
                 { 
                     isGroup: true, 
                     title: "Feet in Straps", 
                     exercises: [
-                        { name: "Long Spine Massage", value: "2", img: "" },
-                        { name: "Leg Circles", value: "N/A", img: "" },
-                        { name: "Frogs", value: "N/A", img: "" }
+                        { id: "r19_1", name: "Long Spine Massage", value: "2", img: "" },
+                        { id: "r19_2", name: "Leg Circles", value: "N/A", img: "" },
+                        { id: "r19_3", name: "Frogs", value: "N/A", img: "" }
                     ]
                 },
                 { 
                     isGroup: true, 
                     title: "Knee Stretch Series", 
                     exercises: [
-                        { name: "Round", value: "2", img: "" },
-                        { name: "Arched", value: "N/A", img: "" },
-                        { name: "Knees Off", value: "N/A", img: "" }
+                        { id: "r20_1", name: "Round", value: "2", img: "" },
+                        { id: "r20_2", name: "Arched", value: "N/A", img: "" },
+                        { id: "r20_3", name: "Knees Off", value: "N/A", img: "" }
                     ]
                 },
-                { isGroup: false, name: "Running", value: "4", img: "" },
-                { isGroup: false, name: "Pelvic Lift", value: "N/A", img: "" },
-                { isGroup: false, name: "Push up Front", value: "2, gear out", img: "" },
-                { isGroup: false, name: "Push up Back", value: "2, reg gear", img: "" },
-                { isGroup: false, name: "Side Splits", value: "2 or 1", img: "" },
-                { isGroup: false, name: "Front Splits", value: "2", img: "" },
-                { isGroup: false, name: "Russian Splits", value: "N/A", img: "" }
+                { id: "r21", isGroup: false, name: "Running", value: "4", img: "" },
+                { id: "r22", isGroup: false, name: "Pelvic Lift", value: "N/A", img: "" },
+                { id: "r23", isGroup: false, name: "Push up Front", value: "2, gear out", img: "" },
+                { id: "r24", isGroup: false, name: "Push up Back", value: "2, reg gear", img: "" },
+                { id: "r25", isGroup: false, name: "Side Splits", value: "2 or 1", img: "" },
+                { id: "r26", isGroup: false, name: "Front Splits", value: "2", img: "" },
+                { id: "r27", isGroup: false, name: "Russian Splits", value: "N/A", img: "" }
             ]
         };
 
@@ -333,6 +334,33 @@
             'mat-intermedio': 'Rutina Mat Clásico Intermedio',
             'reformer': 'Ejercicios & Series de Reformer'
         };
+
+        // Función para cambiar fotos dinámicamente y guardarlas en localStorage
+        function handleImageUpload(event, id) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Image = e.target.result;
+                
+                // Guardar en LocalStorage para no perder la imagen al recargar
+                localStorage.setItem(`img_${id}`, base64Image);
+                
+                // Actualizar la interfaz de forma inmediata
+                const imgElement = document.getElementById(`img-preview-${id}`);
+                const placeholderElement = document.getElementById(`img-placeholder-${id}`);
+                
+                if (imgElement) {
+                    imgElement.src = base64Image;
+                    imgElement.classList.remove('hidden');
+                }
+                if (placeholderElement) {
+                    placeholderElement.classList.add('hidden');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
 
         function switchMainTab(tab) {
             currentMainTab = tab;
@@ -366,18 +394,35 @@
             }
         }
 
-        // Diseño para ejercicio suelto (estilo plano y minimalista)
+        // Obtener ruta de imagen (Dando prioridad al LocalStorage de Jime, luego al código fuente)
+        function getExerciseImage(ex) {
+            const savedImg = localStorage.getItem(`img_${ex.id}`);
+            return savedImg || ex.img || "";
+        }
+
+        // Diseño para ejercicio suelto con opción de subir foto incorporada
         function renderExerciseRow(ex, badgeLabel) {
+            const currentImg = getExerciseImage(ex);
             return `
                 <div class="bg-white border border-stone-200/60 p-4 rounded-xl shadow-3xs flex flex-col md:flex-row justify-between gap-4 items-start md:items-center hover:border-stone-300 transition-colors">
-                    <div class="flex gap-4 items-center">
-                        ${ex.img ? `
-                            <img src="${ex.img}" alt="${ex.name}" class="w-16 h-16 object-cover rounded-lg border border-stone-200 shadow-3xs flex-shrink-0">
-                        ` : `
-                            <div class="w-16 h-16 bg-stone-100 rounded-lg border border-stone-200/40 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic flex-shrink-0 select-none">
+                    <div class="flex gap-4 items-center w-full md:w-auto">
+                        <!-- Contenedor de Imagen y Subidor -->
+                        <div class="relative w-16 h-16 group flex-shrink-0">
+                            <img id="img-preview-${ex.id}" src="${currentImg}" alt="${ex.name}" 
+                                 class="w-16 h-16 object-cover rounded-lg border border-stone-200 shadow-3xs ${currentImg ? '' : 'hidden'}">
+                            
+                            <div id="img-placeholder-${ex.id}" 
+                                 class="w-16 h-16 bg-stone-100 rounded-lg border border-stone-200/40 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic select-none ${currentImg ? 'hidden' : ''}">
                                 <span>Sin foto</span>
                             </div>
-                        `}
+
+                            <!-- Botón Superpuesto para Subir Imagen -->
+                            <label class="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer text-[9px] text-white font-medium text-center p-1 select-none">
+                                Subir Foto
+                                <input type="file" accept="image/*" class="hidden" onchange="handleImageUpload(event, '${ex.id}')">
+                            </label>
+                        </div>
+
                         <div>
                             <h4 class="text-stone-800 text-base font-semibold tracking-wide">${ex.name}</h4>
                             ${ex.subItems ? `
@@ -387,7 +432,8 @@
                             ` : ''}
                         </div>
                     </div>
-                    <div class="flex items-center gap-1.5 self-end md:self-center">
+                    
+                    <div class="flex items-center gap-1.5 self-end md:self-center flex-shrink-0">
                         <span class="text-[10px] uppercase tracking-wider text-stone-400 font-medium">${badgeLabel}:</span>
                         <span class="px-2.5 py-1 bg-[#FAF7F2] text-[#A98467] text-xs font-semibold rounded-md border border-[#E6DFD5]">${ex.value || 'N/A'}</span>
                     </div>
@@ -411,7 +457,7 @@
 
             return `
                 <div class="bg-[#F5F2EC] border border-[#DDD0C2] rounded-xl shadow-xs overflow-hidden transition-all duration-300">
-                    <!-- Botón del Bloque Desplegable (Estilo Contraste) -->
+                    <!-- Botón del Bloque Desplegable -->
                     <div onclick="toggleDropdown('${index}')" class="p-5 flex justify-between items-center cursor-pointer bg-[#F5F2EC] hover:bg-[#EDE8DE] transition-colors">
                         <div>
                             <span class="text-[9px] font-bold tracking-wider text-white bg-[#A98467] px-2 py-0.5 rounded-md uppercase">Serie / Grupo</span>
