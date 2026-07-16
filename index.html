@@ -3,146 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umera Pilates - Ejercicios</title>
-    <!-- Tailwind CSS para el diseño rápido y moderno -->
+    <title>Pilates con Jime - Rutinas & Ejercicios</title>
+    <!-- Tailwind CSS para el diseño aesthetic y moderno -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google Fonts para tipografía aesthetic -->
+    <!-- Google Fonts para tipografías delicadas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght=0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #FAF7F2; /* Fondo crema suave muy aesthetic */
+            background-color: #FAF7F2; /* Fondo crema suave aesthetic */
         }
         .serif-title {
             font-family: 'Playfair Display', serif;
         }
+        /* Custom scrollbar para mantener la estética limpia */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FAF7F2; }
+        ::-webkit-scrollbar-thumb { background: #E6DFD5; border-radius: 10px; }
     </style>
 </head>
 <body class="text-stone-700 min-h-screen flex flex-col">
 
-    <!-- Navbar / Encabezado -->
-    <header class="w-full py-8 text-center border-b border-stone-200/60 bg-white/40 backdrop-blur-md sticky top-0 z-50">
-        <h1 class="serif-title text-4xl font-light tracking-wide text-stone-800">Umera</h1>
-        <p class="text-xs uppercase tracking-[0.2em] text-stone-400 mt-2">Pilates & Mindful Movement</p>
+    <!-- Encabezado Principal -->
+    <header class="w-full py-8 text-center bg-white/60 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200/50">
+        <h1 class="serif-title text-4xl font-light tracking-wide text-stone-800">Pilates con Jime</h1>
+        <p class="text-xs uppercase tracking-[0.25em] text-stone-400 mt-2">Mindful Movement & Balance</p>
+
+        <!-- Menú de Pestañas Principales (Excel Tabs) -->
+        <div class="flex justify-center gap-4 mt-6">
+            <button id="tab-mat" onclick="switchMainTab('mat')" class="px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer border shadow-xs">
+                Pilates Mat
+            </button>
+            <button id="tab-reformer" onclick="switchMainTab('reformer')" class="px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer border shadow-xs">
+                Reformer
+            </button>
+        </div>
     </header>
 
     <!-- Contenido Principal -->
-    <main class="max-w-5xl w-full mx-auto px-6 py-12 flex-grow">
-        <div class="text-center mb-12">
-            <h2 class="serif-title text-2xl italic text-stone-600">Guía de Ejercicios & Rutinas</h2>
-            <p class="text-sm text-stone-400 mt-2">Selecciona una categoría para ver los ejercicios y repeticiones recomendadas.</p>
+    <main class="max-w-6xl w-full mx-auto px-6 py-10 flex-grow">
+        
+        <!-- Buscador y Filtros dinámicos -->
+        <div class="bg-white p-6 rounded-2xl border border-stone-200/60 shadow-xs mb-10 flex flex-col md:flex-row gap-4 items-center justify-between">
+            <!-- Search Bar -->
+            <div class="relative w-full md:w-72">
+                <input type="text" id="search-input" oninput="handleFilter()" placeholder="Buscar ejercicio..." 
+                    class="w-full pl-4 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors">
+            </div>
+            
+            <!-- Subcategories Filter Buttons -->
+            <div id="subcategories-container" class="flex flex-wrap gap-2 justify-center w-full md:w-auto">
+                <!-- Se llenará dinámicamente -->
+            </div>
         </div>
 
-        <!-- Contenedor de Categorías (Pestañas) -->
-        <div id="categories-tabs" class="flex flex-wrap justify-center gap-3 mb-10">
-            <!-- Las pestañas se generarán dinámicamente con JavaScript -->
-        </div>
-
-        <!-- Grid de Ejercicios -->
-        <div id="exercises-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Las tarjetas de ejercicios se generarán aquí -->
+        <!-- Grid de Tarjetas de Ejercicios -->
+        <div id="exercises-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Las tarjetas se generan dinámicamente -->
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-6 text-center text-xs text-stone-400 border-t border-stone-200/40 bg-white/20">
-        <p>&copy; 2026 Umera Studio. Hecho con ♡ para Jime.</p>
+    <footer class="w-full py-6 text-center text-xs text-stone-400 border-t border-stone-200/40 bg-white/30">
+        <p>&copy; Pilates con Jime. Hecho con ♡.</p>
     </footer>
 
-    <!-- Lógica de JavaScript -->
+    <!-- Lógica de Datos y Control -->
     <script>
-        // 1. AQUÍ PEGAS LOS DATOS DE TU EXCEL
-        // Puedes copiar las filas de tu Excel y transformarlas en este formato de objetos:
-        const excelData = [
-            { categoria: "Mat Pilates", ejercicio: "The Hundred (El Cien)", repeticiones: "100 bombeos (10 respiraciones)", tip: "Mantener el core bien conectado y la mirada hacia el ombligo." },
-            { categoria: "Mat Pilates", ejercicio: "Roll Up", repeticiones: "5 a 8 repeticiones", tip: "Articula la columna vértebra por vértebra, sin impulsos." },
-            { categoria: "Mat Pilates", ejercicio: "Single Leg Stretch", repeticiones: "10 a 12 por pierna", tip: "Mantén los hombros relajados y separados de las orejas." },
-            
-            { categoria: "Reformer", ejercicio: "Footwork (Pilates V)", repeticiones: "20 repeticiones", tip: "Presiona los talones juntos y mantén la pelvis neutra." },
-            { categoria: "Reformer", ejercicio: "Leg Circles", repeticiones: "8 círculos hacia cada lado", tip: "Movimiento controlado desde la cadera, no desde el pie." },
-            
-            { categoria: "Estiramientos & Flexibilidad", ejercicio: "Mermaid (La Sirena)", repeticiones: "3 a 4 por lado", tip: "Siente la apertura en todo el lateral de tus costillas." },
-            { categoria: "Estiramientos & Flexibilidad", ejercicio: "Cat-Cow Stretch", repeticiones: "8 ciclos completos", tip: "Sincroniza el movimiento perfectamente con tu respiración." }
-        ];
+        // BASE DE DATOS COMPLETA EXTRAÍDA EXACTAMENTE DE TU EXCEL
+        const db = {
+            mat: [
+                // TODOS LOS EJERCICIOS DE PILATES MAT Y REPETICIONES
+                { sub: "Todos los Ejercicios", name: "The Hundred", value: "100" },
+                { sub: "Todos los Ejercicios", name: "Roll Up", value: "3-5x" },
+                { sub: "Todos los Ejercicios", name: "Roll Over", value: "3 sets" },
+                { sub: "Todos los Ejercicios", name: "Single Leg Circles", value: "3-5x" },
+                { sub: "Todos los Ejercicios", name: "Rolling Like a Ball", value: "5-10x" },
+                { sub: "Todos los Ejercicios", name: "Single Leg Stretch", value: "5-10 sets" },
+                { sub: "Todos los Ejercicios", name: "Double Leg Stretch", value: "5-10x" },
+                { sub: "Todos los Ejercicios", name: "Single Straight Leg Stretch", value: "5-10 sets" },
+                { sub: "Todos los Ejercicios", name: "Double Straight Leg Stretch", value: "5-10x" },
+                { sub: "Todos los Ejercicios", name: "Criss Cross", value: "5-10 sets" },
+                { sub: "Todos los Ejercicios", name: "Spine Stretch Forward", value: "3-5x" },
+                { sub: "Todos los Ejercicios", name: "Open Leg Rocker", value: "6x" },
+                { sub: "Todos los Ejercicios", name: "Corkscrew w/Hips over", value: "3-5 sets" },
+                { sub: "Todos los Ejercicios", name: "Saw", value: "4 sets" },
+                { sub: "Todos los Ejercicios", name: "Neck Roll/Swan", value: "3-5x" },
+                { sub: "Todos los Ejercicios", name: "Single Leg Kicks", value: "5 sets" },
+                { sub: "Todos los Ejercicios", name: "Double Leg Kicks", value: "3 sets" },
+                { sub: "Todos los Ejercicios", name: "Neck Pull", value: "3-5x" },
+                { sub: "Todos los Ejercicios", name: "High Scissors", value: "3-5 sets" },
+                { sub: "Todos los Ejercicios", name: "High Bicycle", value: "3-5 sets" },
+                { sub: "Todos los Ejercicios", name: "Shoulder Bridge", value: "3-5 kicks" },
+                { sub: "Todos los Ejercicios", name: "High Bridge", value: "1x" },
+                { sub: "Todos los Ejercicios", name: "Spine Twist", value: "3 sets" },
+                { sub: "Todos los Ejercicios", name: "Jackknife", value: "3x" },
+                { sub: "Todos los Ejercicios", name: "Side Kicks", value: "Todos 3-10x" },
+                { sub: "Todos los Ejercicios", name: "Side Kicks: Front/Back", value: "-" },
+                { sub: "Todos los Ejercicios", name: "Side Kicks: Up/Down", value: "-" },
+                { sub: "Todos los Ejercicios", name: "Side Kicks: Circles", value: "-" },
+                { sub: "Todos los Ejercicios", name: "Side Kicks: Bicycle", value: "-" },
+                { sub: "Todos los Ejercicios", name: "Side Kicks: Inner Thigh Lifts, Beats & Circles", value: "-" },
+                { sub: "Todos los Ejercicios", name: "Side Kicks: Big Circles", value: "-" },
+                { sub: "Todos los Ejercicios", name: "Side Kicks: Hot Potato", value: "-" },
+                { sub: "Todos los Ejercicios", name: "Side Kicks: Big Scissors", value: "-" },
+                { sub: "Todos los Ejercicios", name: "Teaser 1", value: "3x" },
+                { sub: "Todos los Ejercicios", name: "Teaser 2", value: "3x" },
+                { sub: "Todos los Ejercicios", name: "Teaser 3", value: "3x" },
+                { sub: "Todos los Ejercicios", name: "Hip Circles", value: "3 sets" },
+                { sub: "Todos los Ejercicios", name: "Swimming", value: "3 respiraciones" },
+                { sub: "Todos los Ejercicios", name: "Leg Pull Front", value: "3 sets" },
+                { sub: "Todos los Ejercicios", name: "Leg Pull Back", value: "3 sets" },
+                { sub: "Todos los Ejercicios", name: "Kneeling Side Kicks", value: "4 sets" },
+                { sub: "Todos los Ejercicios", name: "Mermaid", value: "3 sets" },
+                { sub: "Todos los Ejercicios", name: "Side Bend", value: "3x por lado" },
+                { sub: "Todos los Ejercicios", name: "Snake/Twist", value: "3 sets" },
+                { sub: "Todos los Ejercicios", name: "Boomerang", value: "3 sets" },
+                { sub: "Todos los Ejercicios", name: "Seal", value: "6x" },
+                { sub: "Todos los Ejercicios", name: "Crab", value: "3-6x" },
+                { sub: "Todos los Ejercicios", name: "Rocking", value: "5x" },
+                { sub: "Todos los Ejercicios", name: "Control Balance", value: "3x" },
+                { sub: "Todos los Ejercicios", name: "Push Ups", value: "3-10x" },
 
-        // Variables de estado
-        let activeCategory = "";
+                // MAT CLASICO BASICO (PRINCIPIANTES)
+                { sub: "Mat Básico", name: "Hundred", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Roll-up", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Leg Circles", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Rolling like ball", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "The Fives (Isométricos)", value: "Bloque Fives" },
+                { sub: "Mat Básico", name: "1- Single Leg Stretch", value: "Fives 1" },
+                { sub: "Mat Básico", name: "2- Double Leg Stretch", value: "Fives 2" },
+                { sub: "Mat Básico", name: "3- Single Straight Leg (scissors)", value: "Fives 3" },
+                { sub: "Mat Básico", name: "4- Double Straight Leg", value: "Fives 4" },
+                { sub: "Mat Básico", name: "5- Criss Cross", value: "Fives 5" },
+                { sub: "Mat Básico", name: "Spine Stretch Forward", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "CorkScrew", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Saw", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Swan", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Knee Stretches", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Single Leg Kick", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Double Leg Kick", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Shoulder Bridge", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Side Stretches", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Side Kicks (Front, Up & Down, Circles, Inside leg lift)", value: "Bloque Kicks" },
+                { sub: "Mat Básico", name: "Seal", value: "Rutina Básica" },
+                { sub: "Mat Básico", name: "Push up's 1", value: "Final" },
 
-        // Inicializar la página
-        function init() {
-            // Extraer categorías únicas del Excel
-            const categories = [...new Set(excelData.map(item => item.categoria))];
+                // MAT CLASICO INTERMEDIO
+                { sub: "Mat Intermedio", name: "Hundred", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Roll-up", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Roll-over", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Leg Circles", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Rolling like ball", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "The Fives (Isométricos completados)", value: "1 al 5 completos" },
+                { sub: "Mat Intermedio", name: "Spine Stretch Forward", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Open Leg Rocker", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "CorkScrew", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Saw", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Swan / Swan Dive", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Knee Stretches", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Single / Double Leg Kick", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Leg Pull / Shoulder Bridge", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Scissors / Bicycle", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Spine Twist / Jack Knife", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Mermaid / Side Stretches", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Side Kicks Completos (Hot Potato, Rond de Jambe)", value: "Completo" },
+                { sub: "Mat Intermedio", name: "Swimming", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Teaser 1, 2, 3", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Hip Twist / Leg Pull Front & Back", value: "Rutina Intermedia" },
+                { sub: "Mat Intermedio", name: "Seal / Push up's 1, 2", value: "Final Intermedio" }
+            ],
+            reformer: [
+                { sub: "Todos los Ejercicios", name: "Footwork (Toes, Arches, Heels, Tendon Stretch)", value: "4 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Hundred", value: "4 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Overhead", value: "2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Coordination", value: "2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Rowing Series (Sternum, 90°, Chest, Hips, Shaving, Hug)", value: "1 Resorte" },
+                { sub: "Todos los Ejercicios", name: "Swan", value: "2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Long Box Series (Pull Straps, Backstroke, Teaser, Horseback)", value: "1 o 2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Short Box Series (Round Back, Flat, Side to Side, Twist, Tree)", value: "2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Long Stretch Series (Long, Down, Up Stretch, Elephant, Long Back)", value: "2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Stomach Massage Series (Round, Hands Back, Reach Up, Twist, Tendon)", value: "4 -> 3 -> 2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Short Spine Massage", value: "Control Total" },
+                { sub: "Todos los Ejercicios", name: "Semi Circle", value: "Articulación" },
+                { sub: "Todos los Ejercicios", name: "Chest Expansion", value: "Estabilidad" },
+                { sub: "Todos los Ejercicios", name: "Thigh Stretch", value: "3 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Arm Circles", value: "1 Resorte" },
+                { sub: "Todos los Ejercicios", name: "Snake & Twist", value: "Avanzado" },
+                { sub: "Todos los Ejercicios", name: "Corkscrew, Tick Tock", value: "2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Step Off Control Balance", value: "Equilibrio" },
+                { sub: "Todos los Ejercicios", name: "Feet in Straps (Long Spine Massage, Leg Circles, Frogs)", value: "2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Knee Stretch Series (Round, Arched, Knees Off)", value: "2 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Running", value: "4 Resortes" },
+                { sub: "Todos los Ejercicios", name: "Pelvic Lift", value: "Fortalecimiento" },
+                { sub: "Todos los Ejercicios", name: "Push up Front", value: "2 Resortes (Gear Out)" },
+                { sub: "Todos los Ejercicios", name: "Push up Back", value: "2 Resortes (Reg Gear)" },
+                { sub: "Todos los Ejercicios", name: "Side Splits", value: "2 o 1 Resorte" },
+                { sub: "Todos los Ejercicios", name: "Front Splits / Russian Splits", value: "2 Resortes" }
+            ]
+        };
+
+        // Estado Global de la App
+        let currentMainTab = 'mat';
+        let currentSubFilter = 'Todos';
+
+        // Cambiar entre Mat y Reformer
+        function switchMainTab(tab) {
+            currentMainTab = tab;
+            currentSubFilter = 'Todos'; // Reiniciar subfiltro
+            document.getElementById('search-input').value = ''; // Limpiar buscador
             
-            if (categories.length > 0) {
-                activeCategory = categories[0]; // La primera categoría se activa por defecto
-                renderTabs(categories);
-                renderExercises();
+            // Actualizar diseño de botones principales
+            const matBtn = document.getElementById('tab-mat');
+            const refBtn = document.getElementById('tab-reformer');
+            
+            if(tab === 'mat') {
+                matBtn.className = "px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer bg-[#EAE0D5] text-stone-800 border-[#DDD0C2] shadow-xs";
+                refBtn.className = "px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-stone-600";
+            } else {
+                refBtn.className = "px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer bg-[#EAE0D5] text-stone-800 border-[#DDD0C2] shadow-xs";
+                matBtn.className = "px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-stone-600";
             }
+
+            renderSubcategories();
+            handleFilter();
         }
 
-        // Renderizar los botones de las categorías
-        function renderTabs(categories) {
-            const tabsContainer = document.getElementById("categories-tabs");
-            tabsContainer.innerHTML = "";
+        // Renderizar las píldoras de filtro secundario basándose en los datos
+        function renderSubcategories() {
+            const container = document.getElementById('subcategories-container');
+            container.innerHTML = '';
 
-            categories.forEach(category => {
-                const button = document.createElement("button");
-                button.textContent = category;
+            // Obtener las subcategorías únicas para esta pestaña principal
+            const uniqueSubs = ['Todos', ...new Set(db[currentMainTab].map(item => item.sub))];
+
+            uniqueSubs.forEach(sub => {
+                const btn = document.createElement('button');
+                btn.textContent = sub;
+                btn.className = "px-4 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 cursor-pointer ";
                 
-                // Clases base para el estilo cute/minimalista
-                button.className = "px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ";
-                
-                // Estilo activo vs inactivo
-                if (category === activeCategory) {
-                    button.className += "bg-[#EAE0D5] text-stone-800 shadow-sm border border-[#DDD0C2]";
+                if(sub === currentSubFilter) {
+                    btn.className += "bg-stone-800 text-white shadow-xs";
                 } else {
-                    button.className += "bg-white text-stone-400 hover:text-stone-600 border border-stone-200/60 hover:border-stone-300";
+                    btn.className += "bg-stone-100 text-stone-500 hover:bg-stone-200";
                 }
 
-                // Evento al hacer clic en una categoría
-                button.onclick = () => {
-                    activeCategory = category;
-                    renderTabs(categories);
-                    renderExercises();
+                btn.onclick = () => {
+                    currentSubFilter = sub;
+                    renderSubcategories();
+                    handleFilter();
                 };
-
-                tabsContainer.appendChild(button);
+                container.appendChild(btn);
             });
         }
 
-        // Renderizar las tarjetas de ejercicios de la categoría activa
-        function renderExercises() {
-            const container = document.getElementById("exercises-container");
-            container.innerHTML = "";
+        // Filtrar y buscar en tiempo real
+        function handleFilter() {
+            const searchText = document.getElementById('search-input').value.toLowerCase();
+            const grid = document.getElementById('exercises-grid');
+            grid.innerHTML = '';
 
-            // Filtrar los ejercicios por la categoría seleccionada
-            const filteredExercises = excelData.filter(item => item.categoria === activeCategory);
+            // Filtrar lista completa del tab seleccionado
+            let filteredList = db[currentMainTab];
 
-            filteredExercises.forEach(ex => {
-                const card = document.createElement("div");
-                // Estilo de tarjeta aesthetic: bordes suaves, fondo blanco limpio, sombras ligeras
-                card.className = "bg-white p-6 rounded-2xl border border-stone-200/50 shadow-xs hover:shadow-md transition-shadow duration-300 flex flex-col justify-between";
+            // 1. Filtrar por subcategoría si no es 'Todos'
+            if (currentSubFilter !== 'Todos') {
+                filteredList = filteredList.filter(item => item.sub === currentSubFilter);
+            }
+
+            // 2. Filtrar por texto de búsqueda
+            if (searchText) {
+                filteredList = filteredList.filter(item => item.name.toLowerCase().includes(searchText));
+            }
+
+            // Validar si está vacío
+            if(filteredList.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center text-stone-400 text-sm py-12 italic">No encontramos ejercicios que coincidan con la búsqueda.</div>`;
+                return;
+            }
+
+            // Crear tarjetas
+            filteredList.forEach(ex => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl border border-stone-200/50 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between";
+                
+                // Definir etiqueta dinámica (Repeticiones o Resortes)
+                const label = currentMainTab === 'mat' ? 'Repeticiones' : 'Configuración / Resortes';
 
                 card.innerHTML = `
                     <div>
-                        <h3 class="serif-title text-xl font-normal text-stone-800 mb-2">${ex.ejercicio}</h3>
-                        <p class="text-xs text-stone-400 italic mb-4">${ex.tip || ''}</p>
+                        <span class="text-[10px] font-semibold tracking-wider text-[#A98467] uppercase bg-[#F5EBE6] px-2 py-0.5 rounded-md">${ex.sub}</span>
+                        <h3 class="serif-title text-xl font-normal text-stone-800 mt-3 mb-1">${ex.name}</h3>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-stone-100 flex justify-between items-center">
-                        <span class="text-xs uppercase tracking-wider text-stone-400 font-medium">Repeticiones</span>
-                        <span class="px-3 py-1 bg-[#F5EBE6] text-[#A98467] text-xs font-semibold rounded-lg">${ex.repeticiones}</span>
+                    <div class="mt-6 pt-3 border-t border-stone-100 flex justify-between items-center">
+                        <span class="text-xs uppercase tracking-wider text-stone-400 font-medium">${label}</span>
+                        <span class="px-3 py-1 bg-stone-100 text-stone-700 text-xs font-semibold rounded-lg">${ex.value}</span>
                     </div>
                 `;
-
-                container.appendChild(card);
+                grid.appendChild(card);
             });
         }
 
-        // Arrancar la app al cargar
-        document.addEventListener("DOMContentLoaded", init);
+        // Inicializar la App en Pilates Mat
+        document.addEventListener("DOMContentLoaded", () => {
+            switchMainTab('mat');
+        });
     </script>
 </body>
 </html>
