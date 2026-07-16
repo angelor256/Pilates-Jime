@@ -7,7 +7,7 @@
     <!-- Tailwind CSS para el diseño aesthetic y moderno -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Google Fonts para tipografías delicadas -->
-    <link rel="preconnect" href="https://fonts.googleapis.com font-display">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght=0,400;0,500;1,400&display=swap" rel="stylesheet">
     
@@ -27,16 +27,22 @@
 <body class="text-stone-700 min-h-screen flex flex-col">
 
     <!-- Encabezado Principal -->
-    <header class="w-full py-8 text-center bg-white/60 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200/50">
+    <header class="w-full py-8 text-center bg-white/70 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200/50">
         <h1 class="serif-title text-4xl font-light tracking-wide text-stone-800">Pilates con Jime</h1>
-        <p class="text-xs uppercase tracking-[0.25em] text-stone-400 mt-2">Mindful Movement & Balance</p>
+        <p class="text-xs uppercase tracking-[0.25em] text-[#A98467] mt-2 font-semibold">Mindful Movement & Balance</p>
 
-        <!-- Menú de Pestañas Principales -->
-        <div class="flex justify-center gap-4 mt-6">
-            <button id="tab-mat" onclick="switchMainTab('mat')" class="px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer border shadow-xs">
-                Pilates Mat
+        <!-- Menú de Pestañas Rediseñado -->
+        <div class="flex flex-wrap justify-center gap-3 mt-6 px-4">
+            <button id="tab-mat" onclick="switchMainTab('mat')" class="px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer border shadow-2xs">
+                Mat (Todos)
             </button>
-            <button id="tab-reformer" onclick="switchMainTab('reformer')" class="px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer border shadow-xs">
+            <button id="tab-mat-basico" onclick="switchMainTab('mat-basico')" class="px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer border shadow-2xs">
+                Mat Básico
+            </button>
+            <button id="tab-mat-intermedio" onclick="switchMainTab('mat-intermedio')" class="px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer border shadow-2xs">
+                Mat Intermedio
+            </button>
+            <button id="tab-reformer" onclick="switchMainTab('reformer')" class="px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer border shadow-2xs">
                 Reformer
             </button>
         </div>
@@ -46,26 +52,31 @@
     <main class="max-w-4xl w-full mx-auto px-6 py-10 flex-grow">
         
         <!-- Buscador -->
-        <div class="bg-white p-6 rounded-2xl border border-stone-200/60 shadow-xs mb-8">
+        <div class="bg-white p-5 rounded-2xl border border-stone-200/60 shadow-xs mb-8">
             <input type="text" id="search-input" oninput="handleFilter()" placeholder="Buscar un ejercicio específico por su nombre..." 
                 class="w-full pl-4 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors">
         </div>
 
+        <!-- Título de Sección Actual -->
+        <div class="mb-6">
+            <h2 id="section-title" class="serif-title text-2xl font-medium text-stone-800"></h2>
+            <div class="h-[2px] w-16 bg-[#A98467] mt-2 rounded-full"></div>
+        </div>
+
         <!-- Contenedor Mixto Dinámico -->
         <div id="exercises-container" class="space-y-4">
-            <!-- Aquí se inyectarán dinámicamente las tarjetas individuales y los bloques desplegables -->
+            <!-- Aquí se inyectan las tarjetas y los acordeones automáticamente -->
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="w-full py-6 text-center text-xs text-stone-400 border-t border-stone-200/40 bg-white/30">
-        <p>&copy; Pilates con Jime. Hecho con ♡.</p>
+        <p>&copy; Pilates con Jime. Hecho con ♡ para Umera.</p>
     </footer>
 
     <script>
-        // BASE DE DATOS ULTRA FIEL AL ORDEN EXACTO DEL EXCEL
-        // "isGroup: true" define si es un título en mayúscula y negrita que requiere menú desplegable.
-        // "isGroup: false" define si es un ejercicio individual que se pinta directo y limpio en la pantalla.
+        // BASE DE DATOS ULTRA COMPLETA Y DIVIDIDA SEGÚN TUS NUEVAS PESTAÑAS
+        // Para cambiar o añadir fotos de Jime, solo pon la ruta de la imagen en 'img'.
         const db = {
             mat: [
                 { isGroup: false, name: "The Hundred", value: "100", img: "" },
@@ -115,74 +126,101 @@
                 { isGroup: false, name: "Crab", value: "3-6x", img: "" },
                 { isGroup: false, name: "Rocking", value: "5x", img: "" },
                 { isGroup: false, name: "Control Balance", value: "3x", img: "" },
-                { isGroup: false, name: "Push Ups", value: "3-10x", img: "" },
-                
-                // TÍTULO GRANDE 1 -> SE CONVIERTE EN GRUPO DESPLEGABLE
-                {
-                    isGroup: true,
-                    title: "MAT CLASICO BASICO (PRINCIPIANTES)",
+                { isGroup: false, name: "Push Ups", value: "3-10x", img: "" }
+            ],
+            'mat-basico': [
+                { isGroup: false, name: "Hundred", value: "Básico", img: "" },
+                { isGroup: false, name: "Roll-up", value: "Básico", img: "" },
+                { isGroup: false, name: "Leg Circles", value: "Básico", img: "" },
+                { isGroup: false, name: "Rolling like ball", value: "Básico", img: "" },
+                { 
+                    isGroup: true, 
+                    title: "THE FIVES (ISOMÉTRICOS)", 
                     exercises: [
-                        { name: "Hundred", value: "Básico", img: "" },
-                        { name: "Roll-up", value: "Básico", img: "" },
-                        { name: "Leg Circles", value: "Básico", img: "" },
-                        { name: "Rolling like ball", value: "Básico", img: "" },
-                        { name: "The Fives (Isométricos)", value: "Isométricos", img: "", subItems: ["1- Single leg stretch", "2- Double leg stretch", "3- Single Straight Leg (scissors)", "4- Double straight leg", "5- Criss Cross"] },
-                        { name: "Spine stretch forward", value: "Básico", img: "" },
-                        { name: "CorckScrew", value: "Básico", img: "" },
-                        { name: "Saw", value: "Básico", img: "" },
-                        { name: "Swan", value: "Básico", img: "" },
-                        { name: "Knee stretches", value: "Básico", img: "" },
-                        { name: "Single Leg Kick", value: "Básico", img: "" },
-                        { name: "Double Leg Kick", value: "Básico", img: "" },
-                        { name: "Shoulder Bridge", value: "Básico", img: "" },
-                        { name: "Side Stretches", value: "Básico", img: "" },
-                        { name: "Side Kicks", value: "Básico", img: "", subItems: ["Front", "Up and Down", "Circles", "Inside leg lift"] },
-                        { name: "Seal", value: "Básico", img: "" },
-                        { name: "Push up's 1", value: "Final", img: "" }
+                        { name: "1- Single leg stretch", value: "Básico", img: "" },
+                        { name: "2- Double leg stretch", value: "Básico", img: "" },
+                        { name: "3- Single Straight Leg (scissors)", value: "Básico", img: "" },
+                        { name: "4- Double straight leg", value: "Básico", img: "" },
+                        { name: "5- Criss Cross", value: "Básico", img: "" }
                     ]
                 },
-                
-                // TÍTULO GRANDE 2 -> SE CONVIERTE EN GRUPO DESPLEGABLE
-                {
-                    isGroup: true,
-                    title: "MAT CLASICO INTERMEDIO",
+                { isGroup: false, name: "Spine stretch forward", value: "Básico", img: "" },
+                { isGroup: false, name: "CorckScrew", value: "Básico", img: "" },
+                { isGroup: false, name: "Saw", value: "Básico", img: "" },
+                { isGroup: false, name: "Swan", value: "Básico", img: "" },
+                { isGroup: false, name: "Knee stretches", value: "Básico", img: "" },
+                { isGroup: false, name: "Single Leg Kick", value: "Básico", img: "" },
+                { isGroup: false, name: "Double Leg Kick", value: "Básico", img: "" },
+                { isGroup: false, name: "Shoulder Bridge", value: "Básico", img: "" },
+                { isGroup: false, name: "Side Stretches", value: "Básico", img: "" },
+                { 
+                    isGroup: true, 
+                    title: "SIDE KICKS SERIES", 
                     exercises: [
-                        { name: "Hundred", value: "Intermedio", img: "" },
-                        { name: "Roll-up", value: "Intermedio", img: "" },
-                        { name: "Roll-over", value: "Intermedio", img: "" },
-                        { name: "Leg Circles", value: "Intermedio", img: "" },
-                        { name: "Rolling like ball", value: "Intermedio", img: "" },
-                        { name: "The Fives (Isométricos)", value: "Intermedio", img: "", subItems: ["1- Single leg stretch", "2- Double leg stretch", "3- Single Straight Leg (scissors)", "4- Double straight leg", "5- Criss Cross"] },
-                        { name: "Spine stretch forward", value: "Intermedio", img: "" },
-                        { name: "Open Leg Rocker", value: "Intermedio", img: "" },
-                        { name: "CorckScrew", value: "Intermedio", img: "" },
-                        { name: "Saw", value: "Intermedio", img: "" },
-                        { name: "Swan", value: "Intermedio", img: "" },
-                        { name: "Swan Dive", value: "Intermedio", img: "" },
-                        { name: "Knee stretches", value: "Intermedio", img: "" },
-                        { name: "Single Leg Kick", value: "Intermedio", img: "" },
-                        { name: "Double Leg Kick", value: "Intermedio", img: "" },
-                        { name: "Leg Pull", value: "Intermedio", img: "" },
-                        { name: "Shoulder Bridge", value: "Intermedio", img: "" },
-                        { name: "Scissors", value: "Intermedio", img: "" },
-                        { name: "Bicicle", value: "Intermedio", img: "" },
-                        { name: "Spine Twist", value: "Intermedio", img: "" },
-                        { name: "Jack Knife", value: "Intermedio", img: "" },
-                        { name: "Mermaid", value: "Intermedio", img: "" },
-                        { name: "Side stretches", value: "Intermedio", img: "" },
-                        { name: "Side Kicks", value: "Intermedio", img: "", subItems: ["Front", "Up and Down", "Circles", "Inside leg lift", "Hot Potato", "Rond de Jambe"] },
-                        { name: "Swimming", value: "Intermedio", img: "" },
-                        { name: "Teaser 1, 2, 3", value: "Intermedio", img: "" },
-                        { name: "Hip Twist", value: "Intermedio", img: "" },
-                        { name: "Leg Pull Front", value: "Intermedio", img: "" },
-                        { name: "Leg Pull Back", value: "Intermedio", img: "" },
-                        { name: "Seal", value: "Intermedio", img: "" },
-                        { name: "Push up's 1, 2", value: "Final Intermedio", img: "" }
+                        { name: "Front", value: "Básico", img: "" },
+                        { name: "Up and Down", value: "Básico", img: "" },
+                        { name: "Circles", value: "Básico", img: "" },
+                        { name: "Inside leg lift", value: "Básico", img: "" }
                     ]
-                }
+                },
+                { isGroup: false, name: "Seal", value: "Básico", img: "" },
+                { isGroup: false, name: "Push up's 1", value: "Final", img: "" }
+            ],
+            'mat-intermedio': [
+                { isGroup: false, name: "Hundred", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Roll-up", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Roll-over", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Leg Circles", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Rolling like ball", value: "Intermedio", img: "" },
+                { 
+                    isGroup: true, 
+                    title: "THE FIVES (ISOMÉTRICOS)", 
+                    exercises: [
+                        { name: "1- Single leg stretch", value: "Intermedio", img: "" },
+                        { name: "2- Double leg stretch", value: "Intermedio", img: "" },
+                        { name: "3- Single Straight Leg (scissors)", value: "Intermedio", img: "" },
+                        { name: "4- Double straight leg", value: "Intermedio", img: "" },
+                        { name: "5- Criss Cross", value: "Intermedio", img: "" }
+                    ]
+                },
+                { isGroup: false, name: "Spine stretch forward", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Open Leg Rocker", value: "Intermedio", img: "" },
+                { isGroup: false, name: "CorckScrew", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Saw", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Swan", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Swan Dive", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Knee stretches", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Single Leg Kick", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Double Leg Kick", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Leg Pull", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Shoulder Bridge", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Scissors", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Bicicle", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Spine Twist", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Jack Knife", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Mermaid", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Side stretches", value: "Intermedio", img: "" },
+                { 
+                    isGroup: true, 
+                    title: "SIDE KICKS SERIES", 
+                    exercises: [
+                        { name: "Front", value: "Intermedio", img: "" },
+                        { name: "Up and Down", value: "Intermedio", img: "" },
+                        { name: "Circles", value: "Intermedio", img: "" },
+                        { name: "Inside leg lift", value: "Intermedio", img: "" },
+                        { name: "Hot Potato", value: "Intermedio", img: "" },
+                        { name: "Rond de Jambe", value: "Intermedio", img: "" }
+                    ]
+                },
+                { isGroup: false, name: "Swimming", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Teaser 1, 2, 3", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Hip Twist", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Leg Pull Front", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Leg Pull Back", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Seal", value: "Intermedio", img: "" },
+                { isGroup: false, name: "Push up's 1, 2", value: "Final Intermedio", img: "" }
             ],
             reformer: [
-                // LOS QUE ESTÁN SOLOS EN EL EXCEL TIENEN "isGroup: false"
                 { 
                     isGroup: true, 
                     title: "FOOTWORK SERIES", 
@@ -290,20 +328,29 @@
 
         let currentMainTab = 'mat';
 
+        const tabTitles = {
+            'mat': 'Ejercicios de Pilates Mat (Completos)',
+            'mat-basico': 'Rutina Mat Clásico Básico (Principiantes)',
+            'mat-intermedio': 'Rutina Mat Clásico Intermedio',
+            'reformer': 'Ejercicios & Series de Reformer'
+        };
+
         function switchMainTab(tab) {
             currentMainTab = tab;
-            document.getElementById('search-input').value = ''; // Resetear barra de búsqueda
+            document.getElementById('search-input').value = ''; // Limpiar buscador
             
-            const matBtn = document.getElementById('tab-mat');
-            const refBtn = document.getElementById('tab-reformer');
-            
-            if(tab === 'mat') {
-                matBtn.className = "px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer bg-[#EAE0D5] text-stone-800 border-[#DDD0C2] shadow-xs";
-                refBtn.className = "px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-stone-600";
-            } else {
-                refBtn.className = "px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer bg-[#EAE0D5] text-stone-800 border-[#DDD0C2] shadow-xs";
-                matBtn.className = "px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-stone-600";
-            }
+            // Actualizar título de sección en pantalla
+            document.getElementById('section-title').textContent = tabTitles[tab];
+
+            const tabs = ['mat', 'mat-basico', 'mat-intermedio', 'reformer'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if(t === tab) {
+                    btn.className = "px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer bg-[#A98467] text-white border-[#A98467] shadow-md";
+                } else {
+                    btn.className = "px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-stone-600";
+                }
+            });
 
             handleFilter();
         }
@@ -320,20 +367,20 @@
             }
         }
 
-        // Renderizador de una fila de ejercicio individual estándar
+        // Diseño para ejercicio suelto (estilo plano, sutil)
         function renderExerciseRow(ex, badgeLabel) {
             return `
-                <div class="bg-white border border-stone-200/70 p-4 rounded-xl shadow-2xs flex flex-col md:flex-row justify-between gap-4 items-start md:items-center">
-                    <div class="flex gap-4 items-start md:items-center">
+                <div class="bg-white border border-stone-200/60 p-4 rounded-xl shadow-3xs flex flex-col md:flex-row justify-between gap-4 items-start md:items-center hover:border-stone-300 transition-colors">
+                    <div class="flex gap-4 items-center">
                         ${ex.img ? `
                             <img src="${ex.img}" alt="${ex.name}" class="w-16 h-16 object-cover rounded-lg border border-stone-200 shadow-3xs flex-shrink-0">
                         ` : `
-                            <div class="w-16 h-16 bg-stone-100 rounded-lg border border-stone-200/50 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic flex-shrink-0">
+                            <div class="w-16 h-16 bg-stone-100 rounded-lg border border-stone-200/40 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic flex-shrink-0">
                                 <span>Sin foto</span>
                             </div>
                         `}
                         <div>
-                            <h4 class="text-stone-800 text-base font-semibold">${ex.name}</h4>
+                            <h4 class="text-stone-800 text-base font-semibold tracking-wide">${ex.name}</h4>
                             ${ex.subItems ? `
                                 <div class="mt-1.5 flex flex-wrap gap-1">
                                     ${ex.subItems.map(sub => `<span class="text-[10px] bg-stone-50 text-stone-500 px-2 py-0.5 rounded-md border border-stone-200/40">- ${sub}</span>`).join('')}
@@ -343,7 +390,42 @@
                     </div>
                     <div class="flex items-center gap-1.5 self-end md:self-center">
                         <span class="text-[10px] uppercase tracking-wider text-stone-400 font-medium">${badgeLabel}:</span>
-                        <span class="px-2.5 py-1 bg-[#F5EBE6] text-[#A98467] text-xs font-semibold rounded-md">${ex.value || 'N/A'}</span>
+                        <span class="px-2.5 py-1 bg-[#FAF7F2] text-[#A98467] text-xs font-semibold rounded-md border border-[#E6DFD5]">${ex.value || 'N/A'}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Diseño de grupo para el acordeón (Especial, con color contrastado)
+        function renderGroupAccordion(item, index, badgeLabel, searchText) {
+            let exercisesToRender = item.exercises;
+
+            if (searchText) {
+                exercisesToRender = item.exercises.filter(ex => 
+                    ex.name.toLowerCase().includes(searchText)
+                );
+                if (!item.title.toLowerCase().includes(searchText) && exercisesToRender.length === 0) {
+                    return ''; // Ocultar si no hay coincidencias
+                }
+                if (exercisesToRender.length === 0) exercisesToRender = item.exercises;
+            }
+
+            return `
+                <div class="bg-[#F5F2EC] border border-[#DDD0C2] rounded-xl shadow-xs overflow-hidden transition-all duration-300">
+                    <!-- Botón del Bloque Desplegable (Estilo Contraste) -->
+                    <div onclick="toggleDropdown('${index}')" class="p-5 flex justify-between items-center cursor-pointer bg-[#F5F2EC] hover:bg-[#EDE8DE] transition-colors">
+                        <div>
+                            <span class="text-[9px] font-bold tracking-wider text-white bg-[#A98467] px-2 py-0.5 rounded-md uppercase">Grupo Especial</span>
+                            <h3 class="serif-title text-lg font-semibold text-stone-800 mt-1.5 pr-4">${item.title}</h3>
+                        </div>
+                        <svg id="icon-${index}" class="w-5 h-5 text-[#A98467] transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Contenedor Interno Desplegable -->
+                    <div id="content-${index}" class="${searchText ? '' : 'hidden'} border-t border-[#DDD0C2] bg-white p-4 space-y-2">
+                        ${exercisesToRender.map(ex => renderExerciseRow(ex, badgeLabel)).join('')}
                     </div>
                 </div>
             `;
@@ -354,58 +436,19 @@
             const container = document.getElementById('exercises-container');
             container.innerHTML = '';
 
-            const badgeLabel = currentMainTab === 'mat' ? 'Reps' : 'Resortes';
+            const badgeLabel = currentMainTab === 'reformer' ? 'Resortes' : 'Reps';
             let list = db[currentMainTab];
 
             list.forEach((item, index) => {
-                // CASO 1: ES UN EJERCICIO PLANO / INDIVIDUAL (Fuera de los grupos)
                 if (!item.isGroup) {
                     if (searchText && !item.name.toLowerCase().includes(searchText) && !(item.subItems && item.subItems.some(s => s.toLowerCase().includes(searchText)))) {
-                        return; // Ocultar si no coincide con la búsqueda
+                        return; // Saltar si no hay coincidencia
                     }
                     container.innerHTML += renderExerciseRow(item, badgeLabel);
-                } 
-                // CASO 2: ES UN TÍTULO GRANDE / EN NEGRIQUITA DE GRUPO DESPLEGABLE
-                else {
-                    let exercisesToRender = item.exercises;
-                    
-                    // Si el usuario busca algo, filtramos los ejercicios de este acordeón
-                    if (searchText) {
-                        exercisesToRender = item.exercises.filter(ex => 
-                            ex.name.toLowerCase().includes(searchText) || 
-                            (ex.subItems && ex.subItems.some(s => s.toLowerCase().includes(searchText)))
-                        );
-                        if (!item.title.toLowerCase().includes(searchText) && exercisesToRender.length === 0) {
-                            return; // No renderizar el acordeón completo si nada coincide
-                        }
-                        if (exercisesToRender.length === 0) exercisesToRender = item.exercises;
-                    }
-
-                    const card = document.createElement('div');
-                    card.className = "bg-white border border-stone-200/70 rounded-xl shadow-xs overflow-hidden transition-all duration-300";
-                    
-                    card.innerHTML = `
-                        <!-- Botón del Bloque Desplegable -->
-                        <div onclick="toggleDropdown('${index}')" class="p-5 flex justify-between items-center cursor-pointer bg-stone-50/40 hover:bg-stone-50 transition-colors">
-                            <div>
-                                <span class="text-[9px] font-bold tracking-wider text-[#A98467] bg-[#F5EBE6] px-2 py-0.5 rounded-sm uppercase">Categoría Especial</span>
-                                <h3 class="serif-title text-lg font-semibold text-stone-800 mt-1 pr-4">${item.title}</h3>
-                            </div>
-                            <svg id="icon-${index}" class="w-5 h-5 text-stone-400 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-
-                        <!-- Contenedor Interno Desplegable -->
-                        <div id="content-${index}" class="hidden border-t border-stone-100 bg-stone-50/10 p-3 space-y-2">
-                            ${exercisesToRender.map(ex => renderExerciseRow(ex, badgeLabel)).join('')}
-                        </div>
-                    `;
-                    container.appendChild(card);
-
-                    // Si hay una búsqueda activa, dejamos el grupo abierto automáticamente
-                    if (searchText) {
-                        toggleDropdown(index);
+                } else {
+                    const accordionHTML = renderGroupAccordion(item, index, badgeLabel, searchText);
+                    if (accordionHTML) {
+                        container.innerHTML += accordionHTML;
                     }
                 }
             });
@@ -415,7 +458,7 @@
             }
         }
 
-        // Inicializar la app en la pestaña Mat
+        // Cargar Mat por defecto al iniciar
         document.addEventListener("DOMContentLoaded", () => {
             switchMainTab('mat');
         });
