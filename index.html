@@ -7,7 +7,7 @@
     <!-- Tailwind CSS para el diseño aesthetic y moderno -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Google Fonts para tipografías delicadas -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com font-display">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght=0,400;0,500;1,400&display=swap" rel="stylesheet">
     
@@ -46,16 +46,14 @@
     <main class="max-w-4xl w-full mx-auto px-6 py-10 flex-grow">
         
         <!-- Buscador -->
-        <div class="bg-white p-6 rounded-2xl border border-stone-200/60 shadow-xs mb-8 flex flex-col sm:flex-row gap-4 items-center justify-between">
-            <div class="relative w-full">
-                <input type="text" id="search-input" oninput="handleFilter()" placeholder="Buscar un ejercicio específico por su nombre..." 
-                    class="w-full pl-4 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors">
-            </div>
+        <div class="bg-white p-6 rounded-2xl border border-stone-200/60 shadow-xs mb-8">
+            <input type="text" id="search-input" oninput="handleFilter()" placeholder="Buscar un ejercicio específico por su nombre..." 
+                class="w-full pl-4 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors">
         </div>
 
         <!-- Contenedor Único de Acordeones Dinámicos -->
-        <div id="exercises-container" class="space-y-4">
-            <!-- Las series se generarán dinámicamente aquí -->
+        <div id="exercises-container" class="space-y-6">
+            <!-- Las categorías principales se generarán dinámicamente aquí -->
         </div>
     </main>
 
@@ -65,14 +63,14 @@
     </footer>
 
     <script>
-        // BASE DE DATOS ESTRUCTURADA EN CATEGORÍAS/SERIES CON SOPORTE PARA IMÁGENES
+        // BASE DE DATOS ESTRUCTURADA SIGUIENDO EL ORDEN Y CONTENIDO DEL EXCEL REAL
         const db = {
             mat: [
                 {
-                    title: "Todos los Ejercicios de Pilates Mat y Repeticiones",
+                    title: "TODOS LOS EJERCICIOS DE PILATES MAT Y REPETICIONES",
                     label: "Bloque Completo",
                     exercises: [
-                        { name: "The Hundred", value: "100 bombeos", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=300&q=80" }, // Puedes cambiar esta URL de ejemplo por la tuya
+                        { name: "The Hundred", value: "100", img: "" },
                         { name: "Roll Up", value: "3-5x", img: "" },
                         { name: "Roll Over", value: "3 sets", img: "" },
                         { name: "Single Leg Circles", value: "3-5x", img: "" },
@@ -86,116 +84,194 @@
                         { name: "Open Leg Rocker", value: "6x", img: "" },
                         { name: "Corkscrew w/Hips over", value: "3-5 sets", img: "" },
                         { name: "Saw", value: "4 sets", img: "" },
-                        { name: "Neck Roll/Swan", value: "3-5x", img: "" }
+                        { name: "Neck Roll/Swan", value: "3-5x", img: "" },
+                        { name: "Single Leg Kicks", value: "5 sets", img: "" },
+                        { name: "Double Leg Kicks", value: "3 sets", img: "" },
+                        { name: "Neck Pull", value: "3-5x", img: "" },
+                        { name: "High Scissors", value: "3-5 sets", img: "" },
+                        { name: "High Bicycle", value: "3-5 sets", img: "" },
+                        { name: "Shoulder Bridge", value: "3-5 kicks", img: "" },
+                        { name: "High Bridge", value: "1x", img: "" },
+                        { name: "Spine Twist", value: "3 sets", img: "" },
+                        { name: "Jackknife", value: "3x", img: "" },
+                        { 
+                            name: "Side Kicks", 
+                            value: "all 3-10x", 
+                            img: "",
+                            subItems: ["Front/Back", "Up/Down", "Circles", "Bicycle", "Inner Thigh Lifts, Beats & Circles", "Big Circles", "Hot Potato", "Big Scissors"]
+                        },
+                        { name: "Teaser 1", value: "3x", img: "" },
+                        { name: "Teaser 2", value: "3x", img: "" },
+                        { name: "Teaser 3", value: "3x", img: "" },
+                        { name: "Hip Circles", value: "3 sets", img: "" },
+                        { name: "Swimming", value: "3 breaths", img: "" },
+                        { name: "Leg Pull Front", value: "3 sets", img: "" },
+                        { name: "Leg Pull Back", value: "3 sets", img: "" },
+                        { name: "Kneeling Side Kicks", value: "4 sets", img: "" },
+                        { name: "Mermaid", value: "3 sets", img: "" },
+                        { name: "Side Bend", value: "3x ea side", img: "" },
+                        { name: "Snake/Twist", value: "3 sets", img: "" },
+                        { name: "Boomerang", value: "3 sets", img: "" },
+                        { name: "Seal", value: "6x", img: "" },
+                        { name: "Crab", value: "3-6x", img: "" },
+                        { name: "Rocking", value: "5x", img: "" },
+                        { name: "Control Balance", value: "3x", img: "" },
+                        { name: "Push Ups", value: "3-10x", img: "" }
                     ]
                 },
                 {
-                    title: "Mat Clásico Básico (Principiantes)",
+                    title: "MAT CLASICO BASICO (PRINCIPIANTES)",
                     label: "Nivel Inicial",
                     exercises: [
                         { name: "Hundred", value: "Básico", img: "" },
                         { name: "Roll-up", value: "Básico", img: "" },
                         { name: "Leg Circles", value: "Básico", img: "" },
                         { name: "Rolling like ball", value: "Básico", img: "" },
-                        { name: "The Fives (Isométricos)", value: "Bloque 1-5", img: "" },
-                        { name: "Spine Stretch Forward", value: "Básico", img: "" },
-                        { name: "CorkScrew", value: "Básico", img: "" },
+                        { 
+                            name: "The Fives (Isométricos)", 
+                            value: "Isométricos", 
+                            img: "",
+                            subItems: ["1- Single leg stretch", "2- Double leg stretch", "3- Single Straight Leg (scissors)", "4- Double straight leg", "5- Criss Cross"]
+                        },
+                        { name: "Spine stretch forward", value: "Básico", img: "" },
+                        { name: "CorckScrew", value: "Básico", img: "" },
                         { name: "Saw", value: "Básico", img: "" },
                         { name: "Swan", value: "Básico", img: "" },
+                        { name: "Knee stretches", value: "Básico", img: "" },
+                        { name: "Single Leg Kick", value: "Básico", img: "" },
+                        { name: "Double Leg Kick", value: "Básico", img: "" },
+                        { name: "Shoulder Bridge", value: "Básico", img: "" },
+                        { name: "Side Stretches", value: "Básico", img: "" },
+                        { 
+                            name: "Side Kicks", 
+                            value: "Básico", 
+                            img: "",
+                            subItems: ["Front", "Up and Down", "Circles", "Inside leg lift"]
+                        },
                         { name: "Seal", value: "Básico", img: "" },
                         { name: "Push up's 1", value: "Final", img: "" }
                     ]
                 },
                 {
-                    title: "Mat Clásico Intermedio",
+                    title: "MAT CLASICO INTERMEDIO",
                     label: "Nivel Medio",
                     exercises: [
-                        { name: "Hundred & Roll-up", value: "Intermedio", img: "" },
-                        { name: "Roll-over & Leg Circles", value: "Intermedio", img: "" },
+                        { name: "Hundred", value: "Intermedio", img: "" },
+                        { name: "Roll-up", value: "Intermedio", img: "" },
+                        { name: "Roll-over", value: "Intermedio", img: "" },
+                        { name: "Leg Circles", value: "Intermedio", img: "" },
                         { name: "Rolling like ball", value: "Intermedio", img: "" },
-                        { name: "The Fives Completos", value: "Intermedio", img: "" },
-                        { name: "Open Leg Rocker & CorckScrew", value: "Intermedio", img: "" },
-                        { name: "Saw & Swan Dive", value: "Intermedio", img: "" },
-                        { name: "Scissors & Bicicle", value: "Intermedio", img: "" },
-                        { name: "Jack Knife & Mermaid", value: "Intermedio", img: "" },
+                        { 
+                            name: "The Fives (Isométricos)", 
+                            value: "Intermedio", 
+                            img: "",
+                            subItems: ["1- Single leg stretch", "2- Double leg stretch", "3- Single Straight Leg (scissors)", "4- Double straight leg", "5- Criss Cross"]
+                        },
+                        { name: "Spine stretch forward", value: "Intermedio", img: "" },
+                        { name: "Open Leg Rocker", value: "Intermedio", img: "" },
+                        { name: "CorckScrew", value: "Intermedio", img: "" },
+                        { name: "Saw", value: "Intermedio", img: "" },
+                        { name: "Swan", value: "Intermedio", img: "" },
+                        { name: "Swan Dive", value: "Intermedio", img: "" },
+                        { name: "Knee stretches", value: "Intermedio", img: "" },
+                        { name: "Single Leg Kick", value: "Intermedio", img: "" },
+                        { name: "Double Leg Kick", value: "Intermedio", img: "" },
+                        { name: "Leg Pull", value: "Intermedio", img: "" },
+                        { name: "Shoulder Bridge", value: "Intermedio", img: "" },
+                        { name: "Scissors", value: "Intermedio", img: "" },
+                        { name: "Bicicle", value: "Intermedio", img: "" },
+                        { name: "Spine Twist", value: "Intermedio", img: "" },
+                        { name: "Jack Knife", value: "Intermedio", img: "" },
+                        { name: "Mermaid", value: "Intermedio", img: "" },
+                        { name: "Side stretches", value: "Intermedio", img: "" },
+                        { 
+                            name: "Side Kicks", 
+                            value: "Intermedio", 
+                            img: "",
+                            subItems: ["Front", "Up and Down", "Circles", "Inside leg lift", "Hot Potato", "Rond de Jambe"]
+                        },
+                        { name: "Swimming", value: "Intermedio", img: "" },
                         { name: "Teaser 1, 2, 3", value: "Intermedio", img: "" },
-                        { name: "Seal & Push up's 1, 2", value: "Final Intermedio", img: "" }
+                        { name: "Hip Twist", value: "Intermedio", img: "" },
+                        { name: "Leg Pull Front", value: "Intermedio", img: "" },
+                        { name: "Leg Pull Back", value: "Intermedio", img: "" },
+                        { name: "Seal", value: "Intermedio", img: "" },
+                        { name: "Push up's 1, 2", value: "Final Intermedio", img: "" }
                     ]
                 }
             ],
             reformer: [
-                { 
-                    title: "Footwork Series", 
-                    label: "Serie de Reformer",
-                    exercises: [
-                        { name: "Toes", value: "4 Resortes", img: "" },
-                        { name: "Arches", value: "4 Resortes", img: "" },
-                        { name: "Heels", value: "4 Resortes", img: "" },
-                        { name: "Tendon Stretch", value: "4 Resortes", img: "" },
-                        { name: "Hundred", value: "4 Resortes", img: "" }
-                    ]
-                },
                 {
-                    title: "Overhead & Coordination",
-                    label: "Serie de Reformer",
+                    title: "TODOS LOS EJERCICIOS DE REFORMER Y CONFIGURACIONES",
+                    label: "Reformer Completo",
                     exercises: [
-                        { name: "Overhead", value: "2 Resortes", img: "" },
-                        { name: "Coordination", value: "2 Resortes", img: "" }
-                    ]
-                },
-                { 
-                    title: "Rowing Series", 
-                    label: "Serie de Reformer",
-                    exercises: [
-                        { name: "Into the Sternum", value: "1 Resorte", img: "" },
-                        { name: "90 Degrees", value: "1 Resorte", img: "" },
-                        { name: "From the Chest", value: "1 Resorte", img: "" },
-                        { name: "From the Hips", value: "1 Resorte", img: "" },
-                        { name: "Shaving", value: "1 Resorte", img: "" },
-                        { name: "Hug", value: "1 Resorte", img: "" }
-                    ]
-                },
-                { 
-                    title: "Long Box Series", 
-                    label: "Serie de Reformer",
-                    exercises: [
-                        { name: "Pull Straps", value: "1 Resorte", img: "" },
-                        { name: "Backstroke", value: "2 Resortes", img: "" },
-                        { name: "Teaser", value: "1 Resorte", img: "" },
-                        { name: "Horseback", value: "1 Resorte", img: "" }
-                    ]
-                },
-                { 
-                    title: "Short Box Series", 
-                    label: "Serie de Reformer",
-                    exercises: [
-                        { name: "Round Back", value: "2 Resortes", img: "" },
-                        { name: "Flat Back", value: "2 Resortes", img: "" },
-                        { name: "Side to Side", value: "2 Resortes", img: "" },
-                        { name: "Twist", value: "2 Resortes", img: "" },
-                        { name: "Tree", value: "2 Resortes", img: "" }
-                    ]
-                },
-                { 
-                    title: "Long Stretch Series", 
-                    label: "Serie de Reformer",
-                    exercises: [
-                        { name: "Long Stretch", value: "2 Resortes", img: "" },
-                        { name: "Down Stretch", value: "2 Resortes", img: "" },
-                        { name: "Up Stretch", value: "2 Resortes", img: "" },
-                        { name: "Elephant", value: "2 Resortes", img: "" },
-                        { name: "Long Back Stretch", value: "2 Resortes", img: "" }
-                    ]
-                },
-                { 
-                    title: "Stomach Massage Series", 
-                    label: "Serie de Reformer",
-                    exercises: [
-                        { name: "Round", value: "4 Resortes", img: "" },
-                        { name: "Hands Back", value: "3 Resortes", img: "" },
-                        { name: "Reach Up", value: "2 Resortes", img: "" },
-                        { name: "Twist", value: "2 Resortes", img: "" },
-                        { name: "Tendon Stretch", value: "2 Resortes", img: "" }
+                        { 
+                            name: "Footwork", 
+                            value: "4", 
+                            img: "",
+                            subItems: ["Toes", "Arches", "Heels", "Tendon Stretch"]
+                        },
+                        { name: "Hundred", value: "4", img: "" },
+                        { name: "Overhead", value: "2", img: "" },
+                        { name: "Coordination", value: "2", img: "" },
+                        { 
+                            name: "Rowing Series", 
+                            value: "1", 
+                            img: "",
+                            subItems: ["Into the Sternum", "90 Degrees", "From the Chest", "From the Hips", "Shaving", "Hug"]
+                        },
+                        { name: "Swan", value: "2", img: "" },
+                        { 
+                            name: "Long Box Series", 
+                            value: "1-2", 
+                            img: "",
+                            subItems: ["Pull Straps (1)", "Backstroke (2)", "Teaser (1)", "Horseback (1)"]
+                        },
+                        { 
+                            name: "Short Box Series", 
+                            value: "2", 
+                            img: "",
+                            subItems: ["Round Back", "Flat Back", "Side to Side", "Twist", "Tree"]
+                        },
+                        { 
+                            name: "Long Stretch Series", 
+                            value: "2", 
+                            img: "",
+                            subItems: ["Long Stretch", "Down Stretch", "Up Stretch", "Elephant", "Long Back Stretch"]
+                        },
+                        { 
+                            name: "Stomach Massage Series", 
+                            value: "4-3-2", 
+                            img: "",
+                            subItems: ["Round (4)", "Hands Back (3)", "Reach Up (2)", "Twist (2)", "Tendon Stretch (2)"]
+                        },
+                        { name: "Short Spine Massage", value: "2", img: "" },
+                        { name: "Semi Circle", value: "2", img: "" },
+                        { name: "Chest Expansion", value: "2", img: "" },
+                        { name: "Thigh Stretch", value: "3", img: "" },
+                        { name: "Arm Circles", value: "1", img: "" },
+                        { name: "Snake & Twist", value: "2", img: "" },
+                        { name: "Corkscrew, Tick Tock", value: "2", img: "" },
+                        { name: "Step Off Control Balance", value: "2", img: "" },
+                        { 
+                            name: "Feet in Straps", 
+                            value: "2", 
+                            img: "",
+                            subItems: ["Long Spine Massage", "Leg Circles", "Frogs"]
+                        },
+                        { 
+                            name: "Knee Stretch Series", 
+                            value: "2", 
+                            img: "",
+                            subItems: ["Round", "Arched", "Knees Off"]
+                        },
+                        { name: "Running", value: "4", img: "" },
+                        { name: "Pelvic Lift", value: "2", img: "" },
+                        { name: "Push up Front", value: "2 (gear out)", img: "" },
+                        { name: "Push up Back", value: "2 (reg gear)", img: "" },
+                        { name: "Side Splits", value: "2 o 1", img: "" },
+                        { name: "Front Splits", value: "2", img: "" },
+                        { name: "Russian Splits", value: "2", img: "" }
                     ]
                 }
             ]
@@ -205,7 +281,7 @@
 
         function switchMainTab(tab) {
             currentMainTab = tab;
-            document.getElementById('search-input').value = ''; // Limpiar buscador al cambiar
+            document.getElementById('search-input').value = ''; // Limpiar buscador
             
             const matBtn = document.getElementById('tab-mat');
             const refBtn = document.getElementById('tab-reformer');
@@ -240,10 +316,13 @@
 
             let list = db[currentMainTab];
 
-            // Si hay un texto de búsqueda, filtramos los bloques dinámicamente
+            // Buscar en títulos o sub-ejercicios
             if (searchText) {
                 list = list.map(block => {
-                    const matchedExercises = block.exercises.filter(e => e.name.toLowerCase().includes(searchText));
+                    const matchedExercises = block.exercises.filter(e => 
+                        e.name.toLowerCase().includes(searchText) || 
+                        (e.subItems && e.subItems.some(sub => sub.toLowerCase().includes(searchText)))
+                    );
                     if (block.title.toLowerCase().includes(searchText) || matchedExercises.length > 0) {
                         return { ...block, exercises: matchedExercises.length > 0 ? matchedExercises : block.exercises };
                     }
@@ -252,51 +331,60 @@
             }
 
             if(list.length === 0) {
-                container.innerHTML = `<p class="text-center text-stone-400 text-sm py-12 italic">No encontramos ejercicios con ese nombre.</p>`;
+                container.innerHTML = `<p class="text-center text-stone-400 text-sm py-12 italic">No se encontraron resultados.</p>`;
                 return;
             }
 
-            // Generar los acordeones dinámicamente
+            // Renderizar cada bloque/sección en mayúscula de Excel como un acordeón principal
             list.forEach((block, index) => {
                 const card = document.createElement('div');
                 card.className = "bg-white border border-stone-200/70 rounded-xl shadow-xs overflow-hidden transition-all duration-300";
                 
-                // Texto de la derecha (Repeticiones o Resortes según la pestaña)
-                const rightSideLabel = currentMainTab === 'mat' ? 'Repeticiones' : 'Resortes';
+                const rightSideHeader = currentMainTab === 'mat' ? 'Reps' : 'Resortes';
 
                 card.innerHTML = `
-                    <!-- Encabezado del Acordeón -->
+                    <!-- Encabezado del Acordeón (Títulos en Mayúscula) -->
                     <div onclick="toggleDropdown('${index}')" class="p-5 flex justify-between items-center cursor-pointer hover:bg-stone-50/60 transition-colors">
                         <div>
                             <span class="text-[10px] font-bold tracking-wider text-[#A98467] uppercase bg-[#F5EBE6] px-2 py-0.5 rounded-md">${block.label}</span>
-                            <h3 class="serif-title text-xl text-stone-800 mt-1 pr-4">${block.title}</h3>
+                            <h3 class="serif-title text-lg md:text-xl font-medium text-stone-800 mt-1.5 pr-4">${block.title}</h3>
                         </div>
                         <svg id="icon-${index}" class="w-5 h-5 text-stone-400 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
 
-                    <!-- Contenido Desplegable del bloque -->
-                    <div id="content-${index}" class="hidden border-t border-stone-100 bg-stone-50/30 divide-y divide-stone-100">
+                    <!-- Contenido Desplegable -->
+                    <div id="content-${index}" class="hidden border-t border-stone-100 bg-stone-50/20 divide-y divide-stone-100">
                         ${block.exercises.map(ex => `
-                            <div class="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/50">
-                                <div class="flex flex-col md:flex-row md:items-center gap-4">
-                                    <!-- Espacio para la Imagen -->
+                            <div class="p-5 flex flex-col md:flex-row justify-between gap-4 bg-white/40">
+                                <div class="flex gap-4 items-start md:items-center">
+                                    <!-- Imagen Demostrativa -->
                                     ${ex.img ? `
                                         <img src="${ex.img}" alt="${ex.name}" class="w-20 h-20 object-cover rounded-lg border border-stone-200 shadow-2xs">
                                     ` : `
-                                        <div class="w-20 h-20 bg-stone-100 rounded-lg border border-stone-200/60 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic">
-                                            Sin foto
+                                        <div class="w-20 h-20 bg-stone-100 rounded-lg border border-stone-200/50 flex flex-col items-center justify-center text-stone-300 text-[10px] text-center p-1 italic">
+                                            <span>Sin foto</span>
                                         </div>
                                     `}
                                     <div>
-                                        <h4 class="text-stone-700 text-base font-medium">${ex.name}</h4>
-                                        <p class="text-[11px] text-stone-400 mt-0.5">Pilates original</p>
+                                        <h4 class="text-stone-800 text-base font-semibold">${ex.name}</h4>
+                                        
+                                        <!-- Sub-ejercicios planos (los de guion del Excel) -->
+                                        ${ex.subItems ? `
+                                            <div class="mt-2 flex flex-wrap gap-1.5">
+                                                ${ex.subItems.map(sub => `
+                                                    <span class="text-[11px] bg-stone-100 text-stone-600 px-2.5 py-0.5 rounded-full border border-stone-200/50">
+                                                        ${sub.startsWith('-') ? sub : '- ' + sub}
+                                                    </span>
+                                                `).join('')}
+                                            </div>
+                                        ` : ''}
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-2 self-end sm:self-center">
-                                    <span class="text-[10px] uppercase tracking-wider text-stone-400 font-medium">${rightSideLabel}:</span>
-                                    <span class="px-3 py-1 bg-[#F5EBE6] text-[#A98467] text-xs font-semibold rounded-lg">${ex.value}</span>
+                                <div class="flex items-center gap-2 self-end md:self-center">
+                                    <span class="text-[10px] uppercase tracking-wider text-stone-400 font-medium">${rightSideHeader}:</span>
+                                    <span class="px-3 py-1 bg-[#F5EBE6] text-[#A98467] text-xs font-semibold rounded-lg shadow-3xs">${ex.value || 'N/A'}</span>
                                 </div>
                             </div>
                         `).join('')}
@@ -304,14 +392,14 @@
                 `;
                 container.appendChild(card);
 
-                // Si se está realizando una búsqueda, abrir los acordeones de forma automática
+                // Auto-desplegar si hay filtros aplicados
                 if(searchText) {
                     toggleDropdown(index);
                 }
             });
         }
 
-        // Cargar por defecto en Pilates Mat
+        // Cargar Mat por defecto
         document.addEventListener("DOMContentLoaded", () => {
             switchMainTab('mat');
         });
