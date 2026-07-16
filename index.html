@@ -75,8 +75,7 @@
     </footer>
 
     <script>
-        // BASE DE DATOS ULTRA COMPLETA Y DIVIDIDA SEGÚN TUS NUEVAS PESTAÑAS
-        // Para cambiar o añadir fotos de Jime, solo pon la ruta de la imagen en 'img'.
+        // BASE DE DATOS ESTRUCTURADA EN EL ORDEN EXACTO DE TU EXCEL
         const db = {
             mat: [
                 { isGroup: false, name: "The Hundred", value: "100", img: "" },
@@ -135,7 +134,7 @@
                 { isGroup: false, name: "Rolling like ball", value: "Básico", img: "" },
                 { 
                     isGroup: true, 
-                    title: "THE FIVES (ISOMÉTRICOS)", 
+                    title: "The fives (isometricos)", 
                     exercises: [
                         { name: "1- Single leg stretch", value: "Básico", img: "" },
                         { name: "2- Double leg stretch", value: "Básico", img: "" },
@@ -155,7 +154,7 @@
                 { isGroup: false, name: "Side Stretches", value: "Básico", img: "" },
                 { 
                     isGroup: true, 
-                    title: "SIDE KICKS SERIES", 
+                    title: "Side Kicks", 
                     exercises: [
                         { name: "Front", value: "Básico", img: "" },
                         { name: "Up and Down", value: "Básico", img: "" },
@@ -164,7 +163,7 @@
                     ]
                 },
                 { isGroup: false, name: "Seal", value: "Básico", img: "" },
-                { isGroup: false, name: "Push up's 1", value: "Final", img: "" }
+                { isGroup: false, name: "Push up's 1", value: "Básico", img: "" }
             ],
             'mat-intermedio': [
                 { isGroup: false, name: "Hundred", value: "Intermedio", img: "" },
@@ -174,7 +173,7 @@
                 { isGroup: false, name: "Rolling like ball", value: "Intermedio", img: "" },
                 { 
                     isGroup: true, 
-                    title: "THE FIVES (ISOMÉTRICOS)", 
+                    title: "The fives (isometricos)", 
                     exercises: [
                         { name: "1- Single leg stretch", value: "Intermedio", img: "" },
                         { name: "2- Double leg stretch", value: "Intermedio", img: "" },
@@ -202,7 +201,7 @@
                 { isGroup: false, name: "Side stretches", value: "Intermedio", img: "" },
                 { 
                     isGroup: true, 
-                    title: "SIDE KICKS SERIES", 
+                    title: "Side Kicks", 
                     exercises: [
                         { name: "Front", value: "Intermedio", img: "" },
                         { name: "Up and Down", value: "Intermedio", img: "" },
@@ -218,12 +217,12 @@
                 { isGroup: false, name: "Leg Pull Front", value: "Intermedio", img: "" },
                 { isGroup: false, name: "Leg Pull Back", value: "Intermedio", img: "" },
                 { isGroup: false, name: "Seal", value: "Intermedio", img: "" },
-                { isGroup: false, name: "Push up's 1, 2", value: "Final Intermedio", img: "" }
+                { isGroup: false, name: "Push up's 1, 2", value: "Intermedio", img: "" }
             ],
             reformer: [
                 { 
                     isGroup: true, 
-                    title: "FOOTWORK SERIES", 
+                    title: "Footwork", 
                     exercises: [
                         { name: "Toes", value: "4", img: "" },
                         { name: "Arches", value: "4", img: "" },
@@ -233,10 +232,10 @@
                 },
                 { isGroup: false, name: "Hundred", value: "4", img: "" },
                 { isGroup: false, name: "Overhead", value: "2", img: "" },
-                { isGroup: false, name: "Coordination", value: "2", img: "" },
+                { isGroup: false, name: "Coordination", value: "N/A", img: "" },
                 { 
                     isGroup: true, 
-                    title: "ROWING SERIES", 
+                    title: "Rowing Series", 
                     exercises: [
                         { name: "Into the Sternum", value: "1", img: "" },
                         { name: "90 Degrees", value: "1", img: "" },
@@ -249,87 +248,87 @@
                 { isGroup: false, name: "Swan", value: "2", img: "" },
                 { 
                     isGroup: true, 
-                    title: "LONG BOX SERIES", 
+                    title: "Long Box Series", 
                     exercises: [
                         { name: "Pull Straps", value: "1", img: "" },
                         { name: "Backstroke", value: "2", img: "" },
                         { name: "Teaser", value: "1", img: "" },
-                        { name: "Horseback", value: "1", img: "" }
+                        { name: "Horseback", value: "N/A", img: "" }
                     ]
                 },
                 { 
                     isGroup: true, 
-                    title: "SHORT BOX SERIES", 
+                    title: "Short Box Series", 
                     exercises: [
                         { name: "Round Back", value: "2", img: "" },
-                        { name: "Flat Back", value: "2", img: "" },
-                        { name: "Side to Side", value: "2", img: "" },
-                        { name: "Twist", value: "2", img: "" },
-                        { name: "Tree", value: "2", img: "" }
+                        { name: "Flat Back", value: "N/A", img: "" },
+                        { name: "Side to Side", value: "N/A", img: "" },
+                        { name: "Twist", value: "N/A", img: "" },
+                        { name: "Tree", value: "N/A", img: "" }
                     ]
                 },
                 { 
                     isGroup: true, 
-                    title: "LONG STRETCH SERIES", 
+                    title: "Long Stretch Series", 
                     exercises: [
                         { name: "Long Stretch", value: "2", img: "" },
-                        { name: "Down Stretch", value: "2", img: "" },
-                        { name: "Up Stretch", value: "2", img: "" },
-                        { name: "Elephant", value: "2", img: "" },
-                        { name: "Long Back Stretch", value: "2", img: "" }
+                        { name: "Down Stretch", value: "N/A", img: "" },
+                        { name: "Up Stretch", value: "N/A", img: "" },
+                        { name: "Elephant", value: "N/A", img: "" },
+                        { name: "Long Back Stretch", value: "N/A", img: "" }
                     ]
                 },
                 { 
                     isGroup: true, 
-                    title: "STOMACH MASSAGE SERIES", 
+                    title: "Stomach Massage Series", 
                     exercises: [
                         { name: "Round", value: "4", img: "" },
                         { name: "Hands Back", value: "3", img: "" },
                         { name: "Reach Up", value: "2", img: "" },
-                        { name: "Twist", value: "2", img: "" },
-                        { name: "Tendon Stretch", value: "2", img: "" }
+                        { name: "Twist", value: "N/A", img: "" },
+                        { name: "Tendon Stretch", value: "N/A", img: "" }
                     ]
                 },
-                { isGroup: false, name: "Short Spine Massage", value: "2", img: "" },
-                { isGroup: false, name: "Semi Circle", value: "2", img: "" },
-                { isGroup: false, name: "Chest Expansion", value: "2", img: "" },
+                { isGroup: false, name: "Short Spine Massage", value: "N/A", img: "" },
+                { isGroup: false, name: "Semi Circle", value: "N/A", img: "" },
+                { isGroup: false, name: "Chest Expansion", value: "N/A", img: "" },
                 { isGroup: false, name: "Thigh Stretch", value: "3", img: "" },
                 { isGroup: false, name: "Arm Circles", value: "1", img: "" },
-                { isGroup: false, name: "Snake & Twist", value: "2", img: "" },
+                { isGroup: false, name: "Snake & Twist", value: "N/A", img: "" },
                 { isGroup: false, name: "Corkscrew, Tick Tock", value: "2", img: "" },
-                { isGroup: false, name: "Step Off Control Balance", value: "2", img: "" },
+                { isGroup: false, name: "Step Off Control Balance", value: "N/A", img: "" },
                 { 
                     isGroup: true, 
-                    title: "FEET IN STRAPS", 
+                    title: "Feet in Straps", 
                     exercises: [
                         { name: "Long Spine Massage", value: "2", img: "" },
-                        { name: "Leg Circles", value: "2", img: "" },
-                        { name: "Frogs", value: "2", img: "" }
+                        { name: "Leg Circles", value: "N/A", img: "" },
+                        { name: "Frogs", value: "N/A", img: "" }
                     ]
                 },
                 { 
                     isGroup: true, 
-                    title: "KNEE STRETCH SERIES", 
+                    title: "Knee Stretch Series", 
                     exercises: [
                         { name: "Round", value: "2", img: "" },
-                        { name: "Arched", value: "2", img: "" },
-                        { name: "Knees Off", value: "2", img: "" }
+                        { name: "Arched", value: "N/A", img: "" },
+                        { name: "Knees Off", value: "N/A", img: "" }
                     ]
                 },
                 { isGroup: false, name: "Running", value: "4", img: "" },
-                { isGroup: false, name: "Pelvic Lift", value: "2", img: "" },
-                { isGroup: false, name: "Push up Front", value: "2 (gear out)", img: "" },
-                { isGroup: false, name: "Push up Back", value: "2 (reg gear)", img: "" },
+                { isGroup: false, name: "Pelvic Lift", value: "N/A", img: "" },
+                { isGroup: false, name: "Push up Front", value: "2, gear out", img: "" },
+                { isGroup: false, name: "Push up Back", value: "2, reg gear", img: "" },
                 { isGroup: false, name: "Side Splits", value: "2 or 1", img: "" },
                 { isGroup: false, name: "Front Splits", value: "2", img: "" },
-                { isGroup: false, name: "Russian Splits", value: "2", img: "" }
+                { isGroup: false, name: "Russian Splits", value: "N/A", img: "" }
             ]
         };
 
         let currentMainTab = 'mat';
 
         const tabTitles = {
-            'mat': 'Ejercicios de Pilates Mat (Completos)',
+            'mat': 'Ejercicios de Pilates Mat (Todos)',
             'mat-basico': 'Rutina Mat Clásico Básico (Principiantes)',
             'mat-intermedio': 'Rutina Mat Clásico Intermedio',
             'reformer': 'Ejercicios & Series de Reformer'
@@ -348,7 +347,7 @@
                 if(t === tab) {
                     btn.className = "px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer bg-[#A98467] text-white border-[#A98467] shadow-md";
                 } else {
-                    btn.className = "px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-stone-600";
+                    btn.className = "px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-[#A98467]";
                 }
             });
 
@@ -367,7 +366,7 @@
             }
         }
 
-        // Diseño para ejercicio suelto (estilo plano, sutil)
+        // Diseño para ejercicio suelto (estilo plano y minimalista)
         function renderExerciseRow(ex, badgeLabel) {
             return `
                 <div class="bg-white border border-stone-200/60 p-4 rounded-xl shadow-3xs flex flex-col md:flex-row justify-between gap-4 items-start md:items-center hover:border-stone-300 transition-colors">
@@ -375,7 +374,7 @@
                         ${ex.img ? `
                             <img src="${ex.img}" alt="${ex.name}" class="w-16 h-16 object-cover rounded-lg border border-stone-200 shadow-3xs flex-shrink-0">
                         ` : `
-                            <div class="w-16 h-16 bg-stone-100 rounded-lg border border-stone-200/40 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic flex-shrink-0">
+                            <div class="w-16 h-16 bg-stone-100 rounded-lg border border-stone-200/40 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic flex-shrink-0 select-none">
                                 <span>Sin foto</span>
                             </div>
                         `}
@@ -383,7 +382,7 @@
                             <h4 class="text-stone-800 text-base font-semibold tracking-wide">${ex.name}</h4>
                             ${ex.subItems ? `
                                 <div class="mt-1.5 flex flex-wrap gap-1">
-                                    ${ex.subItems.map(sub => `<span class="text-[10px] bg-stone-50 text-stone-500 px-2 py-0.5 rounded-md border border-stone-200/40">- ${sub}</span>`).join('')}
+                                    ${ex.subItems.map(sub => `<span class="text-[10px] bg-stone-50 text-stone-500 px-2 py-0.5 rounded-md border border-stone-200/40">${sub}</span>`).join('')}
                                 </div>
                             ` : ''}
                         </div>
@@ -396,7 +395,7 @@
             `;
         }
 
-        // Diseño de grupo para el acordeón (Especial, con color contrastado)
+        // Diseño de grupo para el acordeón (Con fondo de contraste para dividir del resto)
         function renderGroupAccordion(item, index, badgeLabel, searchText) {
             let exercisesToRender = item.exercises;
 
@@ -415,7 +414,7 @@
                     <!-- Botón del Bloque Desplegable (Estilo Contraste) -->
                     <div onclick="toggleDropdown('${index}')" class="p-5 flex justify-between items-center cursor-pointer bg-[#F5F2EC] hover:bg-[#EDE8DE] transition-colors">
                         <div>
-                            <span class="text-[9px] font-bold tracking-wider text-white bg-[#A98467] px-2 py-0.5 rounded-md uppercase">Grupo Especial</span>
+                            <span class="text-[9px] font-bold tracking-wider text-white bg-[#A98467] px-2 py-0.5 rounded-md uppercase">Serie / Grupo</span>
                             <h3 class="serif-title text-lg font-semibold text-stone-800 mt-1.5 pr-4">${item.title}</h3>
                         </div>
                         <svg id="icon-${index}" class="w-5 h-5 text-[#A98467] transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -442,7 +441,7 @@
             list.forEach((item, index) => {
                 if (!item.isGroup) {
                     if (searchText && !item.name.toLowerCase().includes(searchText) && !(item.subItems && item.subItems.some(s => s.toLowerCase().includes(searchText)))) {
-                        return; // Saltar si no hay coincidencia
+                        return; // Saltar si no coincide
                     }
                     container.innerHTML += renderExerciseRow(item, badgeLabel);
                 } else {
@@ -458,7 +457,7 @@
             }
         }
 
-        // Cargar Mat por defecto al iniciar
+        // Inicializar por defecto en Mat (Todos)
         document.addEventListener("DOMContentLoaded", () => {
             switchMainTab('mat');
         });
