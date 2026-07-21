@@ -25,12 +25,10 @@
     </style>
 </head>
 <body class="text-stone-700 min-h-screen flex flex-col">
-
     <!-- Encabezado Principal -->
     <header class="w-full py-8 text-center bg-white/70 backdrop-blur-md sticky top-0 z-40 border-b border-stone-200/50">
         <h1 class="serif-title text-4xl font-light tracking-wide text-stone-800">Pilates con Jime</h1>
         <p class="text-xs uppercase tracking-[0.25em] text-[#A98467] mt-2 font-semibold">Mindful Movement & Balance</p>
-
         <!-- Menú de Pestañas Rediseñado -->
         <div class="flex flex-wrap justify-center gap-3 mt-6 px-4">
             <button id="tab-mat" onclick="switchMainTab('mat')" class="px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer border shadow-2xs">
@@ -47,7 +45,6 @@
             </button>
         </div>
     </header>
-
     <!-- Contenido Principal -->
     <main class="max-w-4xl w-full mx-auto px-6 py-10 flex-grow">
         
@@ -56,19 +53,16 @@
             <input type="text" id="search-input" oninput="handleFilter()" placeholder="Buscar un ejercicio específico por su nombre..." 
                 class="w-full pl-4 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors">
         </div>
-
         <!-- Título de Sección Actual -->
         <div class="mb-6">
             <h2 id="section-title" class="serif-title text-2xl font-medium text-stone-800"></h2>
             <div class="h-[2px] w-16 bg-[#A98467] mt-2 rounded-full"></div>
         </div>
-
         <!-- Contenedor Mixto Dinámico -->
         <div id="exercises-container" class="space-y-4">
             <!-- Aquí se inyectan las tarjetas y los acordeones automáticamente -->
         </div>
     </main>
-
     <!-- Ventana Emergente / Modal de Detalle (Aesthetic y Minimalista) -->
     <div id="exercise-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeModalOnOutsideClick(event)">
         <div class="bg-white rounded-3xl max-w-md w-11/12 overflow-hidden shadow-2xl relative border border-stone-200 transform scale-95 transition-transform duration-300">
@@ -76,7 +70,6 @@
             <button onclick="closeModal()" class="absolute top-4 right-4 bg-white/80 hover:bg-white text-stone-700 hover:text-stone-900 w-8 h-8 rounded-full flex items-center justify-center shadow-sm border border-stone-100 z-10 transition-colors cursor-pointer">
                 ✕
             </button>
-
             <!-- Imagen de Portada del Detalle -->
             <div class="relative w-full h-64 bg-stone-100 flex items-center justify-center overflow-hidden border-b border-stone-100 group">
                 <img id="modal-img" src="" alt="" class="w-full h-full object-cover hidden">
@@ -87,7 +80,6 @@
                     </svg>
                     <span>Sin foto de ejercicio</span>
                 </div>
-
                 <!-- Capa interactiva para subir foto directamente en el detalle -->
                 <label class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-white text-sm font-medium gap-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,22 +89,18 @@
                     <input type="file" id="modal-file-input" accept="image/*" class="hidden">
                 </label>
             </div>
-
             <!-- Información del Ejercicio -->
             <div class="p-6 space-y-4">
                 <div>
                     <span id="modal-badge-category" class="text-[9px] font-bold tracking-widest text-[#A98467] uppercase bg-[#FAF7F2] border border-[#E6DFD5] px-2.5 py-1 rounded-md">Categoría</span>
                     <h3 id="modal-title" class="serif-title text-2xl font-semibold text-stone-800 mt-2.5 leading-tight">Nombre del Ejercicio</h3>
                 </div>
-
                 <div class="h-[1px] bg-stone-100"></div>
-
                 <!-- Detalle de Valor (Repeticiones o Resortes) -->
                 <div class="flex justify-between items-center bg-stone-50 p-3 rounded-xl border border-stone-200/50">
                     <span id="modal-label-value" class="text-xs uppercase tracking-wider text-stone-500 font-medium">Repeticiones / Resortes</span>
                     <span id="modal-value" class="px-3.5 py-1 bg-white text-[#A98467] text-sm font-semibold rounded-lg border border-stone-200 shadow-3xs"></span>
                 </div>
-
                 <!-- Sub-ejercicios o variantes -->
                 <div id="modal-subitems-container" class="hidden">
                     <span class="text-xs uppercase tracking-wider text-stone-500 font-medium block mb-2">Variaciones de la serie:</span>
@@ -121,17 +109,15 @@
             </div>
         </div>
     </div>
-
     <!-- Footer -->
     <footer class="w-full py-6 text-center text-xs text-stone-400 border-t border-stone-200/40 bg-white/30">
         <p>&copy; Pilates con Jime. Hecho con ♡ para Umera.</p>
     </footer>
-
     <script>
         // BASE DE DATOS ESTRUCTURADA EN EL ORDEN EXACTO DE TU EXCEL
         const db = {
             mat: [
-                { id: "m1", isGroup: false, name: "The Hundred", value: "100", img: "https://raw.githubusercontent.com/USUARIO/REPOSITORIO/RAMA/ruta/image.gif" },
+                { id: "m1", isGroup: false, name: "The Hundred", value: "100", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/image.gif" },
                 { id: "m2", isGroup: false, name: "Roll Up", value: "3-5x", img: "" },
                 { id: "m3", isGroup: false, name: "Roll Over", value: "3 sets", img: "" },
                 { id: "m4", isGroup: false, name: "Single Leg Circles", value: "3-5x", img: "" },
@@ -378,16 +364,13 @@
                 { id: "r27", isGroup: false, name: "Russian Splits", value: "N/A", img: "" }
             ]
         };
-
         let currentMainTab = 'mat';
-
         const tabTitles = {
             'mat': 'Ejercicios de Pilates Mat (Todos)',
             'mat-basico': 'Rutina Mat Clásico Básico (Principiantes)',
             'mat-intermedio': 'Rutina Mat Clásico Intermedio',
             'reformer': 'Ejercicios & Series de Reformer'
         };
-
         // Guardar imágenes dinámicamente
         function saveImage(id, base64Image) {
             localStorage.setItem(`img_${id}`, base64Image);
@@ -404,23 +387,19 @@
                 listPlaceholder.classList.add('hidden');
             }
         }
-
         // Subida de foto en general (lista)
         function handleImageUpload(event, id) {
             event.stopPropagation(); // Evitar que se abra el modal al presionar subir foto
             const file = event.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(e) {
                 saveImage(id, e.target.result);
             };
             reader.readAsDataURL(file);
         }
-
         // Configuración de los Modales
         let activeExerciseId = null;
-
         function openModal(id, categoryName) {
             // Encontrar el ejercicio en la db
             let itemFound = null;
@@ -438,10 +417,8 @@
                 });
                 if (search && !itemFound) itemFound = search;
             }
-
             if (!itemFound) return;
             activeExerciseId = id;
-
             // Llenar datos en el modal
             document.getElementById('modal-title').textContent = itemFound.name;
             document.getElementById('modal-badge-category').textContent = tabTitles[categoryName] || 'Pilates';
@@ -449,12 +426,10 @@
             const badgeLabel = categoryName === 'reformer' ? 'Resortes' : 'Repeticiones';
             document.getElementById('modal-label-value').textContent = badgeLabel;
             document.getElementById('modal-value').textContent = itemFound.value || 'N/A';
-
             // Cargar imagen
             const modalImg = document.getElementById('modal-img');
             const modalPlaceholder = document.getElementById('modal-placeholder');
             const currentImg = getExerciseImage(itemFound);
-
             if (currentImg) {
                 modalImg.src = currentImg;
                 modalImg.classList.remove('hidden');
@@ -463,7 +438,6 @@
                 modalImg.classList.add('hidden');
                 modalPlaceholder.classList.remove('hidden');
             }
-
             // Sub-items (variantes)
             const subItemsContainer = document.getElementById('modal-subitems-container');
             const subItemsList = document.getElementById('modal-subitems-list');
@@ -477,13 +451,11 @@
             } else {
                 subItemsContainer.classList.add('hidden');
             }
-
             // Preparar el lector de archivos para el botón del modal
             const modalFileInput = document.getElementById('modal-file-input');
             modalFileInput.onchange = function(e) {
                 const file = e.target.files[0];
                 if (!file) return;
-
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     const base64Image = event.target.result;
@@ -495,7 +467,6 @@
                 };
                 reader.readAsDataURL(file);
             };
-
             // Mostrar el modal con transición suave
             const modal = document.getElementById('exercise-modal');
             modal.classList.remove('hidden');
@@ -505,7 +476,6 @@
                 modal.querySelector('div').classList.add('scale-100');
             }, 10);
         }
-
         function closeModal() {
             const modal = document.getElementById('exercise-modal');
             modal.classList.remove('opacity-100');
@@ -515,25 +485,21 @@
                 modal.classList.add('hidden');
             }, 300);
         }
-
         function closeModalOnOutsideClick(event) {
             if (event.target === document.getElementById('exercise-modal')) {
                 closeModal();
             }
         }
-
         // Cerrar modal con la tecla Esc
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
         });
-
         function switchMainTab(tab) {
             currentMainTab = tab;
             document.getElementById('search-input').value = ''; // Limpiar buscador
             
             // Actualizar título de sección en pantalla
             document.getElementById('section-title').textContent = tabTitles[tab];
-
             const tabs = ['mat', 'mat-basico', 'mat-intermedio', 'reformer'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
@@ -543,10 +509,8 @@
                     btn.className = "px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-[#A98467]";
                 }
             });
-
             handleFilter();
         }
-
         function toggleDropdown(index) {
             const content = document.getElementById(`content-${index}`);
             const icon = document.getElementById(`icon-${index}`);
@@ -558,13 +522,11 @@
                 icon.style.transform = 'rotate(0deg)';
             }
         }
-
         // Obtener ruta de imagen (Dando prioridad al LocalStorage de Jime, luego al código fuente)
         function getExerciseImage(ex) {
             const savedImg = localStorage.getItem(`img_${ex.id}`);
             return savedImg || ex.img || "";
         }
-
         // Diseño para ejercicio suelto con opción de subir foto incorporada
         function renderExerciseRow(ex, badgeLabel) {
             const currentImg = getExerciseImage(ex);
@@ -581,14 +543,12 @@
                                  class="w-16 h-16 bg-stone-100 rounded-lg border border-stone-200/40 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic select-none ${currentImg ? 'hidden' : ''}">
                                 <span>Sin foto</span>
                             </div>
-
                             <!-- Botón Superpuesto para Subir Imagen (Evita propagación) -->
                             <label onclick="event.stopPropagation();" class="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer text-[9px] text-white font-medium text-center p-1 select-none">
                                 Subir Foto
                                 <input type="file" accept="image/*" class="hidden" onchange="handleImageUpload(event, '${ex.id}')">
                             </label>
                         </div>
-
                         <div>
                             <h4 class="text-stone-800 text-base font-semibold tracking-wide">${ex.name}</h4>
                             ${ex.subItems ? `
@@ -606,11 +566,9 @@
                 </div>
             `;
         }
-
         // Diseño de grupo para el acordeón (Con fondo de contraste para dividir del resto)
         function renderGroupAccordion(item, index, badgeLabel, searchText) {
             let exercisesToRender = item.exercises;
-
             if (searchText) {
                 exercisesToRender = item.exercises.filter(ex => 
                     ex.name.toLowerCase().includes(searchText)
@@ -620,7 +578,6 @@
                 }
                 if (exercisesToRender.length === 0) exercisesToRender = item.exercises;
             }
-
             return `
                 <div class="bg-[#F5F2EC] border border-[#DDD0C2] rounded-xl shadow-xs overflow-hidden transition-all duration-300">
                     <!-- Botón del Bloque Desplegable -->
@@ -633,7 +590,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
-
                     <!-- Contenedor Interno Desplegable -->
                     <div id="content-${index}" class="${searchText ? '' : 'hidden'} border-t border-[#DDD0C2] bg-white p-4 space-y-2">
                         ${exercisesToRender.map(ex => renderExerciseRow(ex, badgeLabel)).join('')}
@@ -641,15 +597,12 @@
                 </div>
             `;
         }
-
         function handleFilter() {
             const searchText = document.getElementById('search-input').value.toLowerCase();
             const container = document.getElementById('exercises-container');
             container.innerHTML = '';
-
             const badgeLabel = currentMainTab === 'reformer' ? 'Resortes' : 'Reps';
             let list = db[currentMainTab];
-
             list.forEach((item, index) => {
                 if (!item.isGroup) {
                     if (searchText && !item.name.toLowerCase().includes(searchText) && !(item.subItems && item.subItems.some(s => s.toLowerCase().includes(searchText)))) {
@@ -663,12 +616,10 @@
                     }
                 }
             });
-
             if (container.children.length === 0) {
                 container.innerHTML = `<p class="text-center text-stone-400 text-sm py-12 italic">No encontramos coincidencias.</p>`;
             }
         }
-
         // Inicializar por defecto en Mat (Todos)
         document.addEventListener("DOMContentLoaded", () => {
             switchMainTab('mat');
