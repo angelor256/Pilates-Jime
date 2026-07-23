@@ -1,629 +1,792 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilates con Jime - Rutinas & Ejercicios</title>
-    <!-- Tailwind CSS para el diseño aesthetic y moderno -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google Fonts para tipografías delicadas -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600&family=Playfair+Display:ital,wght=0,400;0,500;1,400&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #FAF7F2; /* Fondo crema suave aesthetic */
-        }
-        .serif-title {
-            font-family: 'Playfair Display', serif;
-        }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #FAF7F2; }
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Pilates con Jime - Rutinas & Ejercicios</title>  
+    <!-- Tailwind CSS para el diseño aesthetic y moderno -->  
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>  
+    <!-- Google Fonts para tipografías delicadas -->  
+    <link rel="preconnect" href="https://fonts.googleapis.com">  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600&family=Playfair+Display:ital,wght=0,400;0,500;1,400&display=swap" rel="stylesheet">  
+      
+    <style>  
+        body {  
+            font-family: 'Plus Jakarta Sans', sans-serif;  
+            background-color: #FAF7F2; /* Fondo crema suave aesthetic */  
+        }  
+        .serif-title {  
+            font-family: 'Playfair Display', serif;  
+        }  
+        ::-webkit-scrollbar { width: 6px; }  
+        ::-webkit-scrollbar-track { background: #FAF7F2; }  
         ::-webkit-scrollbar-thumb { background: #E6DFD5; border-radius: 10px; }
-    </style>
-</head>
-<body class="text-stone-700 min-h-screen flex flex-col">
-    <!-- Encabezado Principal -->
-    <header class="w-full py-8 text-center bg-white/70 backdrop-blur-md sticky top-0 z-40 border-b border-stone-200/50">
-        <h1 class="serif-title text-4xl font-light tracking-wide text-stone-800">Pilates con Jime</h1>
-        <p class="text-xs uppercase tracking-[0.25em] text-[#A98467] mt-2 font-semibold">Mindful Movement & Balance</p>
-        <!-- Menú de Pestañas Rediseñado -->
-        <div class="flex flex-wrap justify-center gap-3 mt-6 px-4">
-            <button id="tab-mat" onclick="switchMainTab('mat')" class="px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer border shadow-2xs">
-                Mat (Todos)
-            </button>
-            <button id="tab-mat-basico" onclick="switchMainTab('mat-basico')" class="px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer border shadow-2xs">
-                Mat Básico
-            </button>
-            <button id="tab-mat-intermedio" onclick="switchMainTab('mat-intermedio')" class="px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer border shadow-2xs">
-                Mat Intermedio
-            </button>
-            <button id="tab-reformer" onclick="switchMainTab('reformer')" class="px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer border shadow-2xs">
-                Reformer
-            </button>
-        </div>
-    </header>
-    <!-- Contenido Principal -->
-    <main class="max-w-4xl w-full mx-auto px-6 py-10 flex-grow">
-        
-        <!-- Buscador -->
-        <div class="bg-white p-5 rounded-2xl border border-stone-200/60 shadow-xs mb-8">
-            <input type="text" id="search-input" oninput="handleFilter()" placeholder="Buscar un ejercicio específico por su nombre..." 
-                class="w-full pl-4 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors">
-        </div>
-        <!-- Título de Sección Actual -->
-        <div class="mb-6">
-            <h2 id="section-title" class="serif-title text-2xl font-medium text-stone-800"></h2>
-            <div class="h-[2px] w-16 bg-[#A98467] mt-2 rounded-full"></div>
-        </div>
-        <!-- Contenedor Mixto Dinámico -->
-        <div id="exercises-container" class="space-y-4">
-            <!-- Aquí se inyectan las tarjetas y los acordeones automáticamente -->
-        </div>
-    </main>
-    <!-- Ventana Emergente / Modal de Detalle (Aesthetic y Minimalista) -->
-    <div id="exercise-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeModalOnOutsideClick(event)">
-        <div class="bg-white rounded-3xl max-w-md w-11/12 overflow-hidden shadow-2xl relative border border-stone-200 transform scale-95 transition-transform duration-300">
-            <!-- Botón de Cerrar Superior -->
-            <button onclick="closeModal()" class="absolute top-4 right-4 bg-white/80 hover:bg-white text-stone-700 hover:text-stone-900 w-8 h-8 rounded-full flex items-center justify-center shadow-sm border border-stone-100 z-10 transition-colors cursor-pointer">
-                ✕
-            </button>
-            <!-- Imagen de Portada del Detalle -->
-            <div class="relative w-full h-64 bg-stone-100 flex items-center justify-center overflow-hidden border-b border-stone-100 group">
-                <img id="modal-img" src="" alt="" class="w-full h-full object-cover hidden">
-                
-                <div id="modal-placeholder" class="text-stone-400 italic text-sm flex flex-col items-center gap-2">
-                    <svg class="w-12 h-12 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>Sin foto de ejercicio</span>
-                </div>
-                <!-- Capa interactiva para subir foto directamente en el detalle -->
-                <label class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-white text-sm font-medium gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                    </svg>
-                    <span>Actualizar Foto</span>
-                    <input type="file" id="modal-file-input" accept="image/*" class="hidden">
-                </label>
+
+        /* ---------- Intro / primera carga ---------- */
+        #intro-overlay {
+            position: fixed; inset: 0; z-index: 999;
+            background: #FAF7F2;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity .7s ease, visibility .7s ease;
+        }
+        #intro-overlay.intro-hide { opacity: 0; visibility: hidden; pointer-events: none; }
+        .breathe-ring {
+            position: absolute; border-radius: 50%; border: 1px solid #A98467;
+            opacity: 0; animation: breathe 2.6s ease-out infinite;
+        }
+        .breathe-ring:nth-child(2) { animation-delay: .65s; }
+        .breathe-ring:nth-child(3) { animation-delay: 1.3s; }
+        @keyframes breathe {
+            0%   { width: 20px; height: 20px; opacity: .9; }
+            80%  { opacity: 0; }
+            100% { width: 220px; height: 220px; opacity: 0; }
+        }
+        .intro-word {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: #8a6f57;
+            letter-spacing: .05em;
+            opacity: 0;
+            animation: introWordIn 1.1s ease forwards .35s;
+        }
+        @keyframes introWordIn {
+            0% { opacity: 0; transform: translateY(6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- Entrada escalonada del contenido ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            animation: revealUp .6s cubic-bezier(.22,1,.36,1) forwards;
+        }
+        @keyframes revealUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- Entrada escalonada de tarjetas / acordeones ---------- */
+        .card-enter {
+            opacity: 0;
+            transform: translateY(10px) scale(.98);
+            animation: cardIn .45s cubic-bezier(.22,1,.36,1) forwards;
+        }
+        @keyframes cardIn {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ---------- Micro-interacciones ---------- */
+        .btn-press { transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, background-color .3s ease, color .3s ease, border-color .3s ease; }
+        .btn-press:active { transform: scale(.94); }
+        .btn-press:hover { transform: translateY(-1px); }
+
+        .exercise-card { transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease, border-color .3s ease; }
+        .exercise-card:hover { transform: translateY(-2px); }
+        .exercise-card:active { transform: translateY(0) scale(.99); }
+
+        /* Acordeón con transición de altura suave */
+        .accordion-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .45s cubic-bezier(.22,1,.36,1);
+        }
+        .accordion-panel.open { grid-template-rows: 1fr; }
+        .accordion-panel > div { overflow: hidden; }
+        .accordion-caret { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+
+        /* Modal con efecto resorte */
+        #exercise-modal.modal-visible { opacity: 1; }
+        #exercise-modal .modal-panel {
+            transition: transform .4s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
+        }
+        #exercise-modal.modal-visible .modal-panel {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Resaltado del título de sección al cambiar */
+        #section-title.title-swap { animation: titleSwap .5s cubic-bezier(.22,1,.36,1); }
+        @keyframes titleSwap {
+            0% { opacity: 0; transform: translateX(-6px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+        }
+    </style>  
+</head>  
+<body class="text-stone-700 min-h-screen flex flex-col">  
+    <!-- Pantalla de Bienvenida (animación de respiración, primera carga) -->
+    <div id="intro-overlay">
+        <div class="relative flex flex-col items-center gap-5">
+            <div class="relative w-14 h-14 flex items-center justify-center">
+                <span class="breathe-ring"></span>
+                <span class="breathe-ring"></span>
+                <span class="breathe-ring"></span>
+                <span class="relative w-2.5 h-2.5 rounded-full bg-[#A98467]"></span>
             </div>
-            <!-- Información del Ejercicio -->
-            <div class="p-6 space-y-4">
-                <div>
-                    <span id="modal-badge-category" class="text-[9px] font-bold tracking-widest text-[#A98467] uppercase bg-[#FAF7F2] border border-[#E6DFD5] px-2.5 py-1 rounded-md">Categoría</span>
-                    <h3 id="modal-title" class="serif-title text-2xl font-semibold text-stone-800 mt-2.5 leading-tight">Nombre del Ejercicio</h3>
-                </div>
-                <div class="h-[1px] bg-stone-100"></div>
-                <!-- Detalle de Valor (Repeticiones o Resortes) -->
-                <div class="flex justify-between items-center bg-stone-50 p-3 rounded-xl border border-stone-200/50">
-                    <span id="modal-label-value" class="text-xs uppercase tracking-wider text-stone-500 font-medium">Repeticiones / Resortes</span>
-                    <span id="modal-value" class="px-3.5 py-1 bg-white text-[#A98467] text-sm font-semibold rounded-lg border border-stone-200 shadow-3xs"></span>
-                </div>
-                <!-- Sub-ejercicios o variantes -->
-                <div id="modal-subitems-container" class="hidden">
-                    <span class="text-xs uppercase tracking-wider text-stone-500 font-medium block mb-2">Variaciones de la serie:</span>
-                    <div id="modal-subitems-list" class="flex flex-wrap gap-1.5"></div>
-                </div>
-            </div>
+            <p class="intro-word">inhala&nbsp;&middot;&nbsp;exhala</p>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="w-full py-6 text-center text-xs text-stone-400 border-t border-stone-200/40 bg-white/30">
-        <p>&copy; Pilates con Jime. Hecho con ♡ para Umera.</p>
-    </footer>
-    <script>
-        // BASE DE DATOS ESTRUCTURADA EN EL ORDEN EXACTO DE TU EXCEL
-        const db = {
-            mat: [
-                { id: "m1", isGroup: false, name: "The Hundred", value: "100", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/image.gif" },
-                { id: "m2", isGroup: false, name: "Roll Up", value: "3-5x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Roll Up.gif" },
-                { id: "m3", isGroup: false, name: "Roll Over", value: "3 sets", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Roll Over.gif" },
-                { id: "m4", isGroup: false, name: "Single Leg Circles", value: "3-5x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Single Leg Circles.gif" },
-                { id: "m5", isGroup: false, name: "Rolling Like a Ball", value: "5-10x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Rolling Like a Ball.gif" },
-                { id: "m6", isGroup: false, name: "Single Leg Stretch", value: "5-10 sets", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Single Leg Stretch.gif" },
-                { id: "m7", isGroup: false, name: "Double Leg Stretch", value: "5-10x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Double Leg Stretch.gif" },
-                { id: "m8", isGroup: false, name: "Single Straight Leg Stretch", value: "5-10 sets", img: "" },
-                { id: "m9", isGroup: false, name: "Double Straight Leg Stretch", value: "5-10x", img: "" },
-                { id: "m10", isGroup: false, name: "Criss Cross", value: "5-10 sets", img: "" },
-                { id: "m11", isGroup: false, name: "Spine Stretch Forward", value: "3-5x", img: "" },
-                { id: "m12", isGroup: false, name: "Open Leg Rocker", value: "6x", img: "" },
-                { id: "m13", isGroup: false, name: "Corkscrew w/Hips over", value: "3-5 sets", img: "" },
-                { id: "m14", isGroup: false, name: "Saw", value: "4 sets", img: "" },
-                { id: "m15", isGroup: false, name: "Neck Roll/Swan", value: "3-5x", img: "" },
-                { id: "m16", isGroup: false, name: "Single Leg Kicks", value: "5 sets", img: "" },
-                { id: "m17", isGroup: false, name: "Double Leg Kicks", value: "3 sets", img: "" },
-                { id: "m18", isGroup: false, name: "Neck Pull", value: "3-5x", img: "" },
-                { id: "m19", isGroup: false, name: "High Scissors", value: "3-5 sets", img: "" },
-                { id: "m20", isGroup: false, name: "High Bicycle", value: "3-5 sets", img: "" },
-                { id: "m21", isGroup: false, name: "Shoulder Bridge", value: "3-5 kicks", img: "" },
-                { id: "m22", isGroup: false, name: "High Bridge", value: "1x", img: "" },
-                { id: "m23", isGroup: false, name: "Spine Twist", value: "3 sets", img: "" },
-                { id: "m24", isGroup: false, name: "Jackknife", value: "3x", img: "" },
-                { 
-                    id: "m25",
-                    isGroup: false, 
-                    name: "Side Kicks", 
-                    value: "all 3-10x", 
-                    img: "", 
-                    subItems: ["Front/Back", "Up/Down", "Circles", "Bicycle", "Inner Thigh Lifts, Beats & Circles", "Big Circles", "Hot Potato", "Big Scissors"] 
-                },
-                { id: "m26", isGroup: false, name: "Teaser 1", value: "3x", img: "" },
-                { id: "m27", isGroup: false, name: "Teaser 2", value: "3x", img: "" },
-                { id: "m28", isGroup: false, name: "Teaser 3", value: "3x", img: "" },
-                { id: "m29", isGroup: false, name: "Hip Circles", value: "3 sets", img: "" },
-                { id: "m30", isGroup: false, name: "Swimming", value: "3 breaths", img: "" },
-                { id: "m31", isGroup: false, name: "Leg Pull Front", value: "3 sets", img: "" },
-                { id: "m32", isGroup: false, name: "Leg Pull Back", value: "3 sets", img: "" },
-                { id: "m33", isGroup: false, name: "Kneeling Side Kicks", value: "4 sets", img: "" },
-                { id: "m34", isGroup: false, name: "Mermaid", value: "3 sets", img: "" },
-                { id: "m35", isGroup: false, name: "Side Bend", value: "3x ea side", img: "" },
-                { id: "m36", isGroup: false, name: "Snake/Twist", value: "3 sets", img: "" },
-                { id: "m37", isGroup: false, name: "Boomerang", value: "3 sets", img: "" },
-                { id: "m38", isGroup: false, name: "Seal", value: "6x", img: "" },
-                { id: "m39", isGroup: false, name: "Crab", value: "3-6x", img: "" },
-                { id: "m40", isGroup: false, name: "Rocking", value: "5x", img: "" },
-                { id: "m41", isGroup: false, name: "Control Balance", value: "3x", img: "" },
-                { id: "m42", isGroup: false, name: "Push Ups", value: "3-10x", img: "" }
-            ],
-            'mat-basico': [
-                { id: "m1", isGroup: false, name: "The Hundred", value: "100", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/image.gif" },
-                { id: "m2", isGroup: false, name: "Roll Up", value: "3-5x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Roll Up.gif" },
-                { id: "mb3", isGroup: false, name: "Leg Circles", value: "Básico", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Single Leg Circles.gif" },
-                { id: "mb4", isGroup: false, name: "Rolling like ball", value: "Básico", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Rolling Like a Ball.gif" },
-                { 
-                    isGroup: true, 
-                    title: "The fives (isométricos)", 
-                    exercises: [
-                        { id: "mb5_1", name: "1- Single leg stretch", value: "Básico", img: "" },
-                        { id: "mb5_2", name: "2- Double leg stretch", value: "Básico", img: "" },
-                        { id: "mb5_3", name: "3- Single Straight Leg (scissors)", value: "Básico", img: "" },
-                        { id: "mb5_4", name: "4- Double straight leg", value: "Básico", img: "" },
-                        { id: "mb5_5", name: "5- Criss Cross", value: "Básico", img: "" }
-                    ]
-                },
-                { id: "mb6", isGroup: false, name: "Spine stretch forward", value: "Básico", img: "" },
-                { id: "mb7", isGroup: false, name: "CorckScrew", value: "Básico", img: "" },
-                { id: "mb8", isGroup: false, name: "Saw", value: "Básico", img: "" },
-                { id: "mb9", isGroup: false, name: "Swan", value: "Básico", img: "" },
-                { id: "mb10", isGroup: false, name: "Knee stretches", value: "Básico", img: "" },
-                { id: "mb11", isGroup: false, name: "Single Leg Kick", value: "Básico", img: "" },
-                { id: "mb12", isGroup: false, name: "Double Leg Kick", value: "Básico", img: "" },
-                { id: "mb13", isGroup: false, name: "Shoulder Bridge", value: "Básico", img: "" },
-                { id: "mb14", isGroup: false, name: "Side Stretches", value: "Básico", img: "" },
-                { 
-                    isGroup: true, 
-                    title: "Side Kicks", 
-                    exercises: [
-                        { id: "mb15_1", name: "Front", value: "Básico", img: "" },
-                        { id: "mb15_2", name: "Up and Down", value: "Básico", img: "" },
-                        { id: "mb15_3", name: "Circles", value: "Básico", img: "" },
-                        { id: "mb15_4", name: "Inside leg lift", value: "Básico", img: "" }
-                    ]
-                },
-                { id: "mb16", isGroup: false, name: "Seal", value: "Básico", img: "" },
-                { id: "mb17", isGroup: false, name: "Push up's 1", value: "Básico", img: "" }
-            ],
-            'mat-intermedio': [
-                { id: "mi1", isGroup: false, name: "Hundred", value: "Intermedio", img: "" },
-                { id: "mi2", isGroup: false, name: "Roll-up", value: "Intermedio", img: "" },
-                { id: "mi3", isGroup: false, name: "Roll-over", value: "Intermedio", img: "" },
-                { id: "mi4", isGroup: false, name: "Leg Circles", value: "Intermedio", img: "" },
-                { id: "mi5", isGroup: false, name: "Rolling like ball", value: "Intermedio", img: "" },
-                { 
-                    isGroup: true, 
-                    title: "The fives (isométricos)", 
-                    exercises: [
-                        { id: "mi6_1", name: "1- Single leg stretch", value: "Intermedio", img: "" },
-                        { id: "mi6_2", name: "2- Double leg stretch", value: "Intermedio", img: "" },
-                        { id: "mi6_3", name: "3- Single Straight Leg (scissors)", value: "Intermedio", img: "" },
-                        { id: "mi6_4", name: "4- Double straight leg", value: "Intermedio", img: "" },
-                        { id: "mi6_5", name: "5- Criss Cross", value: "Intermedio", img: "" }
-                    ]
-                },
-                { id: "mi7", isGroup: false, name: "Spine stretch forward", value: "Intermedio", img: "" },
-                { id: "mi8", isGroup: false, name: "Open Leg Rocker", value: "Intermedio", img: "" },
-                { id: "mi9", isGroup: false, name: "CorckScrew", value: "Intermedio", img: "" },
-                { id: "mi10", isGroup: false, name: "Saw", value: "Intermedio", img: "" },
-                { id: "mi11", isGroup: false, name: "Swan", value: "Intermedio", img: "" },
-                { id: "mi12", isGroup: false, name: "Swan Dive", value: "Intermedio", img: "" },
-                { id: "mi13", isGroup: false, name: "Knee stretches", value: "Intermedio", img: "" },
-                { id: "mi14", isGroup: false, name: "Single Leg Kick", value: "Intermedio", img: "" },
-                { id: "mi15", isGroup: false, name: "Double Leg Kick", value: "Intermedio", img: "" },
-                { id: "mi16", isGroup: false, name: "Leg Pull", value: "Intermedio", img: "" },
-                { id: "mi17", isGroup: false, name: "Shoulder Bridge", value: "Intermedio", img: "" },
-                { id: "mi18", isGroup: false, name: "Scissors", value: "Intermedio", img: "" },
-                { id: "mi19", isGroup: false, name: "Bicicle", value: "Intermedio", img: "" },
-                { id: "mi20", isGroup: false, name: "Spine Twist", value: "Intermedio", img: "" },
-                { id: "mi21", isGroup: false, name: "Jack Knife", value: "Intermedio", img: "" },
-                { id: "mi22", isGroup: false, name: "Mermaid", value: "Intermedio", img: "" },
-                { id: "mi23", isGroup: false, name: "Side stretches", value: "Intermedio", img: "" },
-                { 
-                    isGroup: true, 
-                    title: "Side Kicks", 
-                    exercises: [
-                        { id: "mi24_1", name: "Front", value: "Intermedio", img: "" },
-                        { id: "mi24_2", name: "Up and Down", value: "Intermedio", img: "" },
-                        { id: "mi24_3", name: "Circles", value: "Intermedio", img: "" },
-                        { id: "mi24_4", name: "Inside leg lift", value: "Intermedio", img: "" },
-                        { id: "mi24_5", name: "Hot Potato", value: "Intermedio", img: "" },
-                        { id: "mi24_6", name: "Rond de Jambe", value: "Intermedio", img: "" }
-                    ]
-                },
-                { id: "mi25", isGroup: false, name: "Swimming", value: "Intermedio", img: "" },
-                { id: "mi26", isGroup: false, name: "Teaser 1, 2, 3", value: "Intermedio", img: "" },
-                { id: "mi27", isGroup: false, name: "Hip Twist", value: "Intermedio", img: "" },
-                { id: "mi28", isGroup: false, name: "Leg Pull Front", value: "Intermedio", img: "" },
-                { id: "mi29", isGroup: false, name: "Leg Pull Back", value: "Intermedio", img: "" },
-                { id: "mi30", isGroup: false, name: "Seal", value: "Intermedio", img: "" },
-                { id: "mi31", isGroup: false, name: "Push up's 1, 2", value: "Intermedio", img: "" }
-            ],
-            reformer: [
-                { 
-                    isGroup: true, 
-                    title: "Footwork", 
-                    exercises: [
-                        { id: "r1_1", name: "Toes", value: "4", img: "" },
-                        { id: "r1_2", name: "Arches", value: "4", img: "" },
-                        { id: "r1_3", name: "Heels", value: "4", img: "" },
-                        { id: "r1_4", name: "Tendon Stretch", value: "4", img: "" }
-                    ]
-                },
-                { id: "r2", isGroup: false, name: "Hundred", value: "4", img: "" },
-                { id: "r3", isGroup: false, name: "Overhead", value: "2", img: "" },
-                { id: "r4", isGroup: false, name: "Coordination", value: "N/A", img: "" },
-                { 
-                    isGroup: true, 
-                    title: "Rowing Series", 
-                    exercises: [
-                        { id: "r5_1", name: "Into the Sternum", value: "1", img: "" },
-                        { id: "r5_2", name: "90 Degrees", value: "1", img: "" },
-                        { id: "r5_3", name: "From the Chest", value: "1", img: "" },
-                        { id: "r5_4", name: "From the Hips", value: "1", img: "" },
-                        { id: "r5_5", name: "Shaving", value: "1", img: "" },
-                        { id: "r5_6", name: "Hug", value: "1", img: "" }
-                    ]
-                },
-                { id: "r6", isGroup: false, name: "Swan", value: "2", img: "" },
-                { 
-                    isGroup: true, 
-                    title: "Long Box Series", 
-                    exercises: [
-                        { id: "r7_1", name: "Pull Straps", value: "1", img: "" },
-                        { id: "r7_2", name: "Backstroke", value: "2", img: "" },
-                        { id: "r7_3", name: "Teaser", value: "1", img: "" },
-                        { id: "r7_4", name: "Horseback", value: "N/A", img: "" }
-                    ]
-                },
-                { 
-                    isGroup: true, 
-                    title: "Short Box Series", 
-                    exercises: [
-                        { id: "r8_1", name: "Round Back", value: "2", img: "" },
-                        { id: "r8_2", name: "Flat Back", value: "N/A", img: "" },
-                        { id: "r8_3", name: "Side to Side", value: "N/A", img: "" },
-                        { id: "r8_4", name: "Twist", value: "N/A", img: "" },
-                        { id: "r8_5", name: "Tree", value: "N/A", img: "" }
-                    ]
-                },
-                { 
-                    isGroup: true, 
-                    title: "Long Stretch Series", 
-                    exercises: [
-                        { id: "r9_1", name: "Long Stretch", value: "2", img: "" },
-                        { id: "r9_2", name: "Down Stretch", value: "N/A", img: "" },
-                        { id: "r9_3", name: "Up Stretch", value: "N/A", img: "" },
-                        { id: "r9_4", name: "Elephant", value: "N/A", img: "" },
-                        { id: "r9_5", name: "Long Back Stretch", value: "N/A", img: "" }
-                    ]
-                },
-                { 
-                    isGroup: true, 
-                    title: "Stomach Massage Series", 
-                    exercises: [
-                        { id: "r10_1", name: "Round", value: "4", img: "" },
-                        { id: "r10_2", name: "Hands Back", value: "3", img: "" },
-                        { id: "r10_3", name: "Reach Up", value: "2", img: "" },
-                        { id: "r10_4", name: "Twist", value: "N/A", img: "" },
-                        { id: "r10_5", name: "Tendon Stretch", value: "N/A", img: "" }
-                    ]
-                },
-                { id: "r11", isGroup: false, name: "Short Spine Massage", value: "N/A", img: "" },
-                { id: "r12", isGroup: false, name: "Semi Circle", value: "N/A", img: "" },
-                { id: "r13", isGroup: false, name: "Chest Expansion", value: "N/A", img: "" },
-                { id: "r14", isGroup: false, name: "Thigh Stretch", value: "3", img: "" },
-                { id: "r15", isGroup: false, name: "Arm Circles", value: "1", img: "" },
-                { id: "r16", isGroup: false, name: "Snake & Twist", value: "N/A", img: "" },
-                { id: "r17", isGroup: false, name: "Corkscrew, Tick Tock", value: "2", img: "" },
-                { id: "r18", isGroup: false, name: "Step Off Control Balance", value: "N/A", img: "" },
-                { 
-                    isGroup: true, 
-                    title: "Feet in Straps", 
-                    exercises: [
-                        { id: "r19_1", name: "Long Spine Massage", value: "2", img: "" },
-                        { id: "r19_2", name: "Leg Circles", value: "N/A", img: "" },
-                        { id: "r19_3", name: "Frogs", value: "N/A", img: "" }
-                    ]
-                },
-                { 
-                    isGroup: true, 
-                    title: "Knee Stretch Series", 
-                    exercises: [
-                        { id: "r20_1", name: "Round", value: "2", img: "" },
-                        { id: "r20_2", name: "Arched", value: "N/A", img: "" },
-                        { id: "r20_3", name: "Knees Off", value: "N/A", img: "" }
-                    ]
-                },
-                { id: "r21", isGroup: false, name: "Running", value: "4", img: "" },
-                { id: "r22", isGroup: false, name: "Pelvic Lift", value: "N/A", img: "" },
-                { id: "r23", isGroup: false, name: "Push up Front", value: "2, gear out", img: "" },
-                { id: "r24", isGroup: false, name: "Push up Back", value: "2, reg gear", img: "" },
-                { id: "r25", isGroup: false, name: "Side Splits", value: "2 or 1", img: "" },
-                { id: "r26", isGroup: false, name: "Front Splits", value: "2", img: "" },
-                { id: "r27", isGroup: false, name: "Russian Splits", value: "N/A", img: "" }
-            ]
-        };
-        let currentMainTab = 'mat';
-        const tabTitles = {
-            'mat': 'Ejercicios de Pilates Mat (Todos)',
-            'mat-basico': 'Rutina Mat Clásico Básico (Principiantes)',
-            'mat-intermedio': 'Rutina Mat Clásico Intermedio',
-            'reformer': 'Ejercicios & Series de Reformer'
-        };
-        // Guardar imágenes dinámicamente
-        function saveImage(id, base64Image) {
-            localStorage.setItem(`img_${id}`, base64Image);
-            
-            // Actualizar la lista de fondo de inmediato
-            const listImg = document.getElementById(`img-preview-${id}`);
-            const listPlaceholder = document.getElementById(`img-placeholder-${id}`);
-            
-            if (listImg) {
-                listImg.src = base64Image;
-                listImg.classList.remove('hidden');
-            }
-            if (listPlaceholder) {
-                listPlaceholder.classList.add('hidden');
-            }
-        }
-        // Subida de foto en general (lista)
-        function handleImageUpload(event, id) {
-            event.stopPropagation(); // Evitar que se abra el modal al presionar subir foto
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                saveImage(id, e.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-        // Configuración de los Modales
-        let activeExerciseId = null;
-        function openModal(id, categoryName) {
-            // Encontrar el ejercicio en la db
-            let itemFound = null;
-            for (let tab in db) {
-                const search = db[tab].find(el => {
-                    if (!el.isGroup && el.id === id) return true;
-                    if (el.isGroup) {
-                        const sub = el.exercises.find(subEx => subEx.id === id);
-                        if (sub) {
-                            itemFound = sub;
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-                if (search && !itemFound) itemFound = search;
-            }
-            if (!itemFound) return;
-            activeExerciseId = id;
-            // Llenar datos en el modal
-            document.getElementById('modal-title').textContent = itemFound.name;
-            document.getElementById('modal-badge-category').textContent = tabTitles[categoryName] || 'Pilates';
-            
-            const badgeLabel = categoryName === 'reformer' ? 'Resortes' : 'Repeticiones';
-            document.getElementById('modal-label-value').textContent = badgeLabel;
-            document.getElementById('modal-value').textContent = itemFound.value || 'N/A';
-            // Cargar imagen
-            const modalImg = document.getElementById('modal-img');
-            const modalPlaceholder = document.getElementById('modal-placeholder');
-            const currentImg = getExerciseImage(itemFound);
-            if (currentImg) {
-                modalImg.src = currentImg;
-                modalImg.classList.remove('hidden');
-                modalPlaceholder.classList.add('hidden');
-            } else {
-                modalImg.classList.add('hidden');
-                modalPlaceholder.classList.remove('hidden');
-            }
-            // Sub-items (variantes)
-            const subItemsContainer = document.getElementById('modal-subitems-container');
-            const subItemsList = document.getElementById('modal-subitems-list');
-            subItemsList.innerHTML = '';
-            
-            if (itemFound.subItems && itemFound.subItems.length > 0) {
-                subItemsContainer.classList.remove('hidden');
-                itemFound.subItems.forEach(sub => {
-                    subItemsList.innerHTML += `<span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-lg border border-stone-200">${sub}</span>`;
-                });
-            } else {
-                subItemsContainer.classList.add('hidden');
-            }
-            // Preparar el lector de archivos para el botón del modal
-            const modalFileInput = document.getElementById('modal-file-input');
-            modalFileInput.onchange = function(e) {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const base64Image = event.target.result;
-                    // Guardar y actualizar de inmediato en modal y lista
-                    saveImage(activeExerciseId, base64Image);
-                    modalImg.src = base64Image;
-                    modalImg.classList.remove('hidden');
-                    modalPlaceholder.classList.add('hidden');
-                };
-                reader.readAsDataURL(file);
-            };
-            // Mostrar el modal con transición suave
-            const modal = document.getElementById('exercise-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.add('opacity-100');
-                modal.querySelector('div').classList.remove('scale-95');
-                modal.querySelector('div').classList.add('scale-100');
-            }, 10);
-        }
-        function closeModal() {
-            const modal = document.getElementById('exercise-modal');
-            modal.classList.remove('opacity-100');
-            modal.querySelector('div').classList.remove('scale-100');
-            modal.querySelector('div').classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-        function closeModalOnOutsideClick(event) {
-            if (event.target === document.getElementById('exercise-modal')) {
-                closeModal();
-            }
-        }
-        // Cerrar modal con la tecla Esc
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-        function switchMainTab(tab) {
-            currentMainTab = tab;
-            document.getElementById('search-input').value = ''; // Limpiar buscador
-            
-            // Actualizar título de sección en pantalla
-            document.getElementById('section-title').textContent = tabTitles[tab];
-            const tabs = ['mat', 'mat-basico', 'mat-intermedio', 'reformer'];
-            tabs.forEach(t => {
-                const btn = document.getElementById(`tab-${t}`);
-                if(t === tab) {
-                    btn.className = "px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer bg-[#A98467] text-white border-[#A98467] shadow-md";
-                } else {
-                    btn.className = "px-5 py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-[#A98467]";
-                }
-            });
-            handleFilter();
-        }
-        function toggleDropdown(index) {
-            const content = document.getElementById(`content-${index}`);
-            const icon = document.getElementById(`icon-${index}`);
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-        // Obtener ruta de imagen (Dando prioridad al LocalStorage de Jime, luego al código fuente)
-        function getExerciseImage(ex) {
-            const savedImg = localStorage.getItem(`img_${ex.id}`);
-            return savedImg || ex.img || "";
-        }
-        // Diseño para ejercicio suelto con opción de subir foto incorporada
-        function renderExerciseRow(ex, badgeLabel) {
-            const currentImg = getExerciseImage(ex);
-            return `
-                <div onclick="openModal('${ex.id}', '${currentMainTab}')" 
-                     class="bg-white border border-stone-200/60 p-4 rounded-xl shadow-3xs flex flex-col md:flex-row justify-between gap-4 items-start md:items-center hover:border-stone-400 hover:shadow-xs transition-all duration-300 cursor-pointer">
-                    <div class="flex gap-4 items-center w-full md:w-auto">
-                        <!-- Contenedor de Imagen y Subidor -->
-                        <div class="relative w-16 h-16 group flex-shrink-0">
-                            <img id="img-preview-${ex.id}" src="${currentImg}" alt="${ex.name}" 
-                                 class="w-16 h-16 object-cover rounded-lg border border-stone-200 shadow-3xs ${currentImg ? '' : 'hidden'}">
-                            
-                            <div id="img-placeholder-${ex.id}" 
-                                 class="w-16 h-16 bg-stone-100 rounded-lg border border-stone-200/40 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic select-none ${currentImg ? 'hidden' : ''}">
-                                <span>Sin foto</span>
-                            </div>
-                            <!-- Botón Superpuesto para Subir Imagen (Evita propagación) -->
-                            <label onclick="event.stopPropagation();" class="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer text-[9px] text-white font-medium text-center p-1 select-none">
-                                Subir Foto
-                                <input type="file" accept="image/*" class="hidden" onchange="handleImageUpload(event, '${ex.id}')">
-                            </label>
-                        </div>
-                        <div>
-                            <h4 class="text-stone-800 text-base font-semibold tracking-wide">${ex.name}</h4>
-                            ${ex.subItems ? `
-                                <div class="mt-1.5 flex flex-wrap gap-1">
-                                    ${ex.subItems.map(sub => `<span class="text-[10px] bg-stone-50 text-stone-500 px-2 py-0.5 rounded-md border border-stone-200/40">${sub}</span>`).join('')}
-                                </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center gap-1.5 self-end md:self-center flex-shrink-0">
-                        <span class="text-[10px] uppercase tracking-wider text-stone-400 font-medium">${badgeLabel}:</span>
-                        <span class="px-2.5 py-1 bg-[#FAF7F2] text-[#A98467] text-xs font-semibold rounded-md border border-[#E6DFD5]">${ex.value || 'N/A'}</span>
-                    </div>
-                </div>
-            `;
-        }
-        // Diseño de grupo para el acordeón (Con fondo de contraste para dividir del resto)
-        function renderGroupAccordion(item, index, badgeLabel, searchText) {
-            let exercisesToRender = item.exercises;
-            if (searchText) {
-                exercisesToRender = item.exercises.filter(ex => 
-                    ex.name.toLowerCase().includes(searchText)
-                );
-                if (!item.title.toLowerCase().includes(searchText) && exercisesToRender.length === 0) {
-                    return ''; // Ocultar si no hay coincidencias
-                }
-                if (exercisesToRender.length === 0) exercisesToRender = item.exercises;
-            }
-            return `
-                <div class="bg-[#F5F2EC] border border-[#DDD0C2] rounded-xl shadow-xs overflow-hidden transition-all duration-300">
-                    <!-- Botón del Bloque Desplegable -->
-                    <div onclick="toggleDropdown('${index}')" class="p-5 flex justify-between items-center cursor-pointer bg-[#F5F2EC] hover:bg-[#EDE8DE] transition-colors">
-                        <div>
-                            <span class="text-[9px] font-bold tracking-wider text-white bg-[#A98467] px-2 py-0.5 rounded-md uppercase">Serie / Grupo</span>
-                            <h3 class="serif-title text-lg font-semibold text-stone-800 mt-1.5 pr-4">${item.title}</h3>
-                        </div>
-                        <svg id="icon-${index}" class="w-5 h-5 text-[#A98467] transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </div>
-                    <!-- Contenedor Interno Desplegable -->
-                    <div id="content-${index}" class="${searchText ? '' : 'hidden'} border-t border-[#DDD0C2] bg-white p-4 space-y-2">
-                        ${exercisesToRender.map(ex => renderExerciseRow(ex, badgeLabel)).join('')}
-                    </div>
-                </div>
-            `;
-        }
-        function handleFilter() {
-            const searchText = document.getElementById('search-input').value.toLowerCase();
-            const container = document.getElementById('exercises-container');
-            container.innerHTML = '';
-            const badgeLabel = currentMainTab === 'reformer' ? 'Resortes' : 'Reps';
-            let list = db[currentMainTab];
-            list.forEach((item, index) => {
-                if (!item.isGroup) {
-                    if (searchText && !item.name.toLowerCase().includes(searchText) && !(item.subItems && item.subItems.some(s => s.toLowerCase().includes(searchText)))) {
-                        return; // Saltar si no coincide
-                    }
-                    container.innerHTML += renderExerciseRow(item, badgeLabel);
-                } else {
-                    const accordionHTML = renderGroupAccordion(item, index, badgeLabel, searchText);
-                    if (accordionHTML) {
-                        container.innerHTML += accordionHTML;
-                    }
-                }
-            });
-            if (container.children.length === 0) {
-                container.innerHTML = `<p class="text-center text-stone-400 text-sm py-12 italic">No encontramos coincidencias.</p>`;
-            }
-        }
-        // Inicializar por defecto en Mat (Todos)
-        document.addEventListener("DOMContentLoaded", () => {
-            switchMainTab('mat');
-        });
-    </script>
-</body>
+    <!-- Encabezado Principal -->  
+    <header class="w-full py-8 text-center bg-white/70 backdrop-blur-md sticky top-0 z-40 border-b border-stone-200/50 reveal" style="animation-delay:.05s">  
+        <h1 class="serif-title text-4xl font-light tracking-wide text-stone-800 reveal" style="animation-delay:.15s">Pilates con Jime</h1>  
+        <p class="text-xs uppercase tracking-[0.25em] text-[#A98467] mt-2 font-semibold reveal" style="animation-delay:.25s">Mindful Movement & Balance</p>  
+        <!-- Menú de Pestañas Rediseñado -->  
+        <div id="tabs-container" class="flex flex-wrap justify-center gap-3 mt-6 px-4 reveal" style="animation-delay:.35s">  
+            <button type="button" id="tab-mat" data-tab="mat" class="btn-press px-5 py-2 rounded-full font-medium text-xs md:text-sm cursor-pointer border shadow-2xs">  
+                Mat (Todos)  
+            </button>  
+            <button type="button" id="tab-mat-basico" data-tab="mat-basico" class="btn-press px-5 py-2 rounded-full font-medium text-xs md:text-sm cursor-pointer border shadow-2xs">  
+                Mat Básico  
+            </button>  
+            <button type="button" id="tab-mat-intermedio" data-tab="mat-intermedio" class="btn-press px-5 py-2 rounded-full font-medium text-xs md:text-sm cursor-pointer border shadow-2xs">  
+                Mat Intermedio  
+            </button>  
+            <button type="button" id="tab-reformer" data-tab="reformer" class="btn-press px-5 py-2 rounded-full font-medium text-xs md:text-sm cursor-pointer border shadow-2xs">  
+                Reformer  
+            </button>  
+        </div>  
+    </header>  
+    <!-- Contenido Principal -->  
+    <main class="max-w-4xl w-full mx-auto px-6 py-10 flex-grow">  
+          
+        <!-- Buscador -->  
+        <div class="bg-white p-5 rounded-2xl border border-stone-200/60 shadow-xs mb-8 reveal" style="animation-delay:.45s">  
+            <input type="text" id="search-input" oninput="handleFilter()" placeholder="Buscar un ejercicio específico por su nombre..."   
+                class="w-full pl-4 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-all duration-300 focus:shadow-md focus:-translate-y-0.5">  
+        </div>  
+        <!-- Título de Sección Actual -->  
+        <div class="mb-6 reveal" style="animation-delay:.55s">  
+            <h2 id="section-title" class="serif-title text-2xl font-medium text-stone-800"></h2>  
+            <div class="h-[2px] w-16 bg-[#A98467] mt-2 rounded-full"></div>  
+        </div>  
+        <!-- Contenedor Mixto Dinámico -->  
+        <div id="exercises-container" class="space-y-4">  
+            <!-- Aquí se inyectan las tarjetas y los acordeones automáticamente -->  
+        </div>  
+    </main>  
+    <!-- Ventana Emergente / Modal de Detalle (Aesthetic y Minimalista) -->  
+    <div id="exercise-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeModalOnOutsideClick(event)">  
+        <div class="modal-panel bg-white rounded-3xl max-w-md w-11/12 overflow-hidden shadow-2xl relative border border-stone-200 transform scale-90 opacity-0">  
+            <!-- Botón de Cerrar Superior -->  
+            <button onclick="closeModal()" class="btn-press absolute top-4 right-4 bg-white/80 hover:bg-white text-stone-700 hover:text-stone-900 w-8 h-8 rounded-full flex items-center justify-center shadow-sm border border-stone-100 z-10 cursor-pointer">  
+                ✕  
+            </button>  
+            <!-- Imagen de Portada del Detalle -->  
+            <div class="relative w-full h-64 bg-stone-100 flex items-center justify-center overflow-hidden border-b border-stone-100 group">  
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover hidden">  
+                  
+                <div id="modal-placeholder" class="text-stone-400 italic text-sm flex flex-col items-center gap-2">  
+                    <svg class="w-12 h-12 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">  
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>  
+                    </svg>  
+                    <span>Sin foto de ejercicio</span>  
+                </div>  
+                <!-- Capa interactiva para subir foto directamente en el detalle -->  
+                <label class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-white text-sm font-medium gap-2">  
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">  
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>  
+                    </svg>  
+                    <span>Actualizar Foto</span>  
+                    <input type="file" id="modal-file-input" accept="image/*" class="hidden">  
+                </label>  
+            </div>  
+            <!-- Información del Ejercicio -->  
+            <div class="p-6 space-y-4">  
+                <div>  
+                    <span id="modal-badge-category" class="text-[9px] font-bold tracking-widest text-[#A98467] uppercase bg-[#FAF7F2] border border-[#E6DFD5] px-2.5 py-1 rounded-md">Categoría</span>  
+                    <h3 id="modal-title" class="serif-title text-2xl font-semibold text-stone-800 mt-2.5 leading-tight">Nombre del Ejercicio</h3>  
+                </div>  
+                <div class="h-[1px] bg-stone-100"></div>  
+                <!-- Detalle de Valor (Repeticiones o Resortes) -->  
+                <div class="flex justify-between items-center bg-stone-50 p-3 rounded-xl border border-stone-200/50">  
+                    <span id="modal-label-value" class="text-xs uppercase tracking-wider text-stone-500 font-medium">Repeticiones / Resortes</span>  
+                    <span id="modal-value" class="px-3.5 py-1 bg-white text-[#A98467] text-sm font-semibold rounded-lg border border-stone-200 shadow-3xs"></span>  
+                </div>  
+                <!-- Sub-ejercicios o variantes -->  
+                <div id="modal-subitems-container" class="hidden">  
+                    <span class="text-xs uppercase tracking-wider text-stone-500 font-medium block mb-2">Variaciones de la serie:</span>  
+                    <div id="modal-subitems-list" class="flex flex-wrap gap-1.5"></div>  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+    <!-- Footer -->  
+    <footer class="w-full py-6 text-center text-xs text-stone-400 border-t border-stone-200/40 bg-white/30">  
+        <p>&copy; Pilates con Jime. Hecho con ♡ para Umera.</p>  
+    </footer>  
+    <script>  
+        // BASE DE DATOS ESTRUCTURADA EN EL ORDEN EXACTO DE TU EXCEL  
+        const db = {  
+            mat: [  
+                { id: "m1", isGroup: false, name: "The Hundred", value: "100", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/image.gif" },  
+                { id: "m2", isGroup: false, name: "Roll Up", value: "3-5x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Roll Up.gif" },  
+                { id: "m3", isGroup: false, name: "Roll Over", value: "3 sets", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Roll Over.gif" },  
+                { id: "m4", isGroup: false, name: "Single Leg Circles", value: "3-5x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Single Leg Circles.gif" },  
+                { id: "m5", isGroup: false, name: "Rolling Like a Ball", value: "5-10x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Rolling Like a Ball.gif" },  
+                { id: "m6", isGroup: false, name: "Single Leg Stretch", value: "5-10 sets", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Single Leg Stretch.gif" },  
+                { id: "m7", isGroup: false, name: "Double Leg Stretch", value: "5-10x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Double Leg Stretch.gif" },  
+                { id: "m8", isGroup: false, name: "Single Straight Leg Stretch", value: "5-10 sets", img: "" },  
+                { id: "m9", isGroup: false, name: "Double Straight Leg Stretch", value: "5-10x", img: "" },  
+                { id: "m10", isGroup: false, name: "Criss Cross", value: "5-10 sets", img: "" },  
+                { id: "m11", isGroup: false, name: "Spine Stretch Forward", value: "3-5x", img: "" },  
+                { id: "m12", isGroup: false, name: "Open Leg Rocker", value: "6x", img: "" },  
+                { id: "m13", isGroup: false, name: "Corkscrew w/Hips over", value: "3-5 sets", img: "" },  
+                { id: "m14", isGroup: false, name: "Saw", value: "4 sets", img: "" },  
+                { id: "m15", isGroup: false, name: "Neck Roll/Swan", value: "3-5x", img: "" },  
+                { id: "m16", isGroup: false, name: "Single Leg Kicks", value: "5 sets", img: "" },  
+                { id: "m17", isGroup: false, name: "Double Leg Kicks", value: "3 sets", img: "" },  
+                { id: "m18", isGroup: false, name: "Neck Pull", value: "3-5x", img: "" },  
+                { id: "m19", isGroup: false, name: "High Scissors", value: "3-5 sets", img: "" },  
+                { id: "m20", isGroup: false, name: "High Bicycle", value: "3-5 sets", img: "" },  
+                { id: "m21", isGroup: false, name: "Shoulder Bridge", value: "3-5 kicks", img: "" },  
+                { id: "m22", isGroup: false, name: "High Bridge", value: "1x", img: "" },  
+                { id: "m23", isGroup: false, name: "Spine Twist", value: "3 sets", img: "" },  
+                { id: "m24", isGroup: false, name: "Jackknife", value: "3x", img: "" },  
+                {   
+                    id: "m25",  
+                    isGroup: false,   
+                    name: "Side Kicks",   
+                    value: "all 3-10x",   
+                    img: "",   
+                    subItems: ["Front/Back", "Up/Down", "Circles", "Bicycle", "Inner Thigh Lifts, Beats & Circles", "Big Circles", "Hot Potato", "Big Scissors"]   
+                },  
+                { id: "m26", isGroup: false, name: "Teaser 1", value: "3x", img: "" },  
+                { id: "m27", isGroup: false, name: "Teaser 2", value: "3x", img: "" },  
+                { id: "m28", isGroup: false, name: "Teaser 3", value: "3x", img: "" },  
+                { id: "m29", isGroup: false, name: "Hip Circles", value: "3 sets", img: "" },  
+                { id: "m30", isGroup: false, name: "Swimming", value: "3 breaths", img: "" },  
+                { id: "m31", isGroup: false, name: "Leg Pull Front", value: "3 sets", img: "" },  
+                { id: "m32", isGroup: false, name: "Leg Pull Back", value: "3 sets", img: "" },  
+                { id: "m33", isGroup: false, name: "Kneeling Side Kicks", value: "4 sets", img: "" },  
+                { id: "m34", isGroup: false, name: "Mermaid", value: "3 sets", img: "" },  
+                { id: "m35", isGroup: false, name: "Side Bend", value: "3x ea side", img: "" },  
+                { id: "m36", isGroup: false, name: "Snake/Twist", value: "3 sets", img: "" },  
+                { id: "m37", isGroup: false, name: "Boomerang", value: "3 sets", img: "" },  
+                { id: "m38", isGroup: false, name: "Seal", value: "6x", img: "" },  
+                { id: "m39", isGroup: false, name: "Crab", value: "3-6x", img: "" },  
+                { id: "m40", isGroup: false, name: "Rocking", value: "5x", img: "" },  
+                { id: "m41", isGroup: false, name: "Control Balance", value: "3x", img: "" },  
+                { id: "m42", isGroup: false, name: "Push Ups", value: "3-10x", img: "" }  
+            ],  
+            'mat-basico': [  
+                { id: "m1", isGroup: false, name: "The Hundred", value: "100", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/image.gif" },  
+                { id: "m2", isGroup: false, name: "Roll Up", value: "3-5x", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Roll Up.gif" },  
+                { id: "mb3", isGroup: false, name: "Leg Circles", value: "Básico", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Single Leg Circles.gif" },  
+                { id: "mb4", isGroup: false, name: "Rolling like ball", value: "Básico", img: "https://raw.githubusercontent.com/angelor256/Pilates-Jime/main/Rolling Like a Ball.gif" },  
+                {   
+                    isGroup: true,   
+                    title: "The fives (isométricos)",   
+                    exercises: [  
+                        { id: "mb5_1", name: "1- Single leg stretch", value: "Básico", img: "" },  
+                        { id: "mb5_2", name: "2- Double leg stretch", value: "Básico", img: "" },  
+                        { id: "mb5_3", name: "3- Single Straight Leg (scissors)", value: "Básico", img: "" },  
+                        { id: "mb5_4", name: "4- Double straight leg", value: "Básico", img: "" },  
+                        { id: "mb5_5", name: "5- Criss Cross", value: "Básico", img: "" }  
+                    ]  
+                },  
+                { id: "mb6", isGroup: false, name: "Spine stretch forward", value: "Básico", img: "" },  
+                { id: "mb7", isGroup: false, name: "CorckScrew", value: "Básico", img: "" },  
+                { id: "mb8", isGroup: false, name: "Saw", value: "Básico", img: "" },  
+                { id: "mb9", isGroup: false, name: "Swan", value: "Básico", img: "" },  
+                { id: "mb10", isGroup: false, name: "Knee stretches", value: "Básico", img: "" },  
+                { id: "mb11", isGroup: false, name: "Single Leg Kick", value: "Básico", img: "" },  
+                { id: "mb12", isGroup: false, name: "Double Leg Kick", value: "Básico", img: "" },  
+                { id: "mb13", isGroup: false, name: "Shoulder Bridge", value: "Básico", img: "" },  
+                { id: "mb14", isGroup: false, name: "Side Stretches", value: "Básico", img: "" },  
+                {   
+                    isGroup: true,   
+                    title: "Side Kicks",   
+                    exercises: [  
+                        { id: "mb15_1", name: "Front", value: "Básico", img: "" },  
+                        { id: "mb15_2", name: "Up and Down", value: "Básico", img: "" },  
+                        { id: "mb15_3", name: "Circles", value: "Básico", img: "" },  
+                        { id: "mb15_4", name: "Inside leg lift", value: "Básico", img: "" }  
+                    ]  
+                },  
+                { id: "mb16", isGroup: false, name: "Seal", value: "Básico", img: "" },  
+                { id: "mb17", isGroup: false, name: "Push up's 1", value: "Básico", img: "" }  
+            ],  
+            'mat-intermedio': [  
+                { id: "mi1", isGroup: false, name: "Hundred", value: "Intermedio", img: "" },  
+                { id: "mi2", isGroup: false, name: "Roll-up", value: "Intermedio", img: "" },  
+                { id: "mi3", isGroup: false, name: "Roll-over", value: "Intermedio", img: "" },  
+                { id: "mi4", isGroup: false, name: "Leg Circles", value: "Intermedio", img: "" },  
+                { id: "mi5", isGroup: false, name: "Rolling like ball", value: "Intermedio", img: "" },  
+                {   
+                    isGroup: true,   
+                    title: "The fives (isométricos)",   
+                    exercises: [  
+                        { id: "mi6_1", name: "1- Single leg stretch", value: "Intermedio", img: "" },  
+                        { id: "mi6_2", name: "2- Double leg stretch", value: "Intermedio", img: "" },  
+                        { id: "mi6_3", name: "3- Single Straight Leg (scissors)", value: "Intermedio", img: "" },  
+                        { id: "mi6_4", name: "4- Double straight leg", value: "Intermedio", img: "" },  
+                        { id: "mi6_5", name: "5- Criss Cross", value: "Intermedio", img: "" }  
+                    ]  
+                },  
+                { id: "mi7", isGroup: false, name: "Spine stretch forward", value: "Intermedio", img: "" },  
+                { id: "mi8", isGroup: false, name: "Open Leg Rocker", value: "Intermedio", img: "" },  
+                { id: "mi9", isGroup: false, name: "CorckScrew", value: "Intermedio", img: "" },  
+                { id: "mi10", isGroup: false, name: "Saw", value: "Intermedio", img: "" },  
+                { id: "mi11", isGroup: false, name: "Swan", value: "Intermedio", img: "" },  
+                { id: "mi12", isGroup: false, name: "Swan Dive", value: "Intermedio", img: "" },  
+                { id: "mi13", isGroup: false, name: "Knee stretches", value: "Intermedio", img: "" },  
+                { id: "mi14", isGroup: false, name: "Single Leg Kick", value: "Intermedio", img: "" },  
+                { id: "mi15", isGroup: false, name: "Double Leg Kick", value: "Intermedio", img: "" },  
+                { id: "mi16", isGroup: false, name: "Leg Pull", value: "Intermedio", img: "" },  
+                { id: "mi17", isGroup: false, name: "Shoulder Bridge", value: "Intermedio", img: "" },  
+                { id: "mi18", isGroup: false, name: "Scissors", value: "Intermedio", img: "" },  
+                { id: "mi19", isGroup: false, name: "Bicicle", value: "Intermedio", img: "" },  
+                { id: "mi20", isGroup: false, name: "Spine Twist", value: "Intermedio", img: "" },  
+                { id: "mi21", isGroup: false, name: "Jack Knife", value: "Intermedio", img: "" },  
+                { id: "mi22", isGroup: false, name: "Mermaid", value: "Intermedio", img: "" },  
+                { id: "mi23", isGroup: false, name: "Side stretches", value: "Intermedio", img: "" },  
+                {   
+                    isGroup: true,   
+                    title: "Side Kicks",   
+                    exercises: [  
+                        { id: "mi24_1", name: "Front", value: "Intermedio", img: "" },  
+                        { id: "mi24_2", name: "Up and Down", value: "Intermedio", img: "" },  
+                        { id: "mi24_3", name: "Circles", value: "Intermedio", img: "" },  
+                        { id: "mi24_4", name: "Inside leg lift", value: "Intermedio", img: "" },  
+                        { id: "mi24_5", name: "Hot Potato", value: "Intermedio", img: "" },  
+                        { id: "mi24_6", name: "Rond de Jambe", value: "Intermedio", img: "" }  
+                    ]  
+                },  
+                { id: "mi25", isGroup: false, name: "Swimming", value: "Intermedio", img: "" },  
+                { id: "mi26", isGroup: false, name: "Teaser 1, 2, 3", value: "Intermedio", img: "" },  
+                { id: "mi27", isGroup: false, name: "Hip Twist", value: "Intermedio", img: "" },  
+                { id: "mi28", isGroup: false, name: "Leg Pull Front", value: "Intermedio", img: "" },  
+                { id: "mi29", isGroup: false, name: "Leg Pull Back", value: "Intermedio", img: "" },  
+                { id: "mi30", isGroup: false, name: "Seal", value: "Intermedio", img: "" },  
+                { id: "mi31", isGroup: false, name: "Push up's 1, 2", value: "Intermedio", img: "" }  
+            ],  
+            reformer: [  
+                {   
+                    isGroup: true,   
+                    title: "Footwork",   
+                    exercises: [  
+                        { id: "r1_1", name: "Toes", value: "4", img: "" },  
+                        { id: "r1_2", name: "Arches", value: "4", img: "" },  
+                        { id: "r1_3", name: "Heels", value: "4", img: "" },  
+                        { id: "r1_4", name: "Tendon Stretch", value: "4", img: "" }  
+                    ]  
+                },  
+                { id: "r2", isGroup: false, name: "Hundred", value: "4", img: "" },  
+                { id: "r3", isGroup: false, name: "Overhead", value: "2", img: "" },  
+                { id: "r4", isGroup: false, name: "Coordination", value: "N/A", img: "" },  
+                {   
+                    isGroup: true,   
+                    title: "Rowing Series",   
+                    exercises: [  
+                        { id: "r5_1", name: "Into the Sternum", value: "1", img: "" },  
+                        { id: "r5_2", name: "90 Degrees", value: "1", img: "" },  
+                        { id: "r5_3", name: "From the Chest", value: "1", img: "" },  
+                        { id: "r5_4", name: "From the Hips", value: "1", img: "" },  
+                        { id: "r5_5", name: "Shaving", value: "1", img: "" },  
+                        { id: "r5_6", name: "Hug", value: "1", img: "" }  
+                    ]  
+                },  
+                { id: "r6", isGroup: false, name: "Swan", value: "2", img: "" },  
+                {   
+                    isGroup: true,   
+                    title: "Long Box Series",   
+                    exercises: [  
+                        { id: "r7_1", name: "Pull Straps", value: "1", img: "" },  
+                        { id: "r7_2", name: "Backstroke", value: "2", img: "" },  
+                        { id: "r7_3", name: "Teaser", value: "1", img: "" },  
+                        { id: "r7_4", name: "Horseback", value: "N/A", img: "" }  
+                    ]  
+                },  
+                {   
+                    isGroup: true,   
+                    title: "Short Box Series",   
+                    exercises: [  
+                        { id: "r8_1", name: "Round Back", value: "2", img: "" },  
+                        { id: "r8_2", name: "Flat Back", value: "N/A", img: "" },  
+                        { id: "r8_3", name: "Side to Side", value: "N/A", img: "" },  
+                        { id: "r8_4", name: "Twist", value: "N/A", img: "" },  
+                        { id: "r8_5", name: "Tree", value: "N/A", img: "" }  
+                    ]  
+                },  
+                {   
+                    isGroup: true,   
+                    title: "Long Stretch Series",   
+                    exercises: [  
+                        { id: "r9_1", name: "Long Stretch", value: "2", img: "" },  
+                        { id: "r9_2", name: "Down Stretch", value: "N/A", img: "" },  
+                        { id: "r9_3", name: "Up Stretch", value: "N/A", img: "" },  
+                        { id: "r9_4", name: "Elephant", value: "N/A", img: "" },  
+                        { id: "r9_5", name: "Long Back Stretch", value: "N/A", img: "" }  
+                    ]  
+                },  
+                {   
+                    isGroup: true,   
+                    title: "Stomach Massage Series",   
+                    exercises: [  
+                        { id: "r10_1", name: "Round", value: "4", img: "" },  
+                        { id: "r10_2", name: "Hands Back", value: "3", img: "" },  
+                        { id: "r10_3", name: "Reach Up", value: "2", img: "" },  
+                        { id: "r10_4", name: "Twist", value: "N/A", img: "" },  
+                        { id: "r10_5", name: "Tendon Stretch", value: "N/A", img: "" }  
+                    ]  
+                },  
+                { id: "r11", isGroup: false, name: "Short Spine Massage", value: "N/A", img: "" },  
+                { id: "r12", isGroup: false, name: "Semi Circle", value: "N/A", img: "" },  
+                { id: "r13", isGroup: false, name: "Chest Expansion", value: "N/A", img: "" },  
+                { id: "r14", isGroup: false, name: "Thigh Stretch", value: "3", img: "" },  
+                { id: "r15", isGroup: false, name: "Arm Circles", value: "1", img: "" },  
+                { id: "r16", isGroup: false, name: "Snake & Twist", value: "N/A", img: "" },  
+                { id: "r17", isGroup: false, name: "Corkscrew, Tick Tock", value: "2", img: "" },  
+                { id: "r18", isGroup: false, name: "Step Off Control Balance", value: "N/A", img: "" },  
+                {   
+                    isGroup: true,   
+                    title: "Feet in Straps",   
+                    exercises: [  
+                        { id: "r19_1", name: "Long Spine Massage", value: "2", img: "" },  
+                        { id: "r19_2", name: "Leg Circles", value: "N/A", img: "" },  
+                        { id: "r19_3", name: "Frogs", value: "N/A", img: "" }  
+                    ]  
+                },  
+                {   
+                    isGroup: true,   
+                    title: "Knee Stretch Series",   
+                    exercises: [  
+                        { id: "r20_1", name: "Round", value: "2", img: "" },  
+                        { id: "r20_2", name: "Arched", value: "N/A", img: "" },  
+                        { id: "r20_3", name: "Knees Off", value: "N/A", img: "" }  
+                    ]  
+                },  
+                { id: "r21", isGroup: false, name: "Running", value: "4", img: "" },  
+                { id: "r22", isGroup: false, name: "Pelvic Lift", value: "N/A", img: "" },  
+                { id: "r23", isGroup: false, name: "Push up Front", value: "2, gear out", img: "" },  
+                { id: "r24", isGroup: false, name: "Push up Back", value: "2, reg gear", img: "" },  
+                { id: "r25", isGroup: false, name: "Side Splits", value: "2 or 1", img: "" },  
+                { id: "r26", isGroup: false, name: "Front Splits", value: "2", img: "" },  
+                { id: "r27", isGroup: false, name: "Russian Splits", value: "N/A", img: "" }  
+            ]  
+        };  
+        let currentMainTab = 'mat';  
+        const tabTitles = {  
+            'mat': 'Ejercicios de Pilates Mat (Todos)',  
+            'mat-basico': 'Rutina Mat Clásico Básico (Principiantes)',  
+            'mat-intermedio': 'Rutina Mat Clásico Intermedio',  
+            'reformer': 'Ejercicios & Series de Reformer'  
+        };  
+        // Guardar imágenes dinámicamente  
+        function saveImage(id, base64Image) {  
+            localStorage.setItem(`img_${id}`, base64Image);  
+              
+            // Actualizar la lista de fondo de inmediato  
+            const listImg = document.getElementById(`img-preview-${id}`);  
+            const listPlaceholder = document.getElementById(`img-placeholder-${id}`);  
+              
+            if (listImg) {  
+                listImg.src = base64Image;  
+                listImg.classList.remove('hidden');  
+            }  
+            if (listPlaceholder) {  
+                listPlaceholder.classList.add('hidden');  
+            }  
+        }  
+        // Subida de foto en general (lista)  
+        function handleImageUpload(event, id) {  
+            event.stopPropagation(); // Evitar que se abra el modal al presionar subir foto  
+            const file = event.target.files[0];  
+            if (!file) return;  
+            const reader = new FileReader();  
+            reader.onload = function(e) {  
+                saveImage(id, e.target.result);  
+            };  
+            reader.readAsDataURL(file);  
+        }  
+        // Configuración de los Modales  
+        let activeExerciseId = null;  
+        function openModal(id, categoryName) {  
+            // Encontrar el ejercicio en la db  
+            let itemFound = null;  
+            for (let tab in db) {  
+                const search = db[tab].find(el => {  
+                    if (!el.isGroup && el.id === id) return true;  
+                    if (el.isGroup) {  
+                        const sub = el.exercises.find(subEx => subEx.id === id);  
+                        if (sub) {  
+                            itemFound = sub;  
+                            return true;  
+                        }  
+                    }  
+                    return false;  
+                });  
+                if (search && !itemFound) itemFound = search;  
+            }  
+            if (!itemFound) return;  
+            activeExerciseId = id;  
+            // Llenar datos en el modal  
+            document.getElementById('modal-title').textContent = itemFound.name;  
+            document.getElementById('modal-badge-category').textContent = tabTitles[categoryName] || 'Pilates';  
+              
+            const badgeLabel = categoryName === 'reformer' ? 'Resortes' : 'Repeticiones';  
+            document.getElementById('modal-label-value').textContent = badgeLabel;  
+            document.getElementById('modal-value').textContent = itemFound.value || 'N/A';  
+            // Cargar imagen  
+            const modalImg = document.getElementById('modal-img');  
+            const modalPlaceholder = document.getElementById('modal-placeholder');  
+            const currentImg = getExerciseImage(itemFound);  
+            if (currentImg) {  
+                modalImg.src = currentImg.startsWith('data:') ? currentImg : encodeURI(currentImg);  
+                modalImg.classList.remove('hidden');  
+                modalPlaceholder.classList.add('hidden');  
+            } else {  
+                modalImg.classList.add('hidden');  
+                modalPlaceholder.classList.remove('hidden');  
+            }  
+            // Sub-items (variantes)  
+            const subItemsContainer = document.getElementById('modal-subitems-container');  
+            const subItemsList = document.getElementById('modal-subitems-list');  
+            subItemsList.innerHTML = '';  
+              
+            if (itemFound.subItems && itemFound.subItems.length > 0) {  
+                subItemsContainer.classList.remove('hidden');  
+                itemFound.subItems.forEach(sub => {  
+                    subItemsList.innerHTML += `<span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-lg border border-stone-200">${sub}</span>`;  
+                });  
+            } else {  
+                subItemsContainer.classList.add('hidden');  
+            }  
+            // Preparar el lector de archivos para el botón del modal  
+            const modalFileInput = document.getElementById('modal-file-input');  
+            modalFileInput.onchange = function(e) {  
+                const file = e.target.files[0];  
+                if (!file) return;  
+                const reader = new FileReader();  
+                reader.onload = function(event) {  
+                    const base64Image = event.target.result;  
+                    // Guardar y actualizar de inmediato en modal y lista  
+                    saveImage(activeExerciseId, base64Image);  
+                    modalImg.src = base64Image;  
+                    modalImg.classList.remove('hidden');  
+                    modalPlaceholder.classList.add('hidden');  
+                };  
+                reader.readAsDataURL(file);  
+            };  
+            // Mostrar el modal con transición de resorte  
+            const modal = document.getElementById('exercise-modal');  
+            const panel = modal.querySelector('.modal-panel');  
+            modal.classList.remove('hidden');  
+            requestAnimationFrame(() => {  
+                modal.classList.add('opacity-100', 'modal-visible');  
+                panel.classList.remove('scale-90', 'opacity-0');  
+            });  
+        }  
+        function closeModal() {  
+            const modal = document.getElementById('exercise-modal');  
+            const panel = modal.querySelector('.modal-panel');  
+            modal.classList.remove('opacity-100', 'modal-visible');  
+            panel.classList.add('scale-90', 'opacity-0');  
+            setTimeout(() => {  
+                modal.classList.add('hidden');  
+            }, 300);  
+        }  
+        function closeModalOnOutsideClick(event) {  
+            if (event.target === document.getElementById('exercise-modal')) {  
+                closeModal();  
+            }  
+        }  
+        // Cerrar modal con la tecla Esc  
+        document.addEventListener('keydown', (e) => {  
+            if (e.key === 'Escape') closeModal();  
+        });  
+        function switchMainTab(tab) {  
+            currentMainTab = tab;  
+            document.getElementById('search-input').value = ''; // Limpiar buscador  
+              
+            // Actualizar título de sección en pantalla, con una pequeña animación  
+            const titleEl = document.getElementById('section-title');  
+            titleEl.textContent = tabTitles[tab];  
+            titleEl.classList.remove('title-swap');  
+            void titleEl.offsetWidth; // reiniciar animación  
+            titleEl.classList.add('title-swap');  
+              
+            const tabs = ['mat', 'mat-basico', 'mat-intermedio', 'reformer'];  
+            tabs.forEach(t => {  
+                const btn = document.getElementById(`tab-${t}`);  
+                if(t === tab) {  
+                    btn.className = "btn-press px-5 py-2 rounded-full font-medium text-xs md:text-sm cursor-pointer bg-[#A98467] text-white border-[#A98467] shadow-md";  
+                } else {  
+                    btn.className = "btn-press px-5 py-2 rounded-full font-medium text-xs md:text-sm cursor-pointer bg-white text-stone-400 border-stone-200 hover:text-[#A98467]";  
+                }  
+            });  
+            handleFilter();  
+        }  
+        // Delegación de eventos para las pestañas: más robusta que onclick inline  
+        document.getElementById('tabs-container').addEventListener('click', (e) => {  
+            const btn = e.target.closest('[data-tab]');  
+            if (!btn) return;  
+            switchMainTab(btn.dataset.tab);  
+        });  
+        function toggleDropdown(index) {  
+            const content = document.getElementById(`content-${index}`);  
+            const icon = document.getElementById(`icon-${index}`);  
+            content.classList.toggle('open');  
+            icon.classList.toggle('rotate-180');  
+        }  
+        // Obtener ruta de imagen (Dando prioridad al LocalStorage de Jime, luego al código fuente)  
+        function getExerciseImage(ex) {  
+            const savedImg = localStorage.getItem(`img_${ex.id}`);  
+            return savedImg || ex.img || "";  
+        }  
+        // Escapar texto para insertarlo de forma segura en atributos/HTML  
+        function escapeHtml(str) {  
+            return String(str ?? '').replace(/[&<>"']/g, (c) => ({  
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'  
+            }[c]));  
+        }  
+        // Contador global para escalonar la animación de entrada de las tarjetas  
+        let cardStaggerCount = 0;  
+        function nextStaggerDelay() {  
+            const delay = Math.min(cardStaggerCount * 35, 420);  
+            cardStaggerCount++;  
+            return delay;  
+        }  
+        // Diseño para ejercicio suelto con opción de subir foto incorporada  
+        function renderExerciseRow(ex, badgeLabel) {  
+            const currentImg = getExerciseImage(ex);  
+            const safeImg = !currentImg ? '' : (currentImg.startsWith('data:') ? currentImg : encodeURI(currentImg));  
+            const safeName = escapeHtml(ex.name);  
+            return `  
+                <div data-open-modal="${ex.id}" tabindex="0"  
+                     class="exercise-card card-enter bg-white border border-stone-200/60 p-4 rounded-xl shadow-3xs flex flex-col md:flex-row justify-between gap-4 items-start md:items-center hover:border-stone-400 hover:shadow-xs cursor-pointer" style="animation-delay:${nextStaggerDelay()}ms">  
+                    <div class="flex gap-4 items-center w-full md:w-auto">  
+                        <!-- Contenedor de Imagen y Subidor -->  
+                        <div class="relative w-16 h-16 group flex-shrink-0">  
+                            <img id="img-preview-${ex.id}" src="${safeImg}" alt="${safeName}"   
+                                 class="w-16 h-16 object-cover rounded-lg border border-stone-200 shadow-3xs transition-transform duration-300 group-hover:scale-105 ${currentImg ? '' : 'hidden'}">  
+                              
+                            <div id="img-placeholder-${ex.id}"   
+                                 class="w-16 h-16 bg-stone-100 rounded-lg border border-stone-200/40 flex items-center justify-center text-stone-300 text-[10px] text-center p-1 italic select-none ${currentImg ? 'hidden' : ''}">  
+                                <span>Sin foto</span>  
+                            </div>  
+                            <!-- Botón Superpuesto para Subir Imagen (Evita propagación) -->  
+                            <label onclick="event.stopPropagation();" class="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer text-[9px] text-white font-medium text-center p-1 select-none">  
+                                Subir Foto  
+                                <input type="file" accept="image/*" class="hidden" data-upload-id="${ex.id}">  
+                            </label>  
+                        </div>  
+                        <div>  
+                            <h4 class="text-stone-800 text-base font-semibold tracking-wide">${safeName}</h4>  
+                            ${ex.subItems ? `  
+                                <div class="mt-1.5 flex flex-wrap gap-1">  
+                                    ${ex.subItems.map(sub => `<span class="text-[10px] bg-stone-50 text-stone-500 px-2 py-0.5 rounded-md border border-stone-200/40">${escapeHtml(sub)}</span>`).join('')}  
+                                </div>  
+                            ` : ''}  
+                        </div>  
+                    </div>  
+                      
+                    <div class="flex items-center gap-1.5 self-end md:self-center flex-shrink-0">  
+                        <span class="text-[10px] uppercase tracking-wider text-stone-400 font-medium">${badgeLabel}:</span>  
+                        <span class="px-2.5 py-1 bg-[#FAF7F2] text-[#A98467] text-xs font-semibold rounded-md border border-[#E6DFD5]">${escapeHtml(ex.value || 'N/A')}</span>  
+                    </div>  
+                </div>  
+            `;  
+        }  
+        // Diseño de grupo para el acordeón (Con fondo de contraste para dividir del resto)  
+        function renderGroupAccordion(item, index, badgeLabel, searchText) {  
+            let exercisesToRender = item.exercises;  
+            if (searchText) {  
+                exercisesToRender = item.exercises.filter(ex =>   
+                    ex.name.toLowerCase().includes(searchText)  
+                );  
+                if (!item.title.toLowerCase().includes(searchText) && exercisesToRender.length === 0) {  
+                    return ''; // Ocultar si no hay coincidencias  
+                }  
+                if (exercisesToRender.length === 0) exercisesToRender = item.exercises;  
+            }  
+            const isOpen = !!searchText;  
+            return `  
+                <div class="bg-[#F5F2EC] border border-[#DDD0C2] rounded-xl shadow-xs overflow-hidden card-enter" style="animation-delay:${nextStaggerDelay()}ms">  
+                    <!-- Botón del Bloque Desplegable -->  
+                    <div data-toggle-index="${index}" class="p-5 flex justify-between items-center cursor-pointer bg-[#F5F2EC] hover:bg-[#EDE8DE] transition-colors">  
+                        <div>  
+                            <span class="text-[9px] font-bold tracking-wider text-white bg-[#A98467] px-2 py-0.5 rounded-md uppercase">Serie / Grupo</span>  
+                            <h3 class="serif-title text-lg font-semibold text-stone-800 mt-1.5 pr-4">${escapeHtml(item.title)}</h3>  
+                        </div>  
+                        <svg id="icon-${index}" class="accordion-caret w-5 h-5 text-[#A98467] flex-shrink-0 ${isOpen ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">  
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>  
+                        </svg>  
+                    </div>  
+                    <!-- Contenedor Interno Desplegable (animación de altura suave) -->  
+                    <div id="content-${index}" class="accordion-panel ${isOpen ? 'open' : ''}">  
+                        <div class="border-t border-[#DDD0C2] bg-white p-4 space-y-2">  
+                            ${exercisesToRender.map(ex => renderExerciseRow(ex, badgeLabel)).join('')}  
+                        </div>  
+                    </div>  
+                </div>  
+            `;  
+        }  
+        function handleFilter() {  
+            const searchText = document.getElementById('search-input').value.toLowerCase();  
+            const container = document.getElementById('exercises-container');  
+            container.innerHTML = '';  
+            cardStaggerCount = 0; // reiniciar el escalonado de la animación de entrada  
+            const badgeLabel = currentMainTab === 'reformer' ? 'Resortes' : 'Reps';  
+            let list = db[currentMainTab];  
+            list.forEach((item, index) => {  
+                if (!item.isGroup) {  
+                    if (searchText && !item.name.toLowerCase().includes(searchText) && !(item.subItems && item.subItems.some(s => s.toLowerCase().includes(searchText)))) {  
+                        return; // Saltar si no coincide  
+                    }  
+                    container.innerHTML += renderExerciseRow(item, badgeLabel);  
+                } else {  
+                    const accordionHTML = renderGroupAccordion(item, index, badgeLabel, searchText);  
+                    if (accordionHTML) {  
+                        container.innerHTML += accordionHTML;  
+                    }  
+                }  
+            });  
+            if (container.children.length === 0) {  
+                container.innerHTML = `<p class="text-center text-stone-400 text-sm py-12 italic">No encontramos coincidencias.</p>`;  
+            }  
+        }  
+        // Delegación de eventos del listado de ejercicios: abrir modal, desplegar acordeón, subir foto  
+        const exercisesContainer = document.getElementById('exercises-container');  
+        exercisesContainer.addEventListener('click', (e) => {  
+            const toggle = e.target.closest('[data-toggle-index]');  
+            if (toggle) {  
+                toggleDropdown(toggle.dataset.toggleIndex);  
+                return;  
+            }  
+            const card = e.target.closest('[data-open-modal]');  
+            if (card) {  
+                openModal(card.dataset.openModal, currentMainTab);  
+            }  
+        });  
+        exercisesContainer.addEventListener('keydown', (e) => {  
+            if (e.key !== 'Enter' && e.key !== ' ') return;  
+            const card = e.target.closest('[data-open-modal]');  
+            if (card) {  
+                e.preventDefault();  
+                openModal(card.dataset.openModal, currentMainTab);  
+            }  
+        });  
+        exercisesContainer.addEventListener('change', (e) => {  
+            const input = e.target.closest('[data-upload-id]');  
+            if (input) {  
+                handleImageUpload(e, input.dataset.uploadId);  
+            }  
+        });  
+        // Inicializar por defecto en Mat (Todos)  
+        document.addEventListener("DOMContentLoaded", () => {  
+            switchMainTab('mat');  
+            // Ocultar la pantalla de bienvenida una vez terminada la animación de respiración  
+            const intro = document.getElementById('intro-overlay');  
+            setTimeout(() => {  
+                intro.classList.add('intro-hide');  
+                setTimeout(() => intro.remove(), 800);  
+            }, 1500);  
+        });  
+    </script>  
+</body>  
 </html>
